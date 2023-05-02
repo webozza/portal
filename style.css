@@ -35,6 +35,11 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 ----------------------------------------------------------------*/
 body {
   margin: 0;
+  height: 100%;
+}
+
+html {
+  height: 100%;
 }
 
 h1,
@@ -55,6 +60,25 @@ label {
   font-family: var(--cure-font);
   font-weight: normal;
   font-size: 14px;
+}
+
+a {
+  font-family: var(--cure-font);
+  text-decoration: none;
+}
+
+th,
+td {
+  font-family: var(--cure-font);
+}
+
+.site {
+  display: flex;
+  height: 100%;
+}
+
+.main {
+  width: 100%;
 }
 
 /*--------------------------------------------------------------
@@ -119,4 +143,97 @@ label {
   border-radius: 32px;
   padding: 12px;
   margin-bottom: 20px;
+}
+
+/*--------------------------------------------------------------
+>>> Header:
+----------------------------------------------------------------*/
+.site-header {
+  min-width: 240px;
+  border-top: 12px solid #000;
+  box-shadow: inset -1px 0px 0px #f1f1f1;
+}
+.cure-logo {
+  width: 210px;
+  margin: auto;
+  padding: 16px 0 28px 0;
+}
+.main-navigation .menu li {
+  padding: 12px 15px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.main-navigation .menu li.active {
+  background-color: #fffbef;
+}
+.main-navigation .menu li.active:after {
+  content: "";
+  width: 4px;
+  height: 100%;
+  background-color: var(--cure-primary-color);
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.main-navigation .menu li a {
+  color: #4f5b67;
+  text-decoration: none;
+}
+.main-navigation .menu li.active a {
+  color: #72340f;
+}
+.main-navigation .menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.main-navigation .menu li a {
+  display: flex;
+  align-items: center;
+  font-family: var(--cure-font);
+  column-gap: 15px;
+}
+.main-navigation .menu li a img {
+  width: 24px;
+}
+
+/*--------------------------------------------------------------
+>>> Dashboard:
+----------------------------------------------------------------*/
+.greetings img {
+  width: 32px;
+}
+.greetings h2 {
+  color: #242d35;
+}
+.greetings {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  padding: 24.5px 20px;
+  box-shadow: inset 0px -1px 0px #f1f1f1;
+}
+
+/*--------------------------------------------------------------
+>>> Client Reporting:
+----------------------------------------------------------------*/
+.cure-filters {
+  padding: 20px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.date-notice {
+  color: #717d8a;
+  font-family: var(--cure-font);
+}
+.filters {
+  display: flex;
+  column-gap: 12px;
+}
+.filter a {
+  color: #0c1116;
+  border: 1px solid #eaecee;
+  border-radius: 32px;
+  padding: 13px 20px;
+  font-size: 14px;
 }

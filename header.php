@@ -27,38 +27,35 @@
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+<?php $url = basename($_SERVER['REQUEST_URI']); ?>
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'cure-portal' ); ?></a>
 
 	<header id="masthead" class="site-header">
+
+		<!-- Portal Branding -->
 		<div class="site-branding">
-			<?php
-			the_custom_logo();
-			if ( is_front_page() && is_home() ) :
-				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-				<?php
-			else :
-				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></p>
-				<?php
-			endif;
-			$cure_portal_description = get_bloginfo( 'description', 'display' );
-			if ( $cure_portal_description || is_customize_preview() ) :
-				?>
-				<p class="site-description"><?php echo $cure_portal_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-			<?php endif; ?>
-		</div><!-- .site-branding -->
+			<div class="cure-logo">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+					<img src="<?= get_template_directory_uri() . '/img/logo-dark.svg' ?>">
+				</a>
+			</div>
+		</div>
 
 		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'cure-portal' ); ?></button>
-			<?php
-			wp_nav_menu(
-				array(
-					'theme_location' => 'menu-1',
-					'menu_id'        => 'primary-menu',
-				)
-			);
-			?>
+			<ul class="menu">
+				<li class="<?php if($url == "portal" || $url == "") {echo 'active';} ?>">
+					<a href="<?= home_url() ?>">
+						<img src="<?php if($url == "portal" || $url == "") {echo get_template_directory_uri() . '/img/icons/dashboard-active.png';} else {echo get_template_directory_uri() . '/img/icons/dashboard.png';} ?>">
+						Dashboard
+					</a>
+				</li>
+				<li class="<?php if($url == "client-reporting" ) {echo 'active';} ?>">
+					<a href="<?= home_url() . '/client-reporting' ?>">
+						<img src="<?php if($url == "client-reporting") {echo get_template_directory_uri() . '/img/icons/client-reporting-active.png';} else {echo get_template_directory_uri() . '/img/icons/client-reporting.png';} ?>">
+						Client Reporting
+					</a>
+				</li>
+			</ul>
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
