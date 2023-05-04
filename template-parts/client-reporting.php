@@ -45,6 +45,10 @@ $user_first_name = get_user_meta( $user_id, 'first_name', true ); ?>
             </tbody>
         </table>
     </div>
+    <div>
+        <!-- ANALYTICS API -->
+        <?php //include( get_template_directory() . '/api/google_analytics.php'); ?>
+    </div>
 </div>
 
 

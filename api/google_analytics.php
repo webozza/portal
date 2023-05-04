@@ -1,17 +1,19 @@
 <?php
-
-require 'vendor/autoload.php';
+require get_template_directory() . '/vendor/autoload.php';
 
 use Google\Analytics\Data\V1beta\BetaAnalyticsDataClient;
 use Google\Analytics\Data\V1beta\DateRange;
 use Google\Analytics\Data\V1beta\Dimension;
 use Google\Analytics\Data\V1beta\Metric;
 
+$json_path = get_template_directory() . '/GA4_credentials.json';
+putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $json_path);
+
 /**
  * TODO(developer): Replace this variable with your Google Analytics 4
  *   property ID before running the sample.
  */
-$property_id = 'G-Q7LVWC44E8';
+$property_id = '362597853';
 
 // Using a default constructor instructs the client to use the credentials
 // specified in GOOGLE_APPLICATION_CREDENTIALS environment variable.
@@ -22,7 +24,7 @@ $response = $client->runReport([
     'property' => 'properties/' . $property_id,
     'dateRanges' => [
         new DateRange([
-            'start_date' => '2020-03-31',
+            'start_date' => '2023-05-04',
             'end_date' => 'today',
         ]),
     ],
@@ -34,7 +36,7 @@ $response = $client->runReport([
     ],
     'metrics' => [new Metric(
         [
-            'name' => 'activeUsers',
+            'name' => 'newUsers',
         ]
     )
     ]
