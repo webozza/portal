@@ -1,6 +1,6 @@
 <?php
 /**
-* Template Name: Client Reporting
+* Template Name: Checklists
 */
 
 get_header();

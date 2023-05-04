@@ -56,6 +56,12 @@
 						Client Reporting
 					</a>
 				</li>
+				<li class="<?php if($url == "checklists" ) {echo 'active';} ?>">
+					<a href="<?= home_url() . '/checklists' ?>">
+						<img src="<?php if($url == "checklists") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
+						Checklists
+					</a>
+				</li>
 			</ul>
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
