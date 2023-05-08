@@ -442,4 +442,9 @@ tr.channel-total td {
   display: flex;
   align-items: center;
   column-gap: 5px;
+  transition: all 0.3s ease;
+}
+.cr-actions .filter a:hover {
+  background-color: var(--cure-primary-color);
+  color: #000;
 }
