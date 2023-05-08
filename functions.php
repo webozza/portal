@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.05' );
+	define( '_S_VERSION', '1.0.06' );
 }
 
 /**
@@ -191,7 +191,7 @@ function redirect_logged_in() {
 		wp_redirect( home_url('/') );
 		exit;
 	} 
-	if ( !is_user_logged_in() && ($url == '' || $url == 'portal' || $url != 'login')) {
+	if ( !is_user_logged_in() && ($url == '' || $url == 'portal')) {
 		wp_redirect( home_url('/login') );
 		exit;
 	}
