@@ -25,7 +25,17 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body onload="disablePreloader()" <?php body_class(); ?>>
+<?php if(is_page('client-reporting')) { ?>
+	<div class="cure-loader">
+		<img src="<?= get_template_directory_uri() . '/img/preloader-1.gif' ?>">
+	</div>
+	<script>
+		let disablePreloader = () => {
+			document.querySelector('.cure-loader').style.display = 'none';
+		}
+	</script>
+<?php } ?>
 <?php wp_body_open(); ?>
 <?php $url = basename($_SERVER['REQUEST_URI']); ?>
 <div id="page" class="site">

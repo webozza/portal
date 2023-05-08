@@ -55,11 +55,13 @@ h6 {
 
 p,
 input,
-label {
+label,
+li {
   margin: 0;
   font-family: var(--cure-font);
   font-weight: normal;
   font-size: 14px;
+  color: #252a31;
 }
 
 a {
@@ -93,6 +95,26 @@ td {
   margin: 50px 0;
   background-color: aliceblue;
   padding: 30px 40px;
+}
+
+.cure-loader {
+  background-color: #fc942c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+.btn-cure {
+  border: 1px solid #eaecee;
+  border-radius: 32px;
+  padding: 10px 20px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: var(--cure-primary-color);
+  color: #fff;
 }
 
 /*--------------------------------------------------------------
@@ -250,8 +272,10 @@ td {
   border-radius: 32px;
   padding: 10px 20px;
   font-size: 14px;
+  transition: all 0.3s ease;
 }
-.filter.active a {
+.filter.active a,
+.filter a:hover {
   background-color: var(--cure-primary-color);
   color: #fff;
 }
@@ -319,4 +343,103 @@ td {
 tr.channel-total td {
   font-weight: 600;
   white-space: nowrap;
+}
+
+/*--------------------------------------------------------------
+>>> Weekly Snapshot
+----------------------------------------------------------------*/
+.cure-report .inner {
+  background-color: #fff;
+  padding: 20px;
+  filter: drop-shadow(0px 10px 30px rgba(184, 184, 184, 0.2));
+  border-radius: 10px;
+}
+.cure-report {
+  background-color: #fafafa;
+  padding: 20px;
+}
+.cure-report .report-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+.cure-report .report-header img {
+  height: 60px;
+  width: auto;
+}
+.cure-report .report-header h5 {
+  color: var(--cure-primary-color);
+  font-weight: 500;
+}
+.cure-report .report-header h4 {
+  font-weight: 500;
+}
+.cure-report table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.cure-report table td,
+.cure-report table th {
+  padding: 8px;
+  border: 1px solid #000;
+  text-align: center;
+}
+.cure-report table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.cure-report table tr:hover {
+  background-color: #ddd;
+}
+.cure-report table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: var(--cure-primary-color);
+  font-weight: 400;
+  color: #000;
+}
+.cr-insights-container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+.add-insights-container {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+.add-insights-container .cure-field-group {
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
+}
+.add-insights-container .cure-field-group > div:first-child {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+}
+.add-insights-container textarea {
+  border-color: #bac7d5;
+  border-radius: 10px;
+  padding: 12px;
+  font-family: var(--cure-font);
+  color: #697d95;
+}
+.add-insights-container .btn-cure {
+  position: relative;
+  top: 10px;
+}
+.add-insights-container textarea:focus {
+  border: 2px solid var(--cure-primary-color) !important;
+  outline: none;
+}
+.cr-actions .filter a {
+  background-color: #fafafa;
+  border: none;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
 }
