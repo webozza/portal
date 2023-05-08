@@ -191,7 +191,7 @@ function redirect_logged_in() {
 		wp_redirect( home_url('/') );
 		exit;
 	} 
-	if ( !is_user_logged_in() && ($url == '' || $url == 'portal')) {
+	if ( !is_user_logged_in() && ($url == '' || $url == 'portal' || $url == 'client-reporting' || $url == 'checklists' )) {
 		wp_redirect( home_url('/login') );
 		exit;
 	}
