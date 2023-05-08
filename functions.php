@@ -140,11 +140,17 @@ add_action( 'widgets_init', 'cure_portal_widgets_init' );
 function cure_portal_scripts() {
 	wp_enqueue_style( 'cure-portal-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'cure-portal-style', 'rtl', 'replace' );
-
+	
 	wp_enqueue_script( 'cure-portal-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
+	}
+
+	if( is_page('client-reporting') ) {
+		wp_enqueue_style( 'data-table', get_template_directory_uri() . '/css/datatables.min.css' );
+		wp_enqueue_script( 'data-table-script', get_template_directory_uri() . '/js/datatables.min.js', array('jquery') );
+		wp_enqueue_script( 'client-reporting', get_template_directory_uri() . '/js/client-reporting.js', array('jquery'), _S_VERSION, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cure_portal_scripts' );
@@ -184,7 +190,7 @@ function redirect_logged_in() {
 	if( is_user_logged_in() && $url == 'login' ) {
 		wp_redirect( home_url('/') );
 		exit;
-	} else if ( !is_user_logged_in() && ($url == '' || $url == 'portal')) {
+	} else if ( !is_user_logged_in() && ($url != 'login') ) {
 		echo $url;
 		wp_redirect( home_url('/login') );
 		exit;

@@ -19,35 +19,71 @@ $property_id = '362597853';
 // specified in GOOGLE_APPLICATION_CREDENTIALS environment variable.
 $client = new BetaAnalyticsDataClient();
 
-// Make an API call.
-$response = $client->runReport([
+// Date filters
+$week_to_date = date('Y-m-d', strtotime("this week"));
+
+// Retrive GA4 Ad Spend by Campaign Name
+$GA4_AD_SPEND = $client->runReport([
     'property' => 'properties/' . $property_id,
     'dateRanges' => [
         new DateRange([
-            'start_date' => '2023-05-04',
+            'start_date' => $week_to_date,
             'end_date' => 'today',
         ]),
     ],
     'dimensions' => [new Dimension(
         [
-            'name' => 'city',
+            'name' => 'sessionGoogleAdsAccountName',
         ]
     ),
     ],
     'metrics' => [new Metric(
         [
-            'name' => 'newUsers',
+            'name' => 'advertiserAdCost'
         ]
     )
     ]
 ]);
 
-// Print results of an API call.
-print 'Report result: ' . PHP_EOL;
+// Retrive Total New Users
+$GA4_NEW_USERS = $client->runReport([
+    'property' => 'properties/' . $property_id,
+    'dateRanges' => [
+        new DateRange([
+            'start_date' => $week_to_date,
+            'end_date' => 'today',
+        ]),
+    ],
+    'dimensions' => [new Dimension(
+        [
+            'name' => 'sessionDefaultChannelGroup',
+        ]
+    ),
+    ],
+    'metrics' => [new Metric(
+        [
+            'name' => 'newUsers'
+        ]
+    )
+    ]
+]);
 
-foreach ($response->getRows() as $row) {
-    print $row->getDimensionValues()[0]->getValue()
-        . ' ' . $row->getMetricValues()[0]->getValue() . PHP_EOL;
+// RENDER TOTAL GOOGLE AD SPEND FROM GA4
+$google_ads_cost = array();
+foreach ($GA4_AD_SPEND->getRows() as $row) {
+    // print $row->getDimensionValues()[0]->getValue()
+    //     . ' ' . $row->getMetricValues()[0]->getValue() . PHP_EOL;
+    array_push($google_ads_cost, $row->getMetricValues()[0]->getValue() );
 }
+$google_ads_total_cost = array_sum($google_ads_cost);
+
+// RENDER TOTAL NEW USERS COUNT
+$ga4_new_users = array();
+foreach ($GA4_NEW_USERS->getRows() as $row) {
+    // print $row->getDimensionValues()[0]->getValue()
+    //     . ' ' . $row->getMetricValues()[0]->getValue() . PHP_EOL;
+    array_push($ga4_new_users, $row->getMetricValues()[0]->getValue() );
+}
+$ga4_new_users = array_sum($ga4_new_users);
 
 ?>
