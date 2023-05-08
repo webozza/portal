@@ -448,3 +448,59 @@ tr.channel-total td {
   background-color: var(--cure-primary-color);
   color: #000;
 }
+
+/*--------------------------------------------------------------
+>>> Cure Modal
+----------------------------------------------------------------*/
+.cure-modal {
+  width: 100%;
+  position: fixed;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(12, 17, 22, 20%);
+}
+.cure-modal .inner {
+  min-width: 451px;
+  background-color: #fff;
+  box-shadow: 0px 32px 64px rgba(79, 94, 113, 0.07),
+    0px 16px 32px rgba(79, 94, 113, 0.08), 0px 8px 16px rgba(79, 94, 113, 0.09),
+    0px 4px 8px rgba(79, 94, 113, 0.1), 0px 2px 4px rgba(79, 94, 113, 0.11),
+    0px 0px 2px rgba(79, 94, 113, 0.12);
+  border-radius: 20px;
+}
+.cure-modal-header h3 {
+  font-size: 28px;
+  font-weight: 500;
+  color: #252a31;
+}
+.cure-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 32px 25px 32px;
+  position: relative;
+  border-bottom: 1px solid #e8edf1;
+}
+.cure-modal-header a {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  transition: all 0.3s ease;
+}
+.cure-modal-header a:hover {
+  transform: scale(1.2);
+}
+.cure-modal-body {
+  padding: 20px 32px;
+}
+.cure-modal .cure-field-group {
+  display: flex;
+  flex-direction: column;
+}
+.cure-modal input {
+  border: 1px solid #bac7d5;
+  border-radius: 32px;
+  padding: 12px;
+}

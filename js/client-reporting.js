@@ -20,12 +20,15 @@ jQuery(document).ready(function ($) {
 
   // Report Type Filter
   let reportTypeFilter = () => {
-    $(".single-client-reporting .filters a").click(function () {
-      let reportType = $(this).text();
-      let reportTypeField = $('[name="report_type"]');
-      reportTypeField.val(reportType);
-      reportTypeField.parent().submit();
-    });
+    $(".single-client-reporting .filters")
+      .eq(0)
+      .find("a")
+      .click(function () {
+        let reportType = $(this).text();
+        let reportTypeField = $('[name="report_type"]');
+        reportTypeField.val(reportType);
+        reportTypeField.parent().submit();
+      });
   };
 
   // Add Insights
@@ -50,9 +53,24 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  // Modal Send Report
+  let modalSendReport = () => {
+    // openModal
+    $(".has-modal a").click(function () {
+      let findModal = $(this).data("modal");
+      $(".cure-modal").each(function () {
+        if ($(this).data("model") == findModal) {
+          $(this).fadeIn();
+        }
+      });
+    });
+    // closeModal
+  };
+
   singleClientReports();
   singleClientBreadcrumbs();
   reportTypeFilter();
   addInsights();
   addActions();
+  modalSendReport();
 });

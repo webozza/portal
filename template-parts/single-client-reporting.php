@@ -1,3 +1,9 @@
+<?php
+    $client = $_POST['client'];
+    $project_name = $_POST['project_name'];
+    $report_type = isset($_POST['report_type']);
+?>
+
 <div class="main single-client-reporting">
     <div class="greetings">
         <h2><a class="breadcrumb_parent" href="javascript:void(0)">Client Reporting</a> / <?= $_POST['project_name'] ?></h2>
@@ -15,27 +21,23 @@
                 <a href="javascript:void(0)">Monthly Report</a>
             </div>
         </div>
-        <div class="filters cr-actions">
-            <div class="filter cr-download">
-                <a href="javascript:void(0)">
-                    Download Report
-                    <img src="<?= get_template_directory_uri() . '/img/icons/download.png' ?>">
-                </a>
+        <?php if($report_type == "Weekly Snapshot" || $report_type == "Monthly Report") { ?>
+            <div class="filters cr-actions has-modal">
+                <div class="filter cr-download">
+                    <a href="javascript:void(0)" data-modal="cr-download">
+                        Download Report
+                        <img src="<?= get_template_directory_uri() . '/img/icons/download.png' ?>">
+                    </a>
+                </div>
+                <div class="filter cr-send">
+                    <a href="javascript:void(0)" data-modal="cr-send">
+                        Send Report
+                        <img src="<?= get_template_directory_uri() . '/img/icons/send.png' ?>">
+                    </a>
+                </div>
             </div>
-            <div class="filter cr-send">
-                <a href="javascript:void(0)">
-                    Send Report
-                    <img src="<?= get_template_directory_uri() . '/img/icons/send.png' ?>">
-                </a>
-            </div>
-        </div>
+        <?php } ?>
     </div>
-
-    <?php
-        $client = $_POST['client'];
-        $project_name = $_POST['project_name'];
-        $report_type = isset($_POST['report_type']);
-    ?>
 
     <!-- Single Client Report | Channels -->
     <?php if($report_type != "Weekly Snapshot" && $report_type != "Monthly Report") { ?>
@@ -196,3 +198,6 @@
         });
     </script>
 </div>
+
+<!-- Send Report Modals -->
+<?php include(get_template_directory() . '/template-parts/modals/send-report.php') ?>
