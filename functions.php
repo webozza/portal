@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.04' );
+	define( '_S_VERSION', '1.0.05' );
 }
 
 /**
@@ -190,8 +190,8 @@ function redirect_logged_in() {
 	if( is_user_logged_in() && $url == 'login' ) {
 		wp_redirect( home_url('/') );
 		exit;
-	} else if ( !is_user_logged_in() && ($url == '' || $url == 'portal')) {
-		echo $url;
+	} 
+	if ( !is_user_logged_in() && ($url == '' || $url == 'portal' || $url != 'login')) {
 		wp_redirect( home_url('/login') );
 		exit;
 	}
