@@ -2,7 +2,7 @@
     <div class="inner">
         <div class="cure-modal-header">
             <h3>Send this Report</h3>
-            <a href=""><img src="<?= get_template_directory_uri() . '/img/icons/close.png' ?>"></a>
+            <a class="close-modal" href="javascript:void(0)"><img src="<?= get_template_directory_uri() . '/img/icons/close.png' ?>"></a>
         </div>
         <div class="cure-modal-body">
             <form method="post" action="">

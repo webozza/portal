@@ -65,6 +65,9 @@ jQuery(document).ready(function ($) {
       });
     });
     // closeModal
+    $(".close-modal").click(function () {
+      $(this).parent().parent().parent().fadeOut();
+    });
   };
 
   singleClientReports();
