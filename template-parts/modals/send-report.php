@@ -9,7 +9,11 @@
                 <div class="cure-field-group">
                     <label>Client's Email Address</label>
                     <input type="email" name="client_email" value="" placeholder="Client's Email Address">
+                    <input type="hidden" name="client" value="<?= $client ?>">
+                    <input type="hidden" name="report_type" value="<?= $report_type ?>">
+                    <input type="hidden" name="project_name" value="<?= $project_name ?>">
                     <input type="hidden" name="send_report" value="1">
+                    <input type="hidden" name="single_client_report_view" value="1">
                     <input type="submit" class="hidden">
                 </div>
             </form>

@@ -72,27 +72,6 @@ jQuery(document).ready(function ($) {
       $(this).parent().parent().parent().parent().fadeOut();
     });
 
-    // POST REQ
-    $("#send_report").submit(function (e) {
-      let formData = {
-        client_email: $(this).find('input[type="email"]').val(),
-        send_report: $(this).find('input[name="send_report"]').val(),
-      };
-
-      fetch("", {
-        method: "POST",
-        body: JSON.stringify(formData),
-      })
-        .then((resp) => {
-          console.log(resp);
-        })
-        .catch((resp) => {
-          console.log(resp);
-        });
-
-      e.preventDefault();
-    });
-
     // Send Report
     $(".modal-submit").click(function (e) {
       let emailAddress = $(this)
@@ -115,6 +94,11 @@ jQuery(document).ready(function ($) {
         $(".error-msg").remove();
         $("#send_report").submit();
       }
+    });
+
+    // Dismiss success message
+    $(".dismiss").click(function () {
+      $(this).parent().parent().remove();
     });
   };
 

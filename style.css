@@ -520,3 +520,37 @@ tr.channel-total td {
   align-items: center;
   column-gap: 10px;
 }
+.report-sent-msg-container {
+  padding: 20px;
+  font-family: var(--cure-font);
+  font-size: 14px;
+  color: #252a31;
+}
+.report-sent-msg-container .inner {
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgba(40, 161, 56, 10%);
+  width: fit-content;
+  margin-left: auto;
+  padding: 10px;
+  border-left: 3px solid #28a138;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  column-gap: 10px;
+  align-items: center;
+}
+.report-sent-msg-container .inner p {
+  color: #252a31;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+.report-sent-msg-container .inner span {
+  color: #2d7738;
+  background-color: #e1efe2;
+  border-radius: 3px;
+  font-size: 12px;
+  padding: 4px 6px;
+  cursor: pointer;
+  font-weight: 500;
+}

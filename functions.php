@@ -223,7 +223,7 @@ add_action('after_setup_theme', 'remove_admin_bar');
  * CURE ACTION - SEND CLIENT REPORT
  */
 function send_client_report() {
-	if( isset($_POST['send_report']) == "1" ) {
+	if( isset($POST['send_report']) == "1" ) {
 		//user posted variables
 		$name = 'fadsfsadfsadf';
 		$email = $_POST['client_email'];

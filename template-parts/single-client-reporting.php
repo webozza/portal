@@ -8,6 +8,14 @@
     <div class="greetings">
         <h2><a class="breadcrumb_parent" href="javascript:void(0)">Client Reporting</a> / <?= $_POST['project_name'] ?></h2>
     </div>
+    <?php if(isset($_POST['send_report']) == "1") { ?>
+        <div class="report-sent-msg-container">
+            <div class="inner">
+                <p class="report-sent-msg"><img src="<?= get_template_directory_uri() . '/img/icons/checkmark.png'?>">Success! Your report was sent.</p>
+                <span class="dismiss">Dismiss</span>
+            </div>
+        </div>
+    <?php } ?>
     <div class="cure-filters">
         <div class="filters">
             <img class="client-icon-large" src="<?= $client_icon ?>">
