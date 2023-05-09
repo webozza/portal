@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.06' );
+	define( '_S_VERSION', '1.0.07' );
 }
 
 /**
@@ -190,10 +190,7 @@ function redirect_logged_in() {
 	if( is_user_logged_in() && $url == 'login' ) {
 		wp_redirect( home_url('/') );
 		exit;
-	} elseif ( !is_user_logged_in() && ($url == '' || $url == 'portal' || $url == 'client-reporting' || $url == 'checklists' )) {
-		wp_redirect( home_url('/login') );
-		exit;
-	} elseif (is_404() && !is_user_logged_in() ) {
+	} elseif ( !is_user_logged_in() && $url != 'login' ) {
 		wp_redirect( home_url('/login') );
 		exit;
 	}
