@@ -14,8 +14,8 @@ $client_reporting = [
     [
         'project' => 'Diabetes Qualified',
         'slug' => 'diabetes-qualified',
-        'ad_spend' => '$' . round($google_ads_total_cost, 2),
-        'new_users' => $ga4_new_users,
+        'ad_spend' => '$' . number_format(round($dq_ga_cost_wtd, 2)),
+        'new_users' => number_format($dq_visitors_wtd),
         'conversions' => 'otw',
         'cpa' => 'otw',
         'status' => 'otw',
@@ -66,7 +66,7 @@ $client_reporting = [
                 <thead>
                     <th>Client</th>
                     <th>Ad Spend</th>
-                    <th>New Users</th>
+                    <th>Visitors</th>
                     <th>Conversions</th>
                     <th>CPA</th>
                     <th>Status</th>

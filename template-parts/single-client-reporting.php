@@ -60,14 +60,14 @@
                     </tr>
                     <tr>
                         <td>Google Ads</td>
-                        <td><?= '$' . round($google_ads_total_cost, 2); ?></td>
+                        <td><?= '$' . round($dq_ga_cost_wtd, 2); ?></td>
                         <td>otw</td>
                         <td>otw</td>
                         <td>otw</td>
                     </tr>
                     <tr class="channel-total">
                         <td>Total</td>
-                        <td><?= '$' . round($google_ads_total_cost, 2) . ' + ' . 'FB'; ?></td>
+                        <td><?= '$' . round($dq_ga_cost_wtd, 2) . ' + ' . 'FB'; ?></td>
                         <td>otw</td>
                         <td>otw</td>
                         <td>otw</td>
@@ -104,17 +104,19 @@
                                 <th></th>
                                 <th>Spend</th>
                                 <th>Visitors</th>
-                                <th>Sessions</th>
                                 <th>Cost Per Visitor</th>
-                                <th>Deposits</th>
-                                <th>Cost per Deposit</th>
+                                <th>Conversion Rate</th>
+                                <th>Enrolments</th>
+                                <th>Cost per Enrolment</th>
+                                <th>Sales</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Week to Date</td>
-                                <td><?= '$' . round($google_ads_total_cost, 2); ?></td>
-                                <td><?= number_format($ga4_new_users) ?></td>
+                                <td><?= '$' . number_format(round($dq_ga_cost_wtd, 2)); ?></td>
+                                <td><?= number_format($dq_visitors_wtd) ?></td>
+                                <td><?= '$' . round($dq_ga_cost_wtd / $dq_visitors_wtd, 2) ?></td>
                                 <td>otw</td>
                                 <td>otw</td>
                                 <td>otw</td>
@@ -122,8 +124,9 @@
                             </tr>
                             <tr>
                                 <td>Month to Date</td>
-                                <td>otw</td>
-                                <td>otw</td>
+                                <td><?= '$' . number_format(round($dq_ga_cost_mtd, 2)); ?></td>
+                                <td><?= number_format($dq_visitors_mtd) ?></td>
+                                <td><?= '$' . round($dq_ga_cost_mtd / $dq_visitors_mtd, 2) ?></td>
                                 <td>otw</td>
                                 <td>otw</td>
                                 <td>otw</td>
