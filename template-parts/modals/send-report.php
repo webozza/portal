@@ -39,7 +39,7 @@ if(isset($_POST['send_report']) == "1") {
     });
 
 	//user posted variables
-	$name = 'fadsfsadfsadf';
+	$name = 'gadfsafd';
 	$email = '<lee.morgan@curecollective.com.au>';
 	ob_start();
     include(get_template_directory() . '/template-parts/emails/send-report.php');
