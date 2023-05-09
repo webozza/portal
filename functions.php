@@ -150,7 +150,7 @@ function cure_portal_scripts() {
 	if( is_page('client-reporting') ) {
 		wp_enqueue_style( 'data-table', get_template_directory_uri() . '/css/datatables.min.css' );
 		wp_enqueue_script( 'data-table-script', get_template_directory_uri() . '/js/datatables.min.js', array('jquery') );
-		wp_enqueue_script( 'client-reporting', get_template_directory_uri() . '/js/client-reporting.js', array('jquery'), _S_VERSION, true );
+		wp_enqueue_script( "client-reporting", get_template_directory_uri() . '/js/client-reporting.js', array('jquery'), _S_VERSION, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cure_portal_scripts' );
@@ -218,3 +218,32 @@ function remove_admin_bar() {
 	show_admin_bar(false);
 }
 add_action('after_setup_theme', 'remove_admin_bar');
+
+/**
+ * CURE ACTION - SEND CLIENT REPORT
+ */
+function send_client_report() {
+	if( isset($_POST['send_report']) == "1" ) {
+		//user posted variables
+		$name = 'fadsfsadfsadf';
+		$email = $_POST['client_email'];
+		$message = 'fasdfadsf';
+
+		//php mailer variables
+		$to = get_option('admin_email');
+		$subject = "Some text in subject...";
+		$headers = 'From: '. $email . "\r\n" .
+			'Reply-To: ' . $email . "\r\n";
+
+		//Here put your Validation and send mail
+		$sent = wp_mail($to, $subject, strip_tags($message), $headers);
+			
+		if($sent) {
+		//message sent!       
+		}
+		else  {
+		//message wasn't sent       
+		}
+	}
+}
+add_action('init','send_client_report');

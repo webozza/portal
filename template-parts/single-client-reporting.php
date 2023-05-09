@@ -1,7 +1,7 @@
 <?php
     $client = $_POST['client'];
     $project_name = $_POST['project_name'];
-    $report_type = isset($_POST['report_type']);
+    $report_type = $_POST['report_type'];
 ?>
 
 <div class="main single-client-reporting">
@@ -40,7 +40,7 @@
     </div>
 
     <!-- Single Client Report | Channels -->
-    <?php if($report_type != "Weekly Snapshot" && $report_type != "Monthly Report") { ?>
+    <?php if($report_type == "Channels") { ?>
         <div class="cr-table">
             <table>
                 <thead>
@@ -52,13 +52,6 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Facebook Ads</td>
-                        <td>otw</td>
-                        <td>otw</td>
-                        <td>otw</td>
-                        <td>otw</td>
-                    </tr>
-                    <tr>
                         <td>Google Ads</td>
                         <td><?= '$' . round($dq_ga_cost_wtd, 2); ?></td>
                         <td>otw</td>
@@ -67,7 +60,7 @@
                     </tr>
                     <tr class="channel-total">
                         <td>Total</td>
-                        <td><?= '$' . round($dq_ga_cost_wtd, 2) . ' + ' . 'FB'; ?></td>
+                        <td><?= '$' . round($dq_ga_cost_wtd, 2); ?></td>
                         <td>otw</td>
                         <td>otw</td>
                         <td>otw</td>
@@ -176,6 +169,11 @@
                 <li>The table section here was just an image on figma. <strong>[For Alex]</strong></li>
             </ul>
         </div>
+    <?php } ?>
+
+    <!-- Single Client Report | Monthly Report -->
+    <?php if($report_type == "Monthly Report") { ?>
+        <h2>Monthly Report</h2>
     <?php } ?>
 
     <form method="post" action="" class="hidden">

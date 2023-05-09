@@ -110,6 +110,7 @@ $client_reporting = [
         <form method="post" action="" class="hidden">
             <input type="hidden" name="client" value="">
             <input type="hidden" name="project_name" value="">
+            <input type="hidden" name="report_type" value="Channels">
             <input type="hidden" name="single_client_report_view" value="1">
             <input type="submit">
         </form>

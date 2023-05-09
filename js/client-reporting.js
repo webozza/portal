@@ -55,7 +55,7 @@ jQuery(document).ready(function ($) {
 
   // Modal Send Report
   let modalSendReport = () => {
-    // openModal
+    // Open Modal
     $(".has-modal a").click(function () {
       let findModal = $(this).data("modal");
       $(".cure-modal").each(function () {
@@ -64,9 +64,57 @@ jQuery(document).ready(function ($) {
         }
       });
     });
-    // closeModal
+    // Close Modal
     $(".close-modal").click(function () {
       $(this).parent().parent().parent().fadeOut();
+    });
+    $(".btn-close").click(function () {
+      $(this).parent().parent().parent().parent().fadeOut();
+    });
+
+    // POST REQ
+    $("#send_report").submit(function (e) {
+      let formData = {
+        client_email: $(this).find('input[type="email"]').val(),
+        send_report: $(this).find('input[name="send_report"]').val(),
+      };
+
+      fetch("", {
+        method: "POST",
+        body: JSON.stringify(formData),
+      })
+        .then((resp) => {
+          console.log(resp);
+        })
+        .catch((resp) => {
+          console.log(resp);
+        });
+
+      e.preventDefault();
+    });
+
+    // Send Report
+    $(".modal-submit").click(function (e) {
+      let emailAddress = $(this)
+        .parent()
+        .parent()
+        .parent()
+        .find("form input[type='email']");
+      if (
+        emailAddress.val().indexOf("@") == -1 &&
+        emailAddress.val().indexOf(".") == -1 &&
+        $(".error-msg").length == 0
+      ) {
+        emailAddress.after(
+          `<span class="error-msg">Email address is invalid</span>`
+        );
+      } else if (
+        emailAddress.val().indexOf("@") > -1 &&
+        emailAddress.val().indexOf(".") > -1
+      ) {
+        $(".error-msg").remove();
+        $("#send_report").submit();
+      }
     });
   };
 
