@@ -34,12 +34,12 @@
 if(isset($_POST['send_report']) == "1") {
 	//user posted variables
 	$name = 'fadsfsadfsadf';
-	$email = $_POST['client_email'];
-	$message = 'fasdfadsf';
+	$email = '<lee.morgan@curecollective.com.au>';
+	$message = 'Weekly snapshot email';
 
 	//php mailer variables
-	$to = get_option('admin_email');
-	$subject = "Some text in subject...";
+	$to = $_POST['client_email'];
+	$subject = "Weekly Snapshot";
 	$headers = 'From: '. $email . "\r\n" .
 		'Reply-To: ' . $email . "\r\n";
 
