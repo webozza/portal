@@ -45,14 +45,5 @@ if(isset($_POST['send_report']) == "1") {
 
 	//Here put your Validation and send mail
 	$sent = wp_mail($to, $subject, strip_tags($message), $headers);
-		
-	if($sent) {
-	//message sent!
-	echo 'sent';     
-	}
-	else  {
-	//message wasn't sent       
-	echo 'not sent';
-	}
 }
 ?>
