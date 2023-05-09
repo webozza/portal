@@ -33,6 +33,11 @@
  */
 if(isset($_POST['send_report']) == "1") {
 
+    //allow html email
+    add_filter('wp_mail_content_type', function( $content_type ) {
+        return 'text/html';
+    });
+
     // get insights and actions
     $insights = $_POST['insights'];
 
@@ -40,13 +45,8 @@ if(isset($_POST['send_report']) == "1") {
 	$name = 'fadsfsadfsadf';
 	$email = '<lee.morgan@curecollective.com.au>';
 	foreach($insights as $insight) {
-        $email = '<li>'. $insight .'</li>';
+        $message = '<li>'. $insight .'</li>';
     }
-
-    //allow html email
-    add_filter('wp_mail_content_type', function( $content_type ) {
-        return 'text/html';
-    });
 
 	//php mailer variables
 	$to = $_POST['client_email'];
