@@ -38,15 +38,12 @@ if(isset($_POST['send_report']) == "1") {
         return 'text/html';
     });
 
-    // get insights and actions
-    $insights = $_POST['insights'];
-
 	//user posted variables
 	$name = 'fadsfsadfsadf';
 	$email = '<lee.morgan@curecollective.com.au>';
-	foreach($insights as $insight) {
-        $message = '<li>'. $insight .'</li>';
-    }
+	ob_start();
+    include(get_template_directory() . '/template-parts/emails/send-report.php');
+    $message = ob_get_clean();
 
 	//php mailer variables
 	$to = $_POST['client_email'];
