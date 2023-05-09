@@ -34,7 +34,7 @@
 if(isset($_POST['send_report']) == "1") {
 
     // get insights and actions
-    $insights = $_POST['insights[]'];
+    $insights = $_POST['insights'];
 
 	//user posted variables
 	$name = 'fadsfsadfsadf';
