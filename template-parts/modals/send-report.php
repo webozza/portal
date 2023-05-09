@@ -26,3 +26,33 @@
         </div>
     </div>
 </div>
+
+<?php 
+/**
+ * CURE ACTION - SEND CLIENT REPORT
+ */
+if(isset($_POST['send_report']) == "1") {
+	//user posted variables
+	$name = 'fadsfsadfsadf';
+	$email = $_POST['client_email'];
+	$message = 'fasdfadsf';
+
+	//php mailer variables
+	$to = get_option('admin_email');
+	$subject = "Some text in subject...";
+	$headers = 'From: '. $email . "\r\n" .
+		'Reply-To: ' . $email . "\r\n";
+
+	//Here put your Validation and send mail
+	$sent = wp_mail($to, $subject, strip_tags($message), $headers);
+		
+	if($sent) {
+	//message sent!
+	echo 'sent';     
+	}
+	else  {
+	//message wasn't sent       
+	echo 'not sent';
+	}
+}
+?>
