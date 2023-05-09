@@ -190,13 +190,15 @@ function redirect_logged_in() {
 	if( is_user_logged_in() && $url == 'login' ) {
 		wp_redirect( home_url('/') );
 		exit;
-	} 
-	if ( !is_user_logged_in() && ($url == '' || $url == 'portal' || $url == 'client-reporting' || $url == 'checklists' )) {
+	} elseif ( !is_user_logged_in() && ($url == '' || $url == 'portal' || $url == 'client-reporting' || $url == 'checklists' )) {
+		wp_redirect( home_url('/login') );
+		exit;
+	} elseif (is_404() && !is_user_logged_in() ) {
 		wp_redirect( home_url('/login') );
 		exit;
 	}
 }
-add_action('init', 'redirect_logged_in');
+add_action('template_redirect', 'redirect_logged_in');
 
 /**
  * Filter & Function to rename the WordPress login URL
@@ -204,8 +206,8 @@ add_action('init', 'redirect_logged_in');
 function redirect_login_page() {
     $login_url  = home_url( '/login' );
     $url = basename($_SERVER['REQUEST_URI']); // get requested URL
-    isset( $_REQUEST['redirect_to'] ) ? ( $url   = "wp-login.php" ): 0; // if users ssend request to wp-admin
-    if( $url  == "wp-login.php" && $_SERVER['REQUEST_METHOD'] == 'GET')  {
+    isset( $_REQUEST['redirect_to'] ) ? ( $url = "wp-login.php" ): 0; // if users ssend request to wp-admin
+    if( $url  == "wp-login.php" && $_SERVER['REQUEST_METHOD'] == 'GET' )  {
         wp_redirect( $login_url );
         exit;
     }
@@ -216,9 +218,6 @@ add_action('init','redirect_login_page');
  * Hide the admin bar
  */
 function remove_admin_bar() {
-//   if (!current_user_can('administrator') && !is_admin()) {
-//     show_admin_bar(false);
-//   }
 	show_admin_bar(false);
 }
 add_action('after_setup_theme', 'remove_admin_bar');
