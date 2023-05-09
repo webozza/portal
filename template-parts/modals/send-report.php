@@ -32,18 +32,29 @@
  * CURE ACTION - SEND CLIENT REPORT
  */
 if(isset($_POST['send_report']) == "1") {
+
+    // get insights and actions
+    $insights = $_POST['insights[]'];
+
 	//user posted variables
 	$name = 'fadsfsadfsadf';
 	$email = '<lee.morgan@curecollective.com.au>';
-	$message = 'Weekly snapshot email';
+	foreach($insights as $insight) {
+        $email = '<li>'. $insight .'</li>';
+    }
+
+    //allow html email
+    add_filter('wp_mail_content_type', function( $content_type ) {
+        return 'text/html';
+    });
 
 	//php mailer variables
 	$to = $_POST['client_email'];
-	$subject = "Weekly Snapshot";
+	$subject = $_POST['project_name'] . " - Weekly Media Performance Snapshot";
 	$headers = 'From: '. $email . "\r\n" .
 		'Reply-To: ' . $email . "\r\n";
 
 	//Here put your Validation and send mail
-	$sent = wp_mail($to, $subject, strip_tags($message), $headers);
+	$sent = wp_mail($to, $subject, $message, $headers);
 }
 ?>

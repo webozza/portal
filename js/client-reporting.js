@@ -73,7 +73,7 @@ jQuery(document).ready(function ($) {
     });
 
     // Send Report
-    $(".modal-submit").click(function (e) {
+    $(".modal-submit").click(async function (e) {
       let emailAddress = $(this)
         .parent()
         .parent()
@@ -92,6 +92,20 @@ jQuery(document).ready(function ($) {
         emailAddress.val().indexOf(".") > -1
       ) {
         $(".error-msg").remove();
+        // Append the insights
+        $(".cr-insights li").each(function () {
+          let insights = $(this).text();
+          $("#send_report").append(
+            `<input type="hidden" name="insights[]" value="${insights}">`
+          );
+        });
+        // Append the actions
+        $(".cr-actions li").each(function () {
+          let actions = $(this).text();
+          $("#send_report").append(
+            `<input type="hidden" name="actions[]" value="${actions}">`
+          );
+        });
         $("#send_report").submit();
       }
     });
