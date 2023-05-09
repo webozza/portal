@@ -42,17 +42,29 @@
 </table>
 
 <!-- Insights -->
-<h4>Insights</h4>
-<ul>
-    <?php foreach($insights as $insight) { ?>
-        <li><?= $insight ?></li>
-    <?php } ?>
-</ul>
+<table cellpadding="0" cellspacing="0" align="left" border="0">
+    <tr>
+        <td>
+            <h4>Insights</h4>
+            <ul>
+                <?php foreach($insights as $insight) { ?>
+                    <li><?= $insight ?></li>
+                <?php } ?>
+            </ul>
+        </td>
+    </tr>
+</table>
 
 <!-- Actions -->
-<h4>Actions</h4>
-<ul>
-    <?php foreach($actions as $action) { ?>
-        <li><?= $action ?></li>
-    <?php } ?>
-</ul>
+<table cellpadding="0" cellspacing="0" align="left" border="0">
+    <tr>
+        <td>
+            <h4>Actions</h4>
+            <ul>
+                <?php foreach($actions as $action) { ?>
+                    <li><?= $action ?></li>
+                <?php } ?>
+            </ul>
+        </td>
+    </tr>
+</table>
