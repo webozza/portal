@@ -32,7 +32,7 @@
         <?php if($report_type == "Weekly Snapshot" || $report_type == "Monthly Report") { ?>
             <div class="filters cr-actions has-modal">
                 <div class="filter cr-download">
-                    <a href="javascript:void(0)" data-modal="cr-download">
+                    <a class="cr--download" href="javascript:void(0)" data-modal="cr-download">
                         Download Report
                         <img src="<?= get_template_directory_uri() . '/img/icons/download.png' ?>">
                     </a>

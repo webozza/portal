@@ -116,10 +116,29 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  // Send Report
+  let downloadPDF = () => {
+    $(".cr--download").click(function () {
+      window.jsPDF = window.jspdf.jsPDF;
+      var doc = new jsPDF();
+      doc.text(20, 20, "Hello world!");
+      doc.text(20, 30, "This is client-side Javascript to generate a PDF.");
+
+      // Add new page
+      doc.addPage();
+      doc.text(20, 20, "fadsfsadfasfasdf");
+
+      // Save the PDF
+      let pdfName = $(".filter.active a").text();
+      doc.save(`${pdfName}.pdf`);
+    });
+  };
+
   singleClientReports();
   singleClientBreadcrumbs();
   reportTypeFilter();
   addInsights();
   addActions();
   modalSendReport();
+  downloadPDF();
 });

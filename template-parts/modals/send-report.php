@@ -22,6 +22,7 @@
             <div class="modal-btn-wrapper">
                 <a class="btn-cure-secondary btn-close" href="javascript:void(0)">Cancel</a>
                 <a class="btn-cure modal-submit" href="javascript:void(0)">Send Report</a>
+                <a class="btn-cure send-for-approval" href="javascript:void(0)">Send for Approval</a>
             </div>
         </div>
     </div>
