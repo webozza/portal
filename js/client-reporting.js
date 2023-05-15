@@ -58,9 +58,16 @@ jQuery(document).ready(function ($) {
     // Open Modal
     $(".has-modal a").click(function () {
       let findModal = $(this).data("modal");
+      let insights = $(".cr-insights li").length;
+      let actions = $(".cr-actions li").length;
+
       $(".cure-modal").each(function () {
         if ($(this).data("model") == findModal) {
-          $(this).fadeIn();
+          if (insights > 0 && actions > 0) {
+            $(this).fadeIn();
+          } else {
+            $(".crm-forgot-insights").fadeIn().css("display", "flex");
+          }
         }
       });
     });
@@ -70,6 +77,13 @@ jQuery(document).ready(function ($) {
     });
     $(".btn-close").click(function () {
       $(this).parent().parent().parent().parent().fadeOut();
+    });
+
+    // Add Insights after forgetting to...
+    $(".jump-to-add-insights").click(function () {
+      let addInsightsOffset = $(".add-insights-container").offset().top;
+      $(".crm-forgot-insights").hide();
+      $(window).scrollTop(addInsightsOffset);
     });
 
     // Send Report
@@ -116,7 +130,7 @@ jQuery(document).ready(function ($) {
     });
   };
 
-  // Send Report
+  // Download PDF
   let downloadPDF = () => {
     $(".cr--download").click(function () {
       window.jsPDF = window.jspdf.jsPDF;
@@ -216,6 +230,63 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  // Save Report
+  let saveReport = async () => {
+    // Empty Vars
+    var postID;
+
+    // Data to Push
+    const _reportData = {
+      title: "",
+      content: "",
+      status: "publish",
+      acf: {
+        approval_type: cure.approval_type,
+        client: cure.client,
+        status: "Pending Approval",
+        sent_by: cure.current_user_id,
+      },
+    };
+
+    // Fetch Reports
+    let fetchReports = async () => {
+      const url = `${cure.root}/wp-json/wp/v2/reports`;
+      let res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "X-WP-Nonce": cure.nonce,
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(_reportData),
+      });
+      return await res.json();
+    };
+
+    // Post Report
+    let postReports = async () => {
+      let pushReport = await fetchReports();
+      // Attach View Status Link
+      postID = pushReport.id;
+      console.log("Report sent for approval =>", pushReport);
+    };
+
+    $(".cr-send-for-approval a").click(async function () {
+      let insights = $(".cr-insights li").length;
+      let actions = $(".cr-actions li").length;
+      if (insights > 0 && actions > 0) {
+        _reportData.title = postID;
+        _reportData.content = $(".cure-report")[0].outerHTML;
+        if (
+          confirm(
+            "Are you sure you want to send this in for approval? Make sure to doublecheck for careless mistakes and save others the hassle of having to correct you!"
+          ) == true
+        ) {
+          postReports();
+        }
+      }
+    });
+  };
+
   singleClientReports();
   singleClientBreadcrumbs();
   reportTypeFilter();
@@ -223,4 +294,5 @@ jQuery(document).ready(function ($) {
   addActions();
   modalSendReport();
   downloadPDF();
+  saveReport();
 });

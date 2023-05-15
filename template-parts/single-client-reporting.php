@@ -4,6 +4,11 @@
     $report_type = $_POST['report_type'];
 ?>
 
+<script>
+    cure["client"] = "<?= $project_name ?>";
+    cure["approval_type"] = "<?= $report_type ?>";
+</script>
+
 <div class="main single-client-reporting">
     <div class="greetings">
         <h2><a class="breadcrumb_parent" href="javascript:void(0)">Client Reporting</a> / <?= $_POST['project_name'] ?></h2>
@@ -37,8 +42,14 @@
                         <img src="<?= get_template_directory_uri() . '/img/icons/download.png' ?>">
                     </a>
                 </div>
-                <div class="filter cr-send">
+                <!-- <div class="filter cr-send">
                     <a href="javascript:void(0)" data-modal="cr-send">
+                        Send Report
+                        <img src="<?= get_template_directory_uri() . '/img/icons/send.png' ?>">
+                    </a>
+                </div> -->
+                <div class="filter cr-send-for-approval">
+                    <a href="javascript:void(0)" data-modal="cr-send-for-approval">
                         Send Report
                         <img src="<?= get_template_directory_uri() . '/img/icons/send.png' ?>">
                     </a>
@@ -208,5 +219,6 @@
     </script>
 </div>
 
-<!-- Send Report Modals -->
-<?php include(get_template_directory() . '/template-parts/modals/send-report.php') ?>
+<!-- Modals -->
+<?php include(get_template_directory() . '/template-parts/modals/forgot-insights.php') ?>
+<?php include(get_template_directory() . '/template-parts/modals/send-report-for-approval.php') ?>

@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.10' );
+	define( '_S_VERSION', '1.0.11' );
 }
 
 /**
@@ -148,11 +148,32 @@ function cure_portal_scripts() {
 	}
 
 	if( is_page('client-reporting') ) {
+
+		// LIBRARIES
 		wp_enqueue_style( 'data-table', get_template_directory_uri() . '/css/datatables.min.css' );
+		wp_enqueue_script( "jspdf", get_template_directory_uri() . '/js/jspdf.min.js', array('jquery') );
 		wp_enqueue_script( 'data-table-script', get_template_directory_uri() . '/js/datatables.min.js', array('jquery') );
+		wp_enqueue_script( "autotable", get_template_directory_uri() . '/js/autotable.min.js', array('jquery') );
+
+		// SCRIPTS
 		wp_enqueue_script( "client-reporting", get_template_directory_uri() . '/js/client-reporting.js', array('jquery'), _S_VERSION, true );
-		wp_enqueue_script( "jspdf", get_template_directory_uri() . '/js/jspdf.min.js', array('jquery'), _S_VERSION, true );
-		wp_enqueue_script( "autotable", get_template_directory_uri() . '/js/autotable.min.js', array('jquery'), _S_VERSION, true );
+		
+	}
+
+	if( is_page('approvals') ) {
+		// SCRIPTS
+		wp_enqueue_script( "approvals", get_template_directory_uri() . '/js/approvals.js', array('jquery'), _S_VERSION, true );
+	}
+
+	if( is_singular('reports') ) {
+
+		// LIBRARIES
+		wp_enqueue_script( "jspdf", get_template_directory_uri() . '/js/jspdf.min.js', array('jquery') );
+		wp_enqueue_script( 'data-table-script', get_template_directory_uri() . '/js/datatables.min.js', array('jquery') );
+		wp_enqueue_script( "autotable", get_template_directory_uri() . '/js/autotable.min.js', array('jquery') );
+
+		// SCRIPTS
+		wp_enqueue_script( "single-reports", get_template_directory_uri() . '/js/single-reports.js', array('jquery'), _S_VERSION, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cure_portal_scripts' );

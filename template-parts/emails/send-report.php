@@ -1,6 +1,14 @@
 <?php
     $insights = $_POST['insights'];
     $actions = $_POST['actions'];
+    // WTD
+    $ga_cost_wtd = str_replace('$','',$_POST['ga_cost_wtd']);
+    $ga_cost_wtd = str_replace(',','',$ga_cost_wtd);
+    $visitors_wtd = str_replace(',','',$_POST['visitors_wtd']);
+    // MTD
+    $ga_cost_mtd = str_replace('$','',$_POST['ga_cost_mtd']);
+    $ga_cost_mtd = str_replace(',','',$ga_cost_mtd);
+    $visitors_mtd = str_replace(',','',$_POST['visitors_mtd']);
 ?>
 
 <!-- Metrics -->
@@ -20,9 +28,9 @@
     <tbody>
         <tr>
             <td>Week to Date</td>
-            <td><?= '$' . number_format(round($dq_ga_cost_wtd, 2)); ?></td>
-            <td><?= number_format($dq_visitors_wtd) ?></td>
-            <td><?= '$' . round($dq_ga_cost_wtd / $dq_visitors_wtd, 2) ?></td>
+            <td><?= '$' . number_format(round($ga_cost_wtd, 2)); ?></td>
+            <td><?= number_format($visitors_wtd) ?></td>
+            <td><?= '$' . round($ga_cost_wtd / $visitors_wtd, 2) ?></td>
             <td>otw</td>
             <td>otw</td>
             <td>otw</td>
@@ -30,9 +38,9 @@
         </tr>
         <tr>
             <td>Month to Date</td>
-            <td><?= '$' . number_format(round($dq_ga_cost_mtd, 2)); ?></td>
-            <td><?= number_format($dq_visitors_mtd) ?></td>
-            <td><?= '$' . round($dq_ga_cost_mtd / $dq_visitors_mtd, 2) ?></td>
+            <td><?= '$' . number_format(round($ga_cost_mtd, 2)); ?></td>
+            <td><?= number_format($visitors_mtd) ?></td>
+            <td><?= '$' . round($ga_cost_mtd / $visitors_mtd, 2) ?></td>
             <td>otw</td>
             <td>otw</td>
             <td>otw</td>

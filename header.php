@@ -26,9 +26,18 @@
 	<script>
 		let tempDir = "<?= get_template_directory_uri() ?>";
 	</script>
+	<?php if(is_user_logged_in()) { ?>
+		<script>
+			let cure = {
+				root: "<?= get_site_url() ?>",
+				nonce: "<?= wp_create_nonce( 'wp_rest' ) ?>",
+				current_user_id: "<?= get_current_user_id() ?>",
+			}
+		</script>
+	<?php } ?>
 </head>
-
-<body onload="disablePreloader()" <?php body_class(); ?>>
+<?php $url = basename($_SERVER['REQUEST_URI']); ?>
+<body <?php if($url == "client-reporting") {echo 'onload="disablePreloader()"';} ?> <?php body_class(); ?>>
 <?php if(is_page('client-reporting')) { ?>
 	<div class="cure-loader">
 		<img src="<?= get_template_directory_uri() . '/img/preloader-1.gif' ?>">
@@ -40,7 +49,6 @@
 	</script>
 <?php } ?>
 <?php wp_body_open(); ?>
-<?php $url = basename($_SERVER['REQUEST_URI']); ?>
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'cure-portal' ); ?></a>
 
@@ -69,12 +77,12 @@
 						Client Reporting
 					</a>
 				</li>
-				<li class="<?php if($url == "checklists" ) {echo 'active';} ?>">
+				<!-- <li class="<?php if($url == "checklists" ) {echo 'active';} ?>">
 					<a href="<?= home_url() . '/checklists' ?>">
 						<img src="<?php if($url == "checklists") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
 						Checklists
 					</a>
-				</li>
+				</li> -->
 				<li class="<?php if($url == "approvals" ) {echo 'active';} ?>">
 					<a href="<?= home_url() . '/approvals' ?>">
 						<img src="<?php if($url == "approvals") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">

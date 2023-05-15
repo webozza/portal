@@ -9,11 +9,14 @@
                 <div class="cure-field-group">
                     <label>Client's Email Address</label>
                     <input type="email" name="client_email" value="" placeholder="Client's Email Address">
-                    <input type="hidden" name="client" value="<?= $client ?>">
-                    <input type="hidden" name="report_type" value="<?= $report_type ?>">
-                    <input type="hidden" name="project_name" value="<?= $project_name ?>">
+                    <!-- WTD -->
+                    <input type="hidden" name="ga_cost_wtd" value="">
+                    <input type="hidden" name="visitors_wtd" value="">
+                    <!-- MTD -->
+                    <input type="hidden" name="ga_cost_mtd" value="">
+                    <input type="hidden" name="visitors_mtd" value="">
+                    <!-- FORM CHECK -->
                     <input type="hidden" name="send_report" value="1">
-                    <input type="hidden" name="single_client_report_view" value="1">
                     <input type="submit" class="hidden">
                 </div>
             </form>
@@ -22,7 +25,6 @@
             <div class="modal-btn-wrapper">
                 <a class="btn-cure-secondary btn-close" href="javascript:void(0)">Cancel</a>
                 <a class="btn-cure modal-submit" href="javascript:void(0)">Send Report</a>
-                <a class="btn-cure send-for-approval" href="javascript:void(0)">Send for Approval</a>
             </div>
         </div>
     </div>
@@ -48,7 +50,7 @@ if(isset($_POST['send_report']) == "1") {
 
 	//php mailer variables
 	$to = $_POST['client_email'];
-	$subject = $_POST['project_name'] . " - Weekly Media Performance Snapshot";
+	$subject = get_field('client') . " - Weekly Media Performance Snapshot";
 	$headers = 'From: '. $email . "\r\n" .
 		'Reply-To: ' . $email . "\r\n";
 
