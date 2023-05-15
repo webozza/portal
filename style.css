@@ -594,9 +594,17 @@ tr.channel-total td {
   justify-content: center;
 }
 .status-of-approval.pending > div {
-  background: #ffe8d7;
+  background-color: #ffe8d7;
   border-radius: 36px;
   color: #931222;
+  font-size: 12px;
+  padding: 5px 10px 7px;
+  font-weight: 500;
+}
+.status-of-approval.approved > div {
+  background-color: #e6fbd9;
+  border-radius: 36px;
+  color: #0f5b1d;
   font-size: 12px;
   padding: 5px 10px 7px;
   font-weight: 500;

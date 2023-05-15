@@ -30,7 +30,7 @@ get_header(); ?>
                 <a href="javascript:void(0)">By Client</a>
             </div>
             <div class="filter">
-                <a href="javascript:void(0)">By Status</a>
+                <a href="javascript:void(0)">Hide Approved</a>
             </div>
             <div class="filter">
                 <a href="javascript:void(0)">By Type</a>

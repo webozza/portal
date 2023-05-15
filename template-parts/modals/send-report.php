@@ -5,7 +5,7 @@
             <a class="close-modal" href="javascript:void(0)"><img src="<?= get_template_directory_uri() . '/img/icons/close.png' ?>"></a>
         </div>
         <div class="cure-modal-body">
-            <form id="send_report" method="post" action="">
+            <form id="send_report" method="post" action="<?= get_site_url() . '/approvals' ?>">
                 <div class="cure-field-group">
                     <label>Client's Email Address</label>
                     <input type="email" name="client_email" value="" placeholder="Client's Email Address">
@@ -56,5 +56,9 @@ if(isset($_POST['send_report']) == "1") {
 
 	//Here put your Validation and send mail
 	$sent = wp_mail($to, $subject, $message, $headers);
+
+    //Update approval status to approved
+    update_field('status', 'Approved', get_the_ID());
+
 }
 ?>
