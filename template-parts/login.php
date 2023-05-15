@@ -29,9 +29,18 @@ if ( ! is_user_logged_in() ) {
                     <h2>Login</h2>
                     <?php wp_login_form( $args ); ?>
                 </div>
+                <div class="forgot-password">
+                    <a href="javascript:void(0)">Forgot Password?</a>
+                </div>
             </div>
         </div>
+
+        <script src="<?= includes_url() . 'js/jquery/jquery.min.js?ver=3.6.3' ?>"></script>
+
+        <?php include(get_template_directory() . '/template-parts/modals/forgot-password.php'); ?>
     <?php
+
+    echo do_shortcode('[]');
 }
 
 get_footer();

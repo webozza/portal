@@ -121,12 +121,94 @@ jQuery(document).ready(function ($) {
     $(".cr--download").click(function () {
       window.jsPDF = window.jspdf.jsPDF;
       var doc = new jsPDF();
-      doc.text(20, 20, "Hello world!");
-      doc.text(20, 30, "This is client-side Javascript to generate a PDF.");
+      var y = 0;
 
-      // Add new page
-      doc.addPage();
-      doc.text(20, 20, "fadsfsadfasfasdf");
+      // Headers
+      doc.setTextColor(238, 168, 81);
+      doc.setFontSize(12);
+      y = 20;
+      doc.text(10, 20, $(".report-header h5").text());
+
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(16);
+      doc.text(10, 28, $(".report-header h4").text());
+
+      // Add image
+      let clientLogo = $(".report-header img").attr("src");
+      doc.addImage(clientLogo, "PNG", 180, 15, 15, 0);
+
+      // Add table
+      // Supply data via script
+      let metricHeaders = [];
+      let wtdMetrics = [];
+      let mtdMetrics = [];
+      let crInsights = [];
+      let crActions = [];
+      $(".report-body thead th").each(function () {
+        let headers = $(this).text();
+        metricHeaders.push(headers);
+      });
+      $(".report-body tbody tr:first-child td").each(function () {
+        let wtdMets = $(this).text();
+        wtdMetrics.push(wtdMets);
+      });
+      $(".report-body tbody tr:last-child td").each(function () {
+        let mtdMets = $(this).text();
+        mtdMetrics.push(mtdMets);
+      });
+      $(".cr-insights li").each(function () {
+        let insights = $(this).text();
+        crInsights.push(insights);
+      });
+      $(".cr-actions li").each(function () {
+        let actions = $(this).text();
+        crActions.push(actions);
+      });
+
+      let metrics = [metricHeaders, wtdMetrics, mtdMetrics];
+      // generate auto table with report metrics
+      doc.autoTable({
+        body: metrics,
+        startX: 20,
+        startY: 45,
+        theme: "grid",
+      });
+
+      // Insights
+      let hasInsights = $(".cr-insights li").length;
+      if (hasInsights > 0) {
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(12);
+        doc.text(10, 80, "Insights");
+        let cY = 80;
+        doc.setFontSize(10);
+        crInsights.map((entries) => {
+          doc.text(13, (cY += 5), "\u2022 " + entries);
+        });
+      } else {
+        doc.setTextColor(238, 168, 81);
+        doc.setFontSize(12);
+        doc.text(10, 80, "Hey dummy, you forgot to add insights...");
+      }
+
+      // Actions
+      let currentY = hasInsights * 5 + 80;
+      currentY = currentY + 10;
+      let hasActions = $(".cr-actions li").length;
+      if (hasActions > 0) {
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(12);
+        doc.text(10, currentY, "Actions");
+        let cY = currentY;
+        doc.setFontSize(10);
+        crActions.map((entries) => {
+          doc.text(13, (cY += 5), "\u2022 " + entries);
+        });
+      } else {
+        doc.setTextColor(238, 168, 81);
+        doc.setFontSize(12);
+        doc.text(10, 80, "Hey dummy, you forgot to add actions...");
+      }
 
       // Save the PDF
       let pdfName = $(".filter.active a").text();

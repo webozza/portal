@@ -554,3 +554,20 @@ tr.channel-total td {
   cursor: pointer;
   font-weight: 500;
 }
+
+/*--------------------------------------------------------------
+>>> FORGOT PASSWORD
+----------------------------------------------------------------*/
+.forgot-password {
+  margin-top: 10px;
+}
+.forgot-password a {
+  text-transform: uppercase;
+  color: #000;
+  font-size: 0.75em;
+  text-decoration: underline;
+}
+.forgot-password iframe {
+  border: none;
+  width: 100%;
+}

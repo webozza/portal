@@ -152,6 +152,7 @@ function cure_portal_scripts() {
 		wp_enqueue_script( 'data-table-script', get_template_directory_uri() . '/js/datatables.min.js', array('jquery') );
 		wp_enqueue_script( "client-reporting", get_template_directory_uri() . '/js/client-reporting.js', array('jquery'), _S_VERSION, true );
 		wp_enqueue_script( "jspdf", get_template_directory_uri() . '/js/jspdf.min.js', array('jquery'), _S_VERSION, true );
+		wp_enqueue_script( "autotable", get_template_directory_uri() . '/js/autotable.min.js', array('jquery'), _S_VERSION, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cure_portal_scripts' );
@@ -219,4 +220,3 @@ function remove_admin_bar() {
 	show_admin_bar(false);
 }
 add_action('after_setup_theme', 'remove_admin_bar');
-
