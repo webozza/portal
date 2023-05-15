@@ -75,6 +75,12 @@
 						Checklists
 					</a>
 				</li>
+				<li class="<?php if($url == "approvals" ) {echo 'active';} ?>">
+					<a href="<?= home_url() . '/approvals' ?>">
+						<img src="<?php if($url == "approvals") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
+						Approvals
+					</a>
+				</li>
 			</ul>
 		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
