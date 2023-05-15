@@ -9,8 +9,16 @@
             <a class="close-modal" href="javascript:void(0)"><img src="<?= get_template_directory_uri() . '/img/icons/close.png' ?>"></a>
         </div>
         <div class="cure-modal-body">
-            <?= do_shortcode('[custom-password-lost-form]') ?>
-            <?= do_shortcode('[custom-password-reset-form]') ?>
+            <form id="lostpasswordform" action="<?php echo wp_lostpassword_url(); ?>" method="post">
+				<p class="form-row">
+					<label for="user_login"><?php _e('Email', 'personalize-login'); ?>
+						<input type="text" name="user_login" id="user_login">
+				</p>
+				<p class="lostpassword-submit">
+					<input type="submit" name="submit" class="lostpassword-button"
+					       value="<?php _e('Reset Password', 'personalize-login'); ?>"/>
+				</p>
+			</form>
         </div>
     </div>
 </div>
