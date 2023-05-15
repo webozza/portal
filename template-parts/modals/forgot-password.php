@@ -10,6 +10,7 @@
         </div>
         <div class="cure-modal-body">
             <?= do_shortcode('[custom-password-lost-form]') ?>
+            <?= do_shortcode('[custom-password-reset-form]') ?>
         </div>
     </div>
 </div>
