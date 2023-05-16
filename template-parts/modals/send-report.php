@@ -37,8 +37,9 @@
  */
 if(isset($_POST['send_report']) == "1") {
 
-    echo get_the_ID();
-    echo 'fasdfasdfsdaf';
+    //Update approval status to approved
+    $report_id = $_POST['report_id'];
+    update_field('status', 'Approved', $report_id);
 
     //allow html email
     add_filter('wp_mail_content_type', function( $content_type ) {
@@ -46,7 +47,6 @@ if(isset($_POST['send_report']) == "1") {
     });
 
 	//user posted variables
-    $report_id = $_POST['report_id'];
 	$name = 'gadfsafd';
 	$email = '<lee.morgan@curecollective.com.au>';
 	ob_start();
@@ -61,9 +61,6 @@ if(isset($_POST['send_report']) == "1") {
 
 	//Here put your Validation and send mail
 	$sent = wp_mail($to, $subject, $message, $headers);
-
-    //Update approval status to approved
-    update_field('status', 'Approved', $report_id);
 
 }
 ?>
