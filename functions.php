@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.15' );
+	define( '_S_VERSION', '1.0.16' );
 }
 
 /**
@@ -241,3 +241,38 @@ function remove_admin_bar() {
 	show_admin_bar(false);
 }
 add_action('after_setup_theme', 'remove_admin_bar');
+
+/**
+ * CURE ACTION - SEND CLIENT REPORT
+ */
+function send_client_report() {
+	if(isset($_POST['send_report']) == "1") {
+
+		//Update approval status to approved
+		$report_id = $_POST['report_id'];
+		update_field('status', 'Approved', $report_id);
+	
+		//allow html email
+		add_filter('wp_mail_content_type', function( $content_type ) {
+			return 'text/html';
+		});
+	
+		//user posted variables
+		$name = 'gadfsafd';
+		$email = '<lee.morgan@curecollective.com.au>';
+		ob_start();
+		include(get_template_directory() . '/template-parts/emails/send-report.php');
+		$message = ob_get_clean();
+	
+		//php mailer variables
+		$to = $_POST['client_email'];
+		$subject = get_field('client') . " - Weekly Media Performance Snapshot";
+		$headers = 'From: '. $email . "\r\n" .
+			'Reply-To: ' . $email . "\r\n";
+	
+		//Here put your Validation and send mail
+		$sent = wp_mail($to, $subject, $message, $headers);
+	
+	}
+}
+add_action('init','send_client_report');
