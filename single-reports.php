@@ -18,13 +18,13 @@
             <div class="filter cr-download">
                 <a class="cr--download" href="javascript:void(0)" data-modal="cr-download">
                     Download Report
-                    <img src="http://localhost:8080/portal/wp-content/themes/cure-portal/img/icons/download.png">
+                    <img src="<?= get_template_directory_uri() . '/img/icons/download.png'?>">
                 </a>
             </div>
             <div class="filter cr-send">
                 <a href="javascript:void(0)" data-modal="cr-send">
                     Approve and Send to Client
-                    <img src="http://localhost:8080/portal/wp-content/themes/cure-portal/img/icons/send.png">
+                    <img src="<?= get_template_directory_uri() . '/img/icons/send.png'?>">
                 </a>
             </div>
         </div>
