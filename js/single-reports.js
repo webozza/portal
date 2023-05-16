@@ -140,6 +140,9 @@ jQuery(document).ready(function ($) {
       let ga_cost_mtd = $("tbody tr").eq(1).find("td").eq(1).text();
       let visitors_mtd = $("tbody tr").eq(1).find("td").eq(2).text();
 
+      // Append the report ID
+      $('[name="report_id"]').val(cure.report_id);
+
       // Append the metrics
       $('[name="ga_cost_wtd"]').val(ga_cost_wtd);
       $('[name="visitors_wtd"]').val(visitors_wtd);

@@ -1,5 +1,10 @@
 <?php get_header() ?>
 
+<script>
+    // Additional Variables
+    cure['report_id'] = "<?php the_ID() ?>";
+</script>
+
 <div class="main single-report">
     <!-- BREADCRUMBS -->
     <div class="greetings">

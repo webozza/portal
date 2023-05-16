@@ -16,6 +16,7 @@
                     <input type="hidden" name="ga_cost_mtd" value="">
                     <input type="hidden" name="visitors_mtd" value="">
                     <!-- FORM CHECK -->
+                    <input type="hidden" name="report_id" value="">
                     <input type="hidden" name="send_report" value="1">
                     <input type="submit" class="hidden">
                 </div>
@@ -36,12 +37,16 @@
  */
 if(isset($_POST['send_report']) == "1") {
 
+    echo get_the_ID();
+    echo 'fasdfasdfsdaf';
+
     //allow html email
     add_filter('wp_mail_content_type', function( $content_type ) {
         return 'text/html';
     });
 
 	//user posted variables
+    $report_id = $_POST['report_id'];
 	$name = 'gadfsafd';
 	$email = '<lee.morgan@curecollective.com.au>';
 	ob_start();
@@ -58,7 +63,7 @@ if(isset($_POST['send_report']) == "1") {
 	$sent = wp_mail($to, $subject, $message, $headers);
 
     //Update approval status to approved
-    update_field('status', 'Approved', get_the_ID());
+    update_field('status', 'Approved', $report_id);
 
 }
 ?>
