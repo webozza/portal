@@ -37,8 +37,22 @@ $client_reporting = [
 
 ?>
 
+<script>
+    let metricsByClient = {
+        diabetes_qualified: {
+            ad_spend_wtd: '$<?= number_format($dq_ga_cost_wtd, 2); ?>',
+            ad_spend_mtd: '$<?= number_format($dq_ga_cost_mtd, 2); ?>',
+            new_users_wtd: '<?= number_format($dq_visitors_wtd); ?>',
+            new_users_mtd: '<?= number_format($dq_visitors_mtd); ?>',
+        },
+        langley_group_institute: {
+            ad_spend_wtd: 'otw',
+        }
+    }
+</script>
+
 <?php if( isset($_POST['single_client_report_view']) != "1" ) { ?>
-    <div class="main">
+    <div class="main client-reporting-overview">
         <div class="greetings">
             <h2><?= get_the_title() ?></h2>
         </div>
@@ -48,10 +62,10 @@ $client_reporting = [
             </div>
             <div class="filters">
                 <div class="filter active">
-                    <a href="javascript:void(0)">Weekly</a>
+                    <a href="javascript:void(0)">WTD</a>
                 </div>
                 <div class="filter">
-                    <a href="javascript:void(0)">Monthly</a>
+                    <a href="javascript:void(0)">MTD</a>
                 </div>
                 <div class="filter">
                     <a href="javascript:void(0)">Custom</a>
@@ -81,8 +95,8 @@ $client_reporting = [
                                     <span><?= $cp['project'] ?></span>
                                 </a>
                             </td>
-                            <td><?= $cp['ad_spend'] ?></td>
-                            <td><?= $cp['new_users'] ?></td>
+                            <td class="td-ad-spend"><?= $cp['ad_spend'] ?></td>
+                            <td class="td-new-users"><?= $cp['new_users'] ?></td>
                             <td><?= $cp['conversions'] ?></td>
                             <td><?= $cp['cpa'] ?></td>
                             <td><?= $cp['status'] ?></td>

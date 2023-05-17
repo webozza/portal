@@ -126,9 +126,9 @@
                         <tbody>
                             <tr>
                                 <td>Week to Date</td>
-                                <td><?= '$' . number_format(round($dq_ga_cost_wtd, 2)); ?></td>
-                                <td><?= number_format($dq_visitors_wtd) ?></td>
-                                <td><?= '$' . round($dq_ga_cost_wtd / $dq_visitors_wtd, 2) ?></td>
+                                <td><?= '$' . number_format(round($dq_ga_cost_lw, 2)); ?></td>
+                                <td><?= number_format($dq_visitors_lw) ?></td>
+                                <td><?= '$' . round($dq_ga_cost_lw / $dq_visitors_lw, 2) ?></td>
                                 <td>otw</td>
                                 <td>otw</td>
                                 <td>otw</td>
@@ -136,9 +136,9 @@
                             </tr>
                             <tr>
                                 <td>Month to Date</td>
-                                <td><?= '$' . number_format(round($dq_ga_cost_mtd, 2)); ?></td>
-                                <td><?= number_format($dq_visitors_mtd) ?></td>
-                                <td><?= '$' . round($dq_ga_cost_mtd / $dq_visitors_mtd, 2) ?></td>
+                                <td><?= '$' . number_format(round($dq_ga_cost_lm, 2)); ?></td>
+                                <td><?= number_format($dq_visitors_lm) ?></td>
+                                <td><?= '$' . round($dq_ga_cost_lm / $dq_visitors_lm, 2) ?></td>
                                 <td>otw</td>
                                 <td>otw</td>
                                 <td>otw</td>
@@ -192,7 +192,86 @@
 
     <!-- Single Client Report | Monthly Report -->
     <?php if($report_type == "Monthly Report") { ?>
-        <h2>Monthly Report</h2>
+        <div class="cure-monthly-report cure-report">
+            <div class="inner">
+                <div class="report-header">
+                    <div>
+                        <h5>Online</h5>
+                        <h4>Monthly Report</h4>
+                    </div>
+                    <div>
+                        <img src="<?= $client_icon ?>">
+                    </div>
+                </div>
+                <div class="report-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Spend</th>
+                                <th>Visitors</th>
+                                <th>Cost Per Visitor</th>
+                                <th>Conversion Rate</th>
+                                <th>Enrolments</th>
+                                <th>Cost per Enrolment</th>
+                                <th>Sales</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Month to Date</td>
+                                <td><?= '$' . number_format(round($dq_ga_cost_lm, 2)); ?></td>
+                                <td><?= number_format($dq_visitors_lm) ?></td>
+                                <td><?= '$' . round($dq_ga_cost_lm / $dq_visitors_lm, 2) ?></td>
+                                <td>otw</td>
+                                <td>otw</td>
+                                <td>otw</td>
+                                <td>otw</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="cr-insights-container">
+                        <div class="cr-insights">
+                            <h4>Insights</h4>
+                            <ul></ul>
+                        </div>
+                        <div class="cr-actions">
+                            <h4>Actions</h4>
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-insights-container">
+            <div class="cure-field-group add-insights">
+                <div>
+                    <label>Add Insights:</label>
+                    <textarea placeholder="Add in your insights." value=""></textarea>
+                </div>
+                <div>
+                    <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Insights</a>
+                </div>
+            </div>
+            <div class="cure-field-group add-actions">
+                <div>
+                    <label>Add Actions:</label>
+                    <textarea placeholder="List down the next action steps to be taken." value=""></textarea>
+                </div>
+                <div>
+                    <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Actions</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="dev-notes">
+            <?php // include( get_template_directory() . '/api/google_ads.php'); ?>
+            <h3>Dev Notes</h3>
+            <ul>
+                <li>The table section here was just an image on figma. <strong>[For Alex]</strong></li>
+            </ul>
+        </div>
     <?php } ?>
 
     <form method="post" action="" class="hidden">

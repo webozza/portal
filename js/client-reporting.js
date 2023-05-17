@@ -162,10 +162,13 @@ jQuery(document).ready(function ($) {
         let headers = $(this).text();
         metricHeaders.push(headers);
       });
-      $(".report-body tbody tr:first-child td").each(function () {
-        let wtdMets = $(this).text();
-        wtdMetrics.push(wtdMets);
-      });
+      if (cure.approval_type !== "Monthly Report") {
+        $(".report-body tbody tr:first-child td").each(function () {
+          let wtdMets = $(this).text();
+          wtdMetrics.push(wtdMets);
+        });
+      }
+
       $(".report-body tbody tr:last-child td").each(function () {
         let mtdMets = $(this).text();
         mtdMetrics.push(mtdMets);
@@ -179,7 +182,12 @@ jQuery(document).ready(function ($) {
         crActions.push(actions);
       });
 
-      let metrics = [metricHeaders, wtdMetrics, mtdMetrics];
+      let metrics = [];
+      if (cure.approval_type !== "Monthly Report") {
+        metrics = [metricHeaders, wtdMetrics, mtdMetrics];
+      } else {
+        metrics = [metricHeaders, mtdMetrics];
+      }
       // generate auto table with report metrics
       doc.autoTable({
         body: metrics,
@@ -287,6 +295,38 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  // Date Filter on Client Reporting Overview
+  let croDateFilter = () => {
+    $(".client-reporting-overview .filter a").click(function () {
+      // Active
+      let thisFilter = $(this);
+      $(".client-reporting-overview .filter").removeClass("active");
+      thisFilter.parent().addClass("active");
+
+      // Filter the data by wtd and mtd
+      let presetDateSelected = $(this).text();
+
+      $(".client-reporting-overview .cure--project").each(function () {
+        let thisProject = $(this);
+        let client = thisProject.find("span").text();
+        let ad_spend = thisProject.parent().parent().find(".td-ad-spend");
+        let visitors = thisProject.parent().parent().find(".td-new-users");
+        if (presetDateSelected == "WTD" && client == "Diabetes Qualified") {
+          // WTD & DQ
+          ad_spend.text(metricsByClient.diabetes_qualified.ad_spend_wtd);
+          visitors.text(metricsByClient.diabetes_qualified.new_users_wtd);
+        } else if (
+          presetDateSelected == "MTD" &&
+          client == "Diabetes Qualified"
+        ) {
+          // MTD & DQ
+          ad_spend.text(metricsByClient.diabetes_qualified.ad_spend_mtd);
+          visitors.text(metricsByClient.diabetes_qualified.new_users_mtd);
+        }
+      });
+    });
+  };
+
   singleClientReports();
   singleClientBreadcrumbs();
   reportTypeFilter();
@@ -295,4 +335,5 @@ jQuery(document).ready(function ($) {
   modalSendReport();
   downloadPDF();
   saveReport();
+  croDateFilter();
 });
