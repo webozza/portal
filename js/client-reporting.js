@@ -297,6 +297,18 @@ jQuery(document).ready(function ($) {
 
   // Date Filter on Client Reporting Overview
   let croDateFilter = () => {
+    // If custom date is defined
+    if (dates.cds_start !== undefined) {
+      $(".client-reporting-overview .date-notice").text(
+        `${dates.cds_start} -- ${dates.cds_end}`
+      );
+    } else {
+      $(".client-reporting-overview .date-notice").text(
+        `${dates.wtd_first_day} — ${dates.today}`
+      );
+    }
+
+    // A Filter gets clicked
     $(".client-reporting-overview .filter a").click(function () {
       // Active
       let thisFilter = $(this);
@@ -306,6 +318,99 @@ jQuery(document).ready(function ($) {
       // Filter the data by wtd and mtd
       let presetDateSelected = $(this).text();
 
+      // Just the Date Filter
+      if (presetDateSelected == "WTD") {
+        $(".client-reporting-overview .date-notice").text(
+          `${dates.wtd_first_day} — ${dates.today}`
+        );
+      } else if (presetDateSelected == "MTD") {
+        $(".client-reporting-overview .date-notice").text(
+          `${dates.mtd_first_day} — ${dates.today}`
+        );
+      } else if (presetDateSelected == "Custom") {
+        $(".custom-date-selector").fadeToggle().css("display", "flex");
+      }
+
+      // If other than Custom filter is selected
+      if (!$(this).hasClass("cds-filter")) {
+        $(".custom-date-selector").hide();
+      }
+
+      // If cancel button is clicked on custom date filter
+      $(".cds-btn-cancel").click(function () {
+        $(".custom-date-selector").hide();
+      });
+
+      // Whenever the from date is changed
+      $('[name="cds_from"]').change(function () {
+        let thisDate = $(this);
+        let cdsFrom = thisDate.val();
+        let getDay = cdsFrom.slice(8);
+        let getMonth = cdsFrom.slice(5, -3);
+        let getYear = cdsFrom.slice(0, 4);
+        let newDate = `${getYear}-${getMonth}-${getDay}`;
+
+        if (dates.cds_start !== undefined) {
+          $('form [name="start_date"]').val(dates.cds_start);
+        } else {
+          $('form [name="start_date"]').val(newDate);
+        }
+      });
+
+      // Whenever the to/end date is changed
+      $('[name="cds_to"]').change(function () {
+        let thisDate = $(this);
+        let cdsFrom = thisDate.val();
+        let getDay = cdsFrom.slice(8);
+        let getMonth = cdsFrom.slice(5, -3);
+        let getYear = cdsFrom.slice(0, 4);
+        let newDate = `${getYear}-${getMonth}-${getDay}`;
+
+        if (dates.cds_start !== undefined) {
+          $('form [name="end_date"]').val(dates.cds_end);
+        } else {
+          $('form [name="end_date"]').val(newDate);
+        }
+      });
+
+      // Apply the custom date filter
+      $(".cds-btn-submit").click(function () {
+        let startDate = $('form [name="start_date"]').val();
+        let endDate = $('form [name="end_date"]').val();
+
+        let newStartDate = new Date(startDate);
+        let newEndDate = new Date(endDate);
+
+        if (startDate !== "" && endDate !== "" && newStartDate <= newEndDate) {
+          $("#custom_date_filter").submit();
+        }
+
+        if (newStartDate > newEndDate) {
+          $(".cds-error p").text(
+            "Get some coffee! END date can't be lesser than START date!"
+          );
+        }
+
+        if (startDate == "" || endDate == "") {
+          $(".cds-error p").text("WOW! Empty dates ehh??");
+        }
+      });
+
+      // Clicking outside the custom date filter
+      // $(window).click(function (e) {
+      //   let target = e.target.className;
+      //   if (
+      //     target !== "custom-date-selector" &&
+      //     target !== "cds-filter" &&
+      //     target !== "cds-from" &&
+      //     target !== "cds-to" &&
+      //     target !== "cds-submit"
+      //   ) {
+      //     $(".custom-date-selector").hide();
+      //   }
+      // });
+
+      // Project & Date Filter
       $(".client-reporting-overview .cure--project").each(function () {
         let thisProject = $(this);
         let client = thisProject.find("span").text();

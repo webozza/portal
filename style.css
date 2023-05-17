@@ -609,3 +609,22 @@ tr.channel-total td {
   padding: 5px 10px 7px;
   font-weight: 500;
 }
+
+/*--------------------------------------------------------------
+>>> Client Report Date Filter
+----------------------------------------------------------------*/
+.cure-filters .filter {
+  position: relative;
+}
+.custom-date-selector {
+  display: none;
+  border-radius: 8px;
+  box-shadow: -1px 1px 10px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.13);
+  padding: 20px;
+  position: absolute;
+  background-color: #fff;
+  flex-direction: column;
+  row-gap: 15px;
+  top: 40px;
+  left: -33.33%;
+}

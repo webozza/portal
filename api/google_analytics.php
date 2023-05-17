@@ -20,6 +20,29 @@ $month_to_date = date('Y-m-d', strtotime("first day of this month"));
 $last_month_start = date('Y-m-d', strtotime("first day of last month"));
 $last_month_end = date('Y-m-d', strtotime("last day of last month"));
 
+?>
+    <script>
+        let dates = {
+            // WTD
+            wtd_first_day: '<?= date('jS M', strtotime("this week")) ?>',
+            today : '<?= date('jS M', strtotime("today")) ?>',
+            // MTD
+            mtd_first_day: '<?= date('jS M', strtotime("first day of this month")) ?>',
+        }
+    </script>
+<?php
+
+if(isset($_POST['custom_date_selector']) == "1") {
+    $cds_start = $_POST['start_date'];
+    $cds_end = $_POST['end_date'];
+    ?>
+        <script>
+            dates['cds_start'] = "<?= $cds_start ?>";
+            dates['cds_end'] = "<?= $cds_end ?>";
+        </script>
+    <?php
+}
+
 /* GOOGLE ADS COST - DQ
 ================================================================================*/
 $DQ_GA_COST_WTD = $client->runReport([
@@ -106,6 +129,62 @@ $DQ_GA_COST_LM = $client->runReport([
     )
     ]
 ]);
+if(isset($_POST['custom_date_selector']) == "1") {
+    $DQ_GA_COST_CDS = $client->runReport([
+        'property' => 'properties/' . $property_id['diabetes_qualified'],
+        'dateRanges' => [
+            new DateRange([
+                'start_date' => $cds_start,
+                'end_date' => $cds_end,
+            ]),
+        ],
+        'dimensions' => [new Dimension(
+            [
+                'name' => 'sessionGoogleAdsAccountName',
+            ]
+        ),
+        ],
+        'metrics' => [new Metric(
+            [
+                'name' => 'advertiserAdCost'
+            ]
+        )
+        ]
+    ]);
+    $dq_ga_cost_cds = array();
+    foreach ($DQ_GA_COST_CDS->getRows() as $row) {
+        array_push($dq_ga_cost_cds, $row->getMetricValues()[0]->getValue() );
+    }
+    $dq_ga_cost_cds = array_sum($dq_ga_cost_cds);
+    $DQ_VISITORS_CDS = $client->runReport([
+        'property' => 'properties/' . $property_id['diabetes_qualified'],
+        'dateRanges' => [
+            new DateRange([
+                'start_date' => $cds_start,
+                'end_date' => $cds_end,
+            ]),
+        ],
+        'dimensions' => [new Dimension(
+            [
+                'name' => 'sessionDefaultChannelGroup',
+            ]
+        ),
+        ],
+        'metrics' => [new Metric(
+            [
+                'name' => 'newUsers'
+            ]
+        )
+        ]
+    ]);
+    $dq_visitors_cds = array();
+    foreach ($DQ_VISITORS_CDS->getRows() as $row) {
+        // print $row->getDimensionValues()[0]->getValue()
+        //     . ' ' . $row->getMetricValues()[0]->getValue() . PHP_EOL;
+        array_push($dq_visitors_cds, $row->getMetricValues()[0]->getValue() );
+    }
+    $dq_visitors_cds = array_sum($dq_visitors_cds);
+}
 
 $dq_ga_cost_wtd = array();
 foreach ($DQ_GA_COST_WTD->getRows() as $row) {

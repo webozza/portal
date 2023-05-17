@@ -10,30 +10,58 @@ $current_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
 include( get_template_directory() . '/api/google_analytics.php');
 
-$client_reporting = [
-    [
-        'project' => 'Diabetes Qualified',
-        'slug' => 'diabetes-qualified',
-        'ad_spend' => '$' . number_format(round($dq_ga_cost_wtd, 2)),
-        'new_users' => number_format($dq_visitors_wtd),
-        'conversions' => 'otw',
-        'cpa' => 'otw',
-        'status' => 'otw',
-        'actions' => 'otw',
-        'thumb' => get_template_directory_uri() . '/img/icons/dq.png'
-    ],
-    [
-        'project' => 'Langley Group Institute',
-        'slug' => 'langley-group-institute',
-        'ad_spend' => 'otw',
-        'new_users' => 'otw',
-        'conversions' => 'otw',
-        'cpa' => 'otw',
-        'status' => 'otw',
-        'actions' => 'otw',
-        'thumb' => get_template_directory_uri() . '/img/icons/lgi.jpeg'
-    ],
-];
+if(isset($_POST['custom_date_selector']) == "1") {
+    $client_reporting = [
+        [
+            'project' => 'Diabetes Qualified',
+            'slug' => 'diabetes-qualified',
+            'ad_spend' => '$' . number_format(round($dq_ga_cost_cds, 2)),
+            'new_users' => number_format($dq_visitors_cds),
+            'conversions' => 'otw',
+            'cpa' => 'otw',
+            'status' => 'otw',
+            'actions' => 'otw',
+            'thumb' => get_template_directory_uri() . '/img/icons/dq.png'
+        ],
+        [
+            'project' => 'Langley Group Institute',
+            'slug' => 'langley-group-institute',
+            'ad_spend' => 'otw',
+            'new_users' => 'otw',
+            'conversions' => 'otw',
+            'cpa' => 'otw',
+            'status' => 'otw',
+            'actions' => 'otw',
+            'thumb' => get_template_directory_uri() . '/img/icons/lgi.jpeg'
+        ],
+    ];
+} else {
+    $client_reporting = [
+        [
+            'project' => 'Diabetes Qualified',
+            'slug' => 'diabetes-qualified',
+            'ad_spend' => '$' . number_format(round($dq_ga_cost_wtd, 2)),
+            'new_users' => number_format($dq_visitors_wtd),
+            'conversions' => 'otw',
+            'cpa' => 'otw',
+            'status' => 'otw',
+            'actions' => 'otw',
+            'thumb' => get_template_directory_uri() . '/img/icons/dq.png'
+        ],
+        [
+            'project' => 'Langley Group Institute',
+            'slug' => 'langley-group-institute',
+            'ad_spend' => 'otw',
+            'new_users' => 'otw',
+            'conversions' => 'otw',
+            'cpa' => 'otw',
+            'status' => 'otw',
+            'actions' => 'otw',
+            'thumb' => get_template_directory_uri() . '/img/icons/lgi.jpeg'
+        ],
+    ];
+}
+
 
 ?>
 
@@ -51,15 +79,13 @@ $client_reporting = [
     }
 </script>
 
-<?php if( isset($_POST['single_client_report_view']) != "1" ) { ?>
+<?php if( isset($_POST['single_client_report_view']) != "1" && isset($_POST['custom_date_selector']) != "1" ) { ?>
     <div class="main client-reporting-overview">
         <div class="greetings">
             <h2><?= get_the_title() ?></h2>
         </div>
         <div class="cure-filters">
-            <div class="date-notice">
-                GA4 API Connected!  |   FB API IN PROGRESS!
-            </div>
+            <div class="date-notice"></div>
             <div class="filters">
                 <div class="filter active">
                     <a href="javascript:void(0)">WTD</a>
@@ -68,7 +94,24 @@ $client_reporting = [
                     <a href="javascript:void(0)">MTD</a>
                 </div>
                 <div class="filter">
-                    <a href="javascript:void(0)">Custom</a>
+                    <a class="cds-filter" href="javascript:void(0)">Custom</a>
+                    <div class="custom-date-selector">
+                        <div class="cds-from">
+                            <label>From:</label>
+                            <input type="date" name="cds_from" value="">
+                        </div>
+                        <div class="cds-to">
+                            <label>To:</label>
+                            <input type="date" name="cds_to" value="">
+                        </div>
+                        <div class="cds-submit">
+                            <button class="cds-btn-submit">Apply</button>
+                            <button class="cds-btn-cancel">Cancel</button>
+                        </div>
+                        <div class="cds-error">
+                            <p style="color:red;"></p>
+                        </div>
+                    </div>
                 </div>
                 <div class="filter">
                     <a href="javascript:void(0)">Sort Client</a>
@@ -124,12 +167,20 @@ $client_reporting = [
         <form method="post" action="" class="hidden">
             <input type="hidden" name="client" value="">
             <input type="hidden" name="project_name" value="">
-            <input type="hidden" name="report_type" value="Channels">
+            <input type="hidden" name="report_type" value="Weekly Snapshot">
             <input type="hidden" name="single_client_report_view" value="1">
             <input type="submit">
         </form>
+
+        <!-- Custom Date Selector -->
+        <form id="custom_date_filter" method="post" action="" class="hidden">
+            <input type="hidden" name="start_date" value="">
+            <input type="hidden" name="end_date" value="">
+            <input type="hidden" name="custom_date_selector" value="1">
+            <input type="submit">
+        </form>
     </div>
-<?php } else { 
+<?php } else if(isset($_POST['custom_date_selector']) != "1") { 
     $client_view_selected = $_POST['project_name'];
     if ($client_view_selected == "Diabetes Qualified") {
         $client_icon = get_template_directory_uri() . '/img/icons/dq.png';
@@ -139,6 +190,111 @@ $client_reporting = [
 
     include(get_template_directory() . '/template-parts/single-client-reporting.php');
 } ?>
+
+<?php if(isset($_POST['custom_date_selector']) == "1" && isset($_POST['single_client_report_view']) != "1") { ?>
+    <div class="main client-reporting-overview">
+        <div class="greetings">
+            <h2><?= get_the_title() ?></h2>
+        </div>
+        <div class="cure-filters">
+            <div class="date-notice">
+                <?= $_POST['start_date'] . ' — ' . $_POST['end_date'] ?>
+            </div>
+            <div class="filters">
+                <div class="filter">
+                    <a href="javascript:void(0)">WTD</a>
+                </div>
+                <div class="filter">
+                    <a href="javascript:void(0)">MTD</a>
+                </div>
+                <div class="filter active">
+                    <a class="cds-filter" href="javascript:void(0)">Custom</a>
+                    <div class="custom-date-selector">
+                        <div class="cds-from">
+                            <label>From:</label>
+                            <input type="date" name="cds_from" value="">
+                        </div>
+                        <div class="cds-to">
+                            <label>To:</label>
+                            <input type="date" name="cds_to" value="">
+                        </div>
+                        <div class="cds-submit">
+                            <button class="cds-btn-submit">Apply</button>
+                            <button class="cds-btn-cancel">Cancel</button>
+                        </div>
+                        <div class="cds-error">
+                            <p style="color:red;"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter">
+                    <a href="javascript:void(0)">Sort Client</a>
+                </div>
+            </div>
+        </div>
+        <div class="cr-table">
+            <table>
+                <thead>
+                    <th>Client</th>
+                    <th>Ad Spend</th>
+                    <th>Visitors</th>
+                    <th>Conversions</th>
+                    <th>CPA</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <?php foreach($client_reporting as $cp) { ?>
+                        <tr>
+                            <td>
+                                <a href="javascript:void(0)" class="cure--project" data-client="<?= $cp['slug'] ?>">
+                                    <img src="<?= $cp['thumb'] ?>">
+                                    <span><?= $cp['project'] ?></span>
+                                </a>
+                            </td>
+                            <td class="td-ad-spend"><?= $cp['ad_spend'] ?></td>
+                            <td class="td-new-users"><?= $cp['new_users'] ?></td>
+                            <td><?= $cp['conversions'] ?></td>
+                            <td><?= $cp['cpa'] ?></td>
+                            <td><?= $cp['status'] ?></td>
+                            <td><?= $cp['actions'] ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="dev-notes">
+            <?php // include( get_template_directory() . '/api/google_ads.php'); ?>
+            <h3>Dev Notes</h3>
+            <ul>
+                <li>GA4 API Connected!</li>
+                <li>FB API hasn't been connected yet - unable to create an app on business manager. <strong>[Admin Access Required]</strong></li>
+                <li>Need to downgrade PHP version to be able to host this application.</li>
+                <li>LGI metrics (otw) - GA4 doesn't exist. <strong>[Need Approval to Create GA4]</strong></li>
+                <li>DQ metrics (otw) - GA4 eCommerce tracking needs to be enabled. Note: this will mean disabling eCommerce tracking on the current UA. <strong>[Need Approval]</strong></li>
+                <li>Vyro - on hold. <strong>[Need to add api generated user to GA4]</strong></li>
+                <li>SL - on hold.</li>
+            </ul>
+        </div>
+
+        <form method="post" action="" class="hidden">
+            <input type="hidden" name="client" value="">
+            <input type="hidden" name="project_name" value="">
+            <input type="hidden" name="report_type" value="Weekly Snapshot">
+            <input type="hidden" name="single_client_report_view" value="1">
+            <input type="submit">
+        </form>
+
+        <!-- Custom Date Selector -->
+        <form id="custom_date_filter" method="post" action="" class="hidden">
+            <input type="hidden" name="start_date" value="">
+            <input type="hidden" name="end_date" value="">
+            <input type="hidden" name="custom_date_selector" value="1">
+            <input type="submit">
+        </form>
+    </div>
+<?php } ?>
 
 <script>
     jQuery(document).ready(function($) {
