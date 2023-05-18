@@ -246,8 +246,26 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  let revisionComments = () => {
+    $(".wpd-comment-label span").each(function () {
+      let thisLabel = $(this);
+      if (thisLabel.text() == "Author") {
+        thisLabel.text("Assignee");
+        thisLabel.parent().css("background-color", "var(--cure-primary-color)");
+      }
+    });
+  };
+
+  $(".wc_comm_submit ").click(function () {
+    revisionComments();
+    setTimeout(() => {
+      revisionComments();
+    }, 600);
+  });
+
   downloadPDF();
   removeEmptyParas();
   modalSendReport();
   editReport();
+  revisionComments();
 });

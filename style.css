@@ -671,3 +671,10 @@ tr.channel-total td {
   max-width: 70%;
   border-radius: 5px;
 }
+
+/*--------------------------------------------------------------
+>>> Single Report Comment / Revision Functionality
+----------------------------------------------------------------*/
+#wpdcom .wpd-form-head {
+  display: none;
+}

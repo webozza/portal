@@ -32,7 +32,7 @@
     <!-- THE REPORT -->
     <?php the_content() ?>
     <!-- THE REVISIONS -->
-    
+    <?php comments_template( '', true ); ?>
 </div>
 
 <!-- MODALS -->
