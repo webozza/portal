@@ -318,11 +318,18 @@ jQuery(document).ready(function ($) {
   let profileImages = () => {
     let ronyChowdhury = `${tempDir}/img/users/rony-chowdhury.jpeg`;
     let shawnPeh = `${tempDir}/img/users/shawn-peh.jpeg`;
+    let leeMorgan = `${tempDir}/img/users/lee-morgan.jpeg`;
     $(".wpd-avatar img").each(function () {
       let imgAlt = $(this).attr("alt");
       if (imgAlt == "Rony Chowdhury") {
         $(this).attr("src", ronyChowdhury);
         $(this).attr("srcset", ronyChowdhury);
+      } else if (imgAlt == "Lee Morgan") {
+        $(this).attr("src", leeMorgan);
+        $(this).attr("srcset", leeMorgan);
+      } else if (imgAlt == "Shawn Peh") {
+        $(this).attr("src", shawnPeh);
+        $(this).attr("srcset", shawnPeh);
       }
     });
   };
