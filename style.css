@@ -671,6 +671,34 @@ tr.channel-total td {
   max-width: 70%;
   border-radius: 5px;
 }
+.single-reports .cure-report .inner > p {
+  display: none;
+}
+a.save--changes.btn-cure {
+  align-items: center;
+  position: relative;
+}
+a.save--changes.btn-cure img {
+  position: absolute;
+  left: -40px;
+  display: none;
+  max-height: 40px;
+}
+.edit-initiator {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.edit-initiator .save--changes {
+  position: relative;
+  right: 70px;
+  bottom: 10px;
+  display: none;
+}
+.single-reports .cure-report .inner.active .edit-initiator .save--changes {
+  display: flex;
+}
 
 /*--------------------------------------------------------------
 >>> Single Report Comment / Revision Functionality

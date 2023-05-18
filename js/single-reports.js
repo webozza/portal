@@ -2,6 +2,16 @@ jQuery(document).ready(function ($) {
   // Remove empty paragraphs
   let removeEmptyParas = () => {
     $(".report-header > p").remove();
+    $(".single-reports .cure-report .inner > p").remove();
+    $(".single-reports .cure-report .inner.active").removeClass("active");
+    let initiatorLength = $(".edit-initiator").length;
+    if (initiatorLength > 1) {
+      $(".edit-initiator:not(:last-child)").remove();
+    }
+    $(".edit--report img").attr("src", `${tempDir}/img/icons/edit.png`);
+    $(".edit-initiator br").remove();
+    $("a.save--changes.btn-cure img").hide();
+    $(".cr-insights-container li").attr("contenteditable", "false");
   };
 
   // Download PDF
@@ -194,16 +204,59 @@ jQuery(document).ready(function ($) {
 
   // Save Changes after Edit Functionality
   let saveChanges = () => {
-    // update dattabse
+    // Data to Push
+    const _reportData = {
+      content: "",
+    };
+
+    let fetchReport = async () => {
+      const url = `${cure.root}/wp-json/wp/v2/reports/${cure.report_id}`;
+      let res = await fetch(url, {
+        method: "PUT",
+        headers: {
+          "X-WP-Nonce": cure.nonce,
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(_reportData),
+      });
+      return await res.json();
+    };
+
+    // Post Report
+    let updateReport = async () => {
+      let updateReport = await fetchReport();
+      // Attach View Status Link
+      console.log("Report updated =>", updateReport);
+      $("a.save--changes.btn-cure img").hide();
+      $(".single-reports .cure-report .inner.active .edit--report img").trigger(
+        "click"
+      );
+    };
+
+    $(".save--changes").click(async function () {
+      $("a.save--changes.btn-cure img").show();
+      _reportData.content = $(".cure-report")[0].outerHTML;
+      updateReport();
+    });
   };
 
   // Edit Functionality
   let editReport = () => {
-    $(".cure-report .inner").append(`
-      <a class="edit--report" href="javascript:void(0)">
-        <img src="${tempDir}/img/icons/edit.png">
-      </a>
-    `);
+    let checkInitiator = $(".edit-initiator").length;
+    if (checkInitiator == 0) {
+      $(".cure-report .inner").append(`
+        <div class="edit-initiator">
+          <a class="edit--report" href="javascript:void(0)">
+            <img src="${tempDir}/img/icons/edit.png">
+          </a>
+          <a class="save--changes btn-cure" href="javascript:void(0)">
+            <img src="${tempDir}/img/live-update-loader.gif">
+            SAVE CHANGES
+          </a>
+        </div>
+      `);
+    }
+
     $(".edit--report img").click(function () {
       // enable and disable the edit state
       $(".cure-report .inner").toggleClass("active");
@@ -214,24 +267,16 @@ jQuery(document).ready(function ($) {
         `${tempDir}/img/icons/delete.png`
       );
       // enable save option
-      $(".cure-report .inner.active .edit--report").prepend(`
-        <a class="save--changes btn-cure" href="javascript:void(0)">SAVE CHANGES</a>
-      `);
-
-      $(".cure-report .inner.active .edit--report .save--changes").click(
-        function () {
-          saveChanges();
-        }
-      );
+      $(".cure-report .inner.active .edit--report .save--changes")
+        .show()
+        .css("display", "flex");
 
       // enable edit state
       $(".cure-report .inner:not(.active) .edit--report img").attr(
         "src",
         `${tempDir}/img/icons/edit.png`
       );
-      $(
-        ".cure-report .inner:not(.active) .edit--report .save--changes"
-      ).remove();
+      $(".cure-report .inner:not(.active) .edit--report .save--changes").hide();
 
       // add and remove the edit insights and actions icon
       $(
@@ -243,6 +288,7 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  // Revisions Functionality
   let revisionComments = () => {
     $(".wpd-comment-label span").each(function () {
       let thisLabel = $(this);
@@ -263,6 +309,8 @@ jQuery(document).ready(function ($) {
   downloadPDF();
   removeEmptyParas();
   modalSendReport();
-  editReport();
   revisionComments();
+
+  editReport();
+  saveChanges();
 });
