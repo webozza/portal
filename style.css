@@ -628,3 +628,46 @@ tr.channel-total td {
   top: 40px;
   left: -33.33%;
 }
+
+/*--------------------------------------------------------------
+>>> Single Report Edit Functionality
+----------------------------------------------------------------*/
+.single-reports .cure-report .inner {
+  position: relative;
+}
+.single-reports .cure-report .inner.active {
+  box-shadow: 0 0 25px var(--cure-primary-color);
+}
+.edit--report img {
+  max-height: 32px;
+  transition: all 0.3s ease;
+}
+.edit--report img:hover {
+  transform: scale(1.2);
+}
+.edit--report {
+  position: absolute;
+  right: 25px;
+  bottom: 15px;
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+.edit-insight {
+  position: relative;
+}
+.edit-insight img {
+  max-height: 18px;
+}
+.new-field-group {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  left: 30px;
+  top: -6px;
+}
+.cr-insights-container li {
+  max-width: 70%;
+  border-radius: 5px;
+}

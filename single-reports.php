@@ -31,6 +31,7 @@
     </div>
     <!-- THE REPORT -->
     <?php the_content() ?>
+    <!-- THE REVISIONS -->
     
 </div>
 

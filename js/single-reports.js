@@ -195,7 +195,59 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  // Save Changes after Edit Functionality
+  let saveChanges = () => {
+    // update dattabse
+  };
+
+  // Edit Functionality
+  let editReport = () => {
+    $(".cure-report .inner").append(`
+      <a class="edit--report" href="javascript:void(0)">
+        <img src="${tempDir}/img/icons/edit.png">
+      </a>
+    `);
+    $(".edit--report img").click(function () {
+      // enable and disable the edit state
+      $(".cure-report .inner").toggleClass("active");
+
+      // disable edit state
+      $(".cure-report .inner.active .edit--report img").attr(
+        "src",
+        `${tempDir}/img/icons/delete.png`
+      );
+      // enable save option
+      $(".cure-report .inner.active .edit--report").prepend(`
+        <a class="save--changes btn-cure" href="javascript:void(0)">SAVE CHANGES</a>
+      `);
+
+      $(".cure-report .inner.active .edit--report .save--changes").click(
+        function () {
+          saveChanges();
+        }
+      );
+
+      // enable edit state
+      $(".cure-report .inner:not(.active) .edit--report img").attr(
+        "src",
+        `${tempDir}/img/icons/edit.png`
+      );
+      $(
+        ".cure-report .inner:not(.active) .edit--report .save--changes"
+      ).remove();
+
+      // add and remove the edit insights and actions icon
+      $(
+        ".cure-report .inner.active .cr-insights li, .cure-report .inner.active .cr-actions li"
+      ).attr("contentEditable", "true");
+      $(
+        ".cure-report .inner:not('.active') .cr-insights li, .cure-report .inner:not('.active') .cr-actions li"
+      ).attr("contentEditable", "false");
+    });
+  };
+
   downloadPDF();
   removeEmptyParas();
   modalSendReport();
+  editReport();
 });
