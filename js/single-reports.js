@@ -299,18 +299,41 @@ jQuery(document).ready(function ($) {
     });
   };
 
-  $(".wc_comm_submit ").click(function () {
-    revisionComments();
-    setTimeout(() => {
+  let runOnComment = () => {
+    $(".wc_comm_submit ").click(function () {
       revisionComments();
-    }, 600);
+      setTimeout(() => {
+        revisionComments();
+        profileImages();
+      }, 600);
+    });
+  };
+
+  $(".wpd-reply-button").click(function () {
+    setTimeout(() => {
+      runOnComment();
+    }, 1000);
   });
 
+  let profileImages = () => {
+    let ronyChowdhury = `${tempDir}/img/users/rony-chowdhury.jpeg`;
+    let shawnPeh = `${tempDir}/img/users/shawn-peh.jpeg`;
+    $(".wpd-avatar img").each(function () {
+      let imgAlt = $(this).attr("alt");
+      if (imgAlt == "Rony Chowdhury") {
+        $(this).attr("src", ronyChowdhury);
+        $(this).attr("srcset", ronyChowdhury);
+      }
+    });
+  };
+
+  // RUN THE INITIAL FUNCTIONS
   downloadPDF();
   removeEmptyParas();
   modalSendReport();
   revisionComments();
-
   editReport();
   saveChanges();
+  profileImages();
+  runOnComment();
 });

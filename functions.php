@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.23' );
+	define( '_S_VERSION', '1.0.24' );
 }
 
 /**
@@ -276,3 +276,8 @@ function send_client_report() {
 	}
 }
 add_action('init','send_client_report');
+
+/**
+ * DISPLAY FIRST AND LAST NAME FOR REVISIONS
+ */
+
