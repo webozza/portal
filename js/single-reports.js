@@ -1,10 +1,7 @@
 jQuery(document).ready(function ($) {
   // Remove empty paragraphs
   let removeEmptyParas = () => {
-    let paras = $("p");
-    if (paras.text() == "") {
-      paras.remove();
-    }
+    $(".report-header > p").remove();
   };
 
   // Download PDF
