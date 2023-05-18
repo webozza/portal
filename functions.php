@@ -140,41 +140,33 @@ add_action( 'widgets_init', 'cure_portal_widgets_init' );
 function cure_portal_scripts() {
 	wp_enqueue_style( 'cure-portal-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'cure-portal-style', 'rtl', 'replace' );
-	
+
+	// Libraries - Global
+	wp_enqueue_style( 'data-table', get_template_directory_uri() . '/css/datatables.min.css' );
+	wp_enqueue_script( 'data-table-script', get_template_directory_uri() . '/js/datatables.min.js', array('jquery') );
+	wp_enqueue_script( "jspdf", get_template_directory_uri() . '/js/jspdf.min.js', array('jquery') );
+	wp_enqueue_script( "autotable", get_template_directory_uri() . '/js/autotable.min.js', array('jquery') );
+
+	// Scripts - Global
 	wp_enqueue_script( 'cure-portal-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-
 	wp_enqueue_script( 'global', get_template_directory_uri() . '/js/global.js', array('jquery'), _S_VERSION, true );
-
+	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
+	// Scripts - Client Reportin Section
 	if( is_page('client-reporting') ) {
-
-		// LIBRARIES
-		wp_enqueue_style( 'data-table', get_template_directory_uri() . '/css/datatables.min.css' );
-		wp_enqueue_script( "jspdf", get_template_directory_uri() . '/js/jspdf.min.js', array('jquery') );
-		wp_enqueue_script( 'data-table-script', get_template_directory_uri() . '/js/datatables.min.js', array('jquery') );
-		wp_enqueue_script( "autotable", get_template_directory_uri() . '/js/autotable.min.js', array('jquery') );
-
-		// SCRIPTS
 		wp_enqueue_script( "client-reporting", get_template_directory_uri() . '/js/client-reporting.js', array('jquery'), _S_VERSION, true );
-		
 	}
 
+	// Scripts - Approvals Section
 	if( is_page('approvals') ) {
-		// SCRIPTS
 		wp_enqueue_script( "approvals", get_template_directory_uri() . '/js/approvals.js', array('jquery'), _S_VERSION, true );
 	}
 
+	// Scripts - Single Reports CPT
 	if( is_singular('reports') ) {
-
-		// LIBRARIES
-		wp_enqueue_script( "jspdf", get_template_directory_uri() . '/js/jspdf.min.js', array('jquery') );
-		wp_enqueue_script( 'data-table-script', get_template_directory_uri() . '/js/datatables.min.js', array('jquery') );
-		wp_enqueue_script( "autotable", get_template_directory_uri() . '/js/autotable.min.js', array('jquery') );
-
-		// SCRIPTS
 		wp_enqueue_script( "single-reports", get_template_directory_uri() . '/js/single-reports.js', array('jquery'), _S_VERSION, true );
 	}
 }

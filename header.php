@@ -9,7 +9,14 @@
  * @package Cure_Portal
  */
 
+	$user_id = get_current_user_id();
+	$user_first_name = get_user_meta( $user_id, 'first_name', true );
+	$user_last_name = get_user_meta( $user_id, 'last_name', true );
+	$user = wp_get_current_user();
+    $roles = ( array ) $user->roles;
+	$role = $roles[0];
 ?>
+
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -63,35 +70,57 @@
 					</a>
 				</div>
 			</div>
-			<!-- #site-navigation -->
-			<nav id="site-navigation" class="main-navigation">
-				<ul class="menu">
-					<li class="<?php if($url == "portal" || $url == "") {echo 'active';} ?>">
-						<a href="<?= home_url() ?>">
-							<img src="<?php if($url == "portal" || $url == "") {echo get_template_directory_uri() . '/img/icons/dashboard-active.png';} else {echo get_template_directory_uri() . '/img/icons/dashboard.png';} ?>">
-							Dashboard
-						</a>
-					</li>
-					<li class="<?php if($url == "client-reporting" ) {echo 'active';} ?>">
-						<a href="<?= home_url() . '/client-reporting' ?>">
-							<img src="<?php if($url == "client-reporting") {echo get_template_directory_uri() . '/img/icons/client-reporting-active.png';} else {echo get_template_directory_uri() . '/img/icons/client-reporting.png';} ?>">
-							Client Reporting
-						</a>
-					</li>
-					<!-- <li class="<?php if($url == "checklists" ) {echo 'active';} ?>">
-						<a href="<?= home_url() . '/checklists' ?>">
-							<img src="<?php if($url == "checklists") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
-							Checklists
-						</a>
-					</li> -->
-					<li class="<?php if($url == "approvals" ) {echo 'active';} ?>">
-						<a href="<?= home_url() . '/approvals' ?>">
-							<img src="<?php if($url == "approvals") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
-							Approvals
-						</a>
-					</li>
-				</ul>
-			</nav>
+			<div class="nav-parent">
+				<!-- Site Navigation -->
+				<nav id="site-navigation" class="main-navigation">
+					<ul class="menu">
+						<li class="<?php if($url == "portal" || $url == "") {echo 'active';} ?>">
+							<a href="<?= home_url() ?>">
+								<img src="<?php if($url == "portal" || $url == "") {echo get_template_directory_uri() . '/img/icons/dashboard-active.png';} else {echo get_template_directory_uri() . '/img/icons/dashboard.png';} ?>">
+								Dashboard
+							</a>
+						</li>
+						<li class="<?php if($url == "client-reporting" ) {echo 'active';} ?>">
+							<a href="<?= home_url() . '/client-reporting' ?>">
+								<img src="<?php if($url == "client-reporting") {echo get_template_directory_uri() . '/img/icons/client-reporting-active.png';} else {echo get_template_directory_uri() . '/img/icons/client-reporting.png';} ?>">
+								Client Reporting
+							</a>
+						</li>
+						<!-- <li class="<?php if($url == "checklists" ) {echo 'active';} ?>">
+							<a href="<?= home_url() . '/checklists' ?>">
+								<img src="<?php if($url == "checklists") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
+								Checklists
+							</a>
+						</li> -->
+						<li class="<?php if($url == "approvals" ) {echo 'active';} ?>">
+							<a href="<?= home_url() . '/approvals' ?>">
+								<img src="<?php if($url == "approvals") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
+								Approvals
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<!-- Settings -->
+				<nav id="site-settings" class="main-settings">
+					<ul class="menu">
+						<li class="">
+							<a href="javascript:void(0)">
+								<img src="<?= get_template_directory_uri() . '/img/icons/settings.png' ?>">
+								Account
+							</a>
+						</li>
+						<li class="cure-user-role">
+							<a href="javascript:void(0)">
+								<img class="user-profile-img" src="">
+								<div class="inner">
+									<div class="name"><?= $user_first_name . ' ' . $user_last_name ?></div>
+									<div class="role"><?= $role ?></div>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
 		</div>
 
-	</header><!-- #masthead -->
+	</header>=

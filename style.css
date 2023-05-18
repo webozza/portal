@@ -197,6 +197,10 @@ td {
 /*--------------------------------------------------------------
 >>> Header:
 ----------------------------------------------------------------*/
+.greetings img {
+  border-radius: 50%;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 20%);
+}
 .site-header {
   min-width: 240px;
   box-shadow: inset -1px 0px 0px #f1f1f1;
@@ -211,7 +215,8 @@ td {
   margin: auto;
   padding: 16px 0 28px 0;
 }
-.main-navigation .menu li {
+.main-navigation .menu li,
+.main-settings .menu li {
   padding: 12px 15px;
   position: relative;
   transition: all 0.2s ease;
@@ -228,26 +233,35 @@ td {
   top: 0;
   right: 0;
 }
-.main-navigation .menu li a {
+.main-navigation .menu li a,
+.main-settings .menu li a {
   color: #4f5b67;
   text-decoration: none;
 }
 .main-navigation .menu li.active a {
   color: #72340f;
 }
-.main-navigation .menu {
+.main-navigation .menu,
+.main-settings .menu {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.main-navigation .menu li a {
+.main-navigation .menu li a,
+.main-settings .menu li a {
   display: flex;
   align-items: center;
   font-family: var(--cure-font);
   column-gap: 15px;
 }
-.main-navigation .menu li a img {
+.main-navigation .menu li a img,
+.main-settings .menu li a img {
   width: 24px;
+}
+.nav-parent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 /*--------------------------------------------------------------
