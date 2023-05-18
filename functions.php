@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.25' );
+	define( '_S_VERSION', '1.0.26' );
 }
 
 /**
@@ -142,6 +142,8 @@ function cure_portal_scripts() {
 	wp_style_add_data( 'cure-portal-style', 'rtl', 'replace' );
 	
 	wp_enqueue_script( 'cure-portal-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+
+	wp_enqueue_script( 'global', get_template_directory_uri() . '/js/global.js', array('jquery'), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

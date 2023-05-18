@@ -54,41 +54,44 @@
 
 	<header id="masthead" class="site-header">
 
-		<!-- Portal Branding -->
-		<div class="site-branding">
-			<div class="cure-logo">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<img src="<?= get_template_directory_uri() . '/img/logo-dark.svg' ?>">
-				</a>
+		<div class="cure-sticky">
+			<!-- Portal Branding -->
+			<div class="site-branding">
+				<div class="cure-logo">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+						<img src="<?= get_template_directory_uri() . '/img/logo-dark.svg' ?>">
+					</a>
+				</div>
 			</div>
+			<!-- #site-navigation -->
+			<nav id="site-navigation" class="main-navigation">
+				<ul class="menu">
+					<li class="<?php if($url == "portal" || $url == "") {echo 'active';} ?>">
+						<a href="<?= home_url() ?>">
+							<img src="<?php if($url == "portal" || $url == "") {echo get_template_directory_uri() . '/img/icons/dashboard-active.png';} else {echo get_template_directory_uri() . '/img/icons/dashboard.png';} ?>">
+							Dashboard
+						</a>
+					</li>
+					<li class="<?php if($url == "client-reporting" ) {echo 'active';} ?>">
+						<a href="<?= home_url() . '/client-reporting' ?>">
+							<img src="<?php if($url == "client-reporting") {echo get_template_directory_uri() . '/img/icons/client-reporting-active.png';} else {echo get_template_directory_uri() . '/img/icons/client-reporting.png';} ?>">
+							Client Reporting
+						</a>
+					</li>
+					<!-- <li class="<?php if($url == "checklists" ) {echo 'active';} ?>">
+						<a href="<?= home_url() . '/checklists' ?>">
+							<img src="<?php if($url == "checklists") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
+							Checklists
+						</a>
+					</li> -->
+					<li class="<?php if($url == "approvals" ) {echo 'active';} ?>">
+						<a href="<?= home_url() . '/approvals' ?>">
+							<img src="<?php if($url == "approvals") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
+							Approvals
+						</a>
+					</li>
+				</ul>
+			</nav>
 		</div>
 
-		<nav id="site-navigation" class="main-navigation">
-			<ul class="menu">
-				<li class="<?php if($url == "portal" || $url == "") {echo 'active';} ?>">
-					<a href="<?= home_url() ?>">
-						<img src="<?php if($url == "portal" || $url == "") {echo get_template_directory_uri() . '/img/icons/dashboard-active.png';} else {echo get_template_directory_uri() . '/img/icons/dashboard.png';} ?>">
-						Dashboard
-					</a>
-				</li>
-				<li class="<?php if($url == "client-reporting" ) {echo 'active';} ?>">
-					<a href="<?= home_url() . '/client-reporting' ?>">
-						<img src="<?php if($url == "client-reporting") {echo get_template_directory_uri() . '/img/icons/client-reporting-active.png';} else {echo get_template_directory_uri() . '/img/icons/client-reporting.png';} ?>">
-						Client Reporting
-					</a>
-				</li>
-				<!-- <li class="<?php if($url == "checklists" ) {echo 'active';} ?>">
-					<a href="<?= home_url() . '/checklists' ?>">
-						<img src="<?php if($url == "checklists") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
-						Checklists
-					</a>
-				</li> -->
-				<li class="<?php if($url == "approvals" ) {echo 'active';} ?>">
-					<a href="<?= home_url() . '/approvals' ?>">
-						<img src="<?php if($url == "approvals") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
-						Approvals
-					</a>
-				</li>
-			</ul>
-		</nav><!-- #site-navigation -->
 	</header><!-- #masthead -->
