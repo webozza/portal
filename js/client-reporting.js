@@ -335,6 +335,26 @@ jQuery(document).ready(function ($) {
       if (!$(this).hasClass("cds-filter")) {
         $(".custom-date-selector").hide();
       }
+
+      // Project & Date Filter
+      $(".client-reporting-overview .cure--project").each(function () {
+        let thisProject = $(this);
+        let client = thisProject.find("span").text();
+        let ad_spend = thisProject.parent().parent().find(".td-ad-spend");
+        let visitors = thisProject.parent().parent().find(".td-new-users");
+        if (presetDateSelected == "WTD" && client == "Diabetes Qualified") {
+          // WTD & DQ
+          ad_spend.text(metricsByClient.diabetes_qualified.ad_spend_wtd);
+          visitors.text(metricsByClient.diabetes_qualified.new_users_wtd);
+        } else if (
+          presetDateSelected == "MTD" &&
+          client == "Diabetes Qualified"
+        ) {
+          // MTD & DQ
+          ad_spend.text(metricsByClient.diabetes_qualified.ad_spend_mtd);
+          visitors.text(metricsByClient.diabetes_qualified.new_users_mtd);
+        }
+      });
     });
 
     // If cancel button is clicked on custom date filter
@@ -363,26 +383,6 @@ jQuery(document).ready(function ($) {
       let getYear = cdsFrom.slice(0, 4);
       let newDate = `${getYear}-${getMonth}-${getDay}`;
       $('form [name="end_date"]').val(newDate);
-
-      // Project & Date Filter
-      $(".client-reporting-overview .cure--project").each(function () {
-        let thisProject = $(this);
-        let client = thisProject.find("span").text();
-        let ad_spend = thisProject.parent().parent().find(".td-ad-spend");
-        let visitors = thisProject.parent().parent().find(".td-new-users");
-        if (presetDateSelected == "WTD" && client == "Diabetes Qualified") {
-          // WTD & DQ
-          ad_spend.text(metricsByClient.diabetes_qualified.ad_spend_wtd);
-          visitors.text(metricsByClient.diabetes_qualified.new_users_wtd);
-        } else if (
-          presetDateSelected == "MTD" &&
-          client == "Diabetes Qualified"
-        ) {
-          // MTD & DQ
-          ad_spend.text(metricsByClient.diabetes_qualified.ad_spend_mtd);
-          visitors.text(metricsByClient.diabetes_qualified.new_users_mtd);
-        }
-      });
     });
 
     // Apply the custom date filter
