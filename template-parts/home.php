@@ -20,16 +20,16 @@ $user_last_name = get_user_meta( $user_id, 'last_name', true ); ?>
         // Calculate Greeting
         let currentTime = new Date();
         let time = currentTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: false });
+        console.log(time);
         let greeting;
-        if(time >= "05:00" && time <= "11.55") {
+        if(time >= "05:00") {
             greeting = "Good Morning, <?= $user_first_name ?>!";
-        } else if(time >= "12:00" && time <= "16:59") {
+        } else if(time >= "12:00") {
             greeting = "Good Afternoon, <?= $user_first_name ?>!";
-        } else {
+        } else if(time >= "17:00") {
             greeting = "Good Evening, <?= $user_first_name ?>!";
         }
         $('.greetings h2').text(greeting);
-
     });
 </script>
 

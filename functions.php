@@ -149,7 +149,10 @@ function cure_portal_scripts() {
 
 	// Scripts - Global
 	wp_enqueue_script( 'cure-portal-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'global', get_template_directory_uri() . '/js/global.js', array('jquery'), _S_VERSION, true );
+	
+	if(is_user_logged_in()) {
+		wp_enqueue_script( 'global', get_template_directory_uri() . '/js/global.js', array('jquery'), _S_VERSION, true );
+	}
 	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -272,6 +275,10 @@ function send_client_report() {
 add_action('init','send_client_report');
 
 /**
- * DISPLAY FIRST AND LAST NAME FOR REVISIONS
+ * Redirection after logout
  */
-
+add_action('wp_logout','auto_redirect_external_after_logout');
+function auto_redirect_external_after_logout(){
+  wp_redirect( get_site_url() . '/login' );
+  exit();
+}

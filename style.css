@@ -75,7 +75,8 @@ a {
 }
 
 th,
-td {
+td,
+div {
   font-family: var(--cure-font);
 }
 
@@ -128,6 +129,9 @@ td {
   transition: all 0.3s ease;
   background-color: #fafafa;
   color: #0c1116;
+}
+.cure-p-20 {
+  padding: 20px 20px;
 }
 
 /*--------------------------------------------------------------
@@ -197,9 +201,16 @@ td {
 /*--------------------------------------------------------------
 >>> Header:
 ----------------------------------------------------------------*/
+.nav-parent {
+  height: 88vh;
+}
+.greetings.has-options {
+  justify-content: space-between;
+}
 .greetings img {
+  border: 2px solid #fef5dc;
   border-radius: 50%;
-  box-shadow: 0 0 7px rgba(0, 0, 0, 20%);
+  background-color: #c4c4c4;
 }
 .site-header {
   min-width: 240px;
@@ -262,6 +273,21 @@ td {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.main-navigation li:hover {
+  background-color: #fffbef;
+}
+.main-navigation li:hover:after {
+  content: "";
+  width: 4px;
+  height: 100%;
+  background-color: var(--cure-primary-color);
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.main-navigation li:hover a {
+  color: #72340f;
 }
 
 /*--------------------------------------------------------------
@@ -721,4 +747,23 @@ a.save--changes.btn-cure img {
 ----------------------------------------------------------------*/
 #wpdcom .wpd-form-head {
   display: none;
+}
+.cure-user-role .role {
+  font-size: 12px;
+  text-transform: capitalize;
+  font-weight: 300;
+}
+.cure-user-role img:not(.logout-icon) {
+  border: 2px solid #fef5dc;
+  border-radius: 50%;
+  background-color: #c4c4c4;
+}
+.cure-user-role a {
+  column-gap: 10px !important;
+}
+.cure-user-role {
+  padding: 24px 15px !important;
+  box-shadow: inset 0px 1px 0px #f1f1f1;
+  display: flex;
+  justify-content: space-between;
 }

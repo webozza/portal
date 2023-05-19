@@ -14,7 +14,7 @@ get_header(); ?>
     $cr = new WP_Query($client_reports); 
 ?>
 
-<div class="main">
+<div class="main approvals">
     <div class="greetings">
         <h2>Approvals</h2>
     </div>

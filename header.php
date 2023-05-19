@@ -9,12 +9,14 @@
  * @package Cure_Portal
  */
 
-	$user_id = get_current_user_id();
-	$user_first_name = get_user_meta( $user_id, 'first_name', true );
-	$user_last_name = get_user_meta( $user_id, 'last_name', true );
-	$user = wp_get_current_user();
-    $roles = ( array ) $user->roles;
-	$role = $roles[0];
+	if(is_user_logged_in()) {
+		$user_id = get_current_user_id();
+		$user_first_name = get_user_meta( $user_id, 'first_name', true );
+		$user_last_name = get_user_meta( $user_id, 'last_name', true );
+		$user = wp_get_current_user();
+		$roles = ( array ) $user->roles;
+		$role = $roles[0];
+	}
 ?>
 
 <!doctype html>
@@ -39,6 +41,7 @@
 				root: "<?= get_site_url() ?>",
 				nonce: "<?= wp_create_nonce( 'wp_rest' ) ?>",
 				current_user_id: "<?= get_current_user_id() ?>",
+				themeDir: "<?= get_template_directory_uri() ?>",
 			}
 		</script>
 	<?php } ?>
@@ -75,16 +78,10 @@
 				<nav id="site-navigation" class="main-navigation">
 					<ul class="menu">
 						<li class="<?php if($url == "portal" || $url == "") {echo 'active';} ?>">
-							<a href="<?= home_url() ?>">
-								<img src="<?php if($url == "portal" || $url == "") {echo get_template_directory_uri() . '/img/icons/dashboard-active.png';} else {echo get_template_directory_uri() . '/img/icons/dashboard.png';} ?>">
-								Dashboard
-							</a>
+							<a href="<?= home_url() ?>"><img src="<?php if($url == "portal" || $url == "") {echo get_template_directory_uri() . '/img/icons/dashboard-active.png';} else {echo get_template_directory_uri() . '/img/icons/dashboard.png';} ?>">Dashboard</a>
 						</li>
 						<li class="<?php if($url == "client-reporting" ) {echo 'active';} ?>">
-							<a href="<?= home_url() . '/client-reporting' ?>">
-								<img src="<?php if($url == "client-reporting") {echo get_template_directory_uri() . '/img/icons/client-reporting-active.png';} else {echo get_template_directory_uri() . '/img/icons/client-reporting.png';} ?>">
-								Client Reporting
-							</a>
+							<a href="<?= home_url() . '/client-reporting' ?>"><img src="<?php if($url == "client-reporting") {echo get_template_directory_uri() . '/img/icons/client-reporting-active.png';} else {echo get_template_directory_uri() . '/img/icons/client-reporting.png';} ?>">Client Reporting</a>
 						</li>
 						<!-- <li class="<?php if($url == "checklists" ) {echo 'active';} ?>">
 							<a href="<?= home_url() . '/checklists' ?>">
@@ -93,10 +90,10 @@
 							</a>
 						</li> -->
 						<li class="<?php if($url == "approvals" ) {echo 'active';} ?>">
-							<a href="<?= home_url() . '/approvals' ?>">
-								<img src="<?php if($url == "approvals") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
-								Approvals
-							</a>
+							<a href="<?= home_url() . '/approvals' ?>"><img src="<?php if($url == "approvals") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">Approvals</a>
+						</li>
+						<li class="<?php if($url == "briefs" ) {echo 'active';} ?>">
+							<a href="<?= home_url() . '/briefs' ?>"><img src="<?php if($url == "briefs") {echo get_template_directory_uri() . '/img/icons/briefing-active.png';} else {echo get_template_directory_uri() . '/img/icons/briefing.png';} ?>">Project Briefs</a>
 						</li>
 					</ul>
 				</nav>
@@ -104,7 +101,7 @@
 				<nav id="site-settings" class="main-settings">
 					<ul class="menu">
 						<li class="">
-							<a href="javascript:void(0)">
+							<a href="<?= get_site_url() . '/settings' ?>">
 								<img src="<?= get_template_directory_uri() . '/img/icons/settings.png' ?>">
 								Account
 							</a>
@@ -116,6 +113,9 @@
 									<div class="name"><?= $user_first_name . ' ' . $user_last_name ?></div>
 									<div class="role"><?= $role ?></div>
 								</div>
+							</a>
+							<a class="logout" href="<?= wp_logout_url(); ?>">
+								<img class="logout-icon" src="<?= get_template_directory_uri() . '/img/icons/logout.png' ?>">
 							</a>
 						</li>
 					</ul>
