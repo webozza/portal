@@ -20,7 +20,7 @@ get_header(); ?>
     </div>
     <div class="cure-filters">
         <div class="date-notice">
-            BOSSO!
+            All kinds of approvals
         </div>
         <div class="filters">
             <div class="filter">
@@ -37,11 +37,13 @@ get_header(); ?>
             </div>
         </div>
     </div>
+
+    <!-- Client Reports -->
     <div class="cr-table">
         <table>
             <thead>
                 <tr>
-                    <th></th>
+                    <th>Client Reports</th>
                     <th>Sent by</th>
                     <th>Client</th>
                     <th>ID</th>
@@ -92,6 +94,23 @@ get_header(); ?>
                 <?php endwhile; ?>
                 <?php wp_reset_postdata(); ?>
             <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Client Overview -->
+    <div class="cr-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Client Overview</th>
+                    <th>Date created</th>
+                    <th>Project name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr></tr>
             </tbody>
         </table>
     </div>

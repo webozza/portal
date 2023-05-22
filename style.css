@@ -133,6 +133,9 @@ div {
 .cure-p-20 {
   padding: 20px 20px;
 }
+.no-hover {
+  column-gap: 8px;
+}
 
 /*--------------------------------------------------------------
 >>> LOGIN PAGE:
@@ -314,6 +317,7 @@ div {
   padding: 20px 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .date-notice {
   color: #717d8a;
@@ -331,8 +335,8 @@ div {
   font-size: 14px;
   transition: all 0.3s ease;
 }
-.filter.active a,
-.filter a:hover {
+.filter.active a:not(.no-hover),
+.filter a:not(.no-hover):hover {
   background-color: var(--cure-primary-color);
   color: #fff;
 }
@@ -753,6 +757,10 @@ a.save--changes.btn-cure img {
   text-transform: capitalize;
   font-weight: 300;
 }
+
+/*--------------------------------------------------------------
+>>> Navigation Footer
+----------------------------------------------------------------*/
 .cure-user-role img:not(.logout-icon) {
   border: 2px solid #fef5dc;
   border-radius: 50%;
@@ -766,4 +774,59 @@ a.save--changes.btn-cure img {
   box-shadow: inset 0px 1px 0px #f1f1f1;
   display: flex;
   justify-content: space-between;
+}
+.logout-icon {
+  opacity: 0.4;
+  transition: all 0.2s ease;
+}
+.logout-icon:hover {
+  opacity: 1;
+}
+
+/*--------------------------------------------------------------
+>>> Project Briefs aka Briefing Section
+----------------------------------------------------------------*/
+.project-briefs .filter {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.project-briefs .filter a {
+  display: flex;
+  align-items: center;
+}
+.project-briefs .cure-field-group {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  position: relative;
+}
+.search-brief .cure-field-group {
+  border: 1px solid #eaecee;
+  border-radius: 32px;
+  padding: 10px;
+}
+.search-brief input {
+  border: none;
+}
+.search-brief input:focus {
+  border: none;
+  outline: none;
+}
+.search-brief img {
+  max-height: 15px;
+}
+.project-briefs .filter:not(.cure-search) img {
+  max-height: 22px;
+}
+.cure-modal.new-brief form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+.cure-field-group.hidden {
+  display: none;
+}
+.main.project-briefs .cr-table {
+  margin-bottom: 40px;
 }

@@ -71,4 +71,27 @@ jQuery(document).ready(function ($) {
       window.location.href = logoutLink;
     }
   });
+
+  // MODAL TRIGGER
+  $(".trigger-modal").click(function () {
+    let modalTrigger = $(this).data("modal");
+    $(".cure-modal").each(function () {
+      let thisModal = $(this);
+      let modal = thisModal.data("modal");
+      if (modal == modalTrigger) {
+        thisModal.fadeIn().css("display", "flex");
+      }
+    });
+  });
+
+  // MODAL CLOSE
+  $(".cure-modal .btn-close").click(function () {
+    $(this).parent().parent().parent().parent().hide();
+  });
+  $(".cure-modal .close-modal").click(function () {
+    $(this).parent().parent().parent().hide();
+  });
+
+  // Initiate Select2
+  $(".has-select2").select2();
 });

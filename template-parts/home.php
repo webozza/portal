@@ -13,6 +13,11 @@ $user_last_name = get_user_meta( $user_id, 'last_name', true ); ?>
         <img class="user-profile-img" src="<?= get_template_directory_uri() . '/img/icons/user.png'?>">
         <h2></h2>
     </div>
+    <div class="cure-filters">
+        <div class="date-notice">
+            COMING SOON!
+        </div>
+    </div>
 </div>
 <script>
     jQuery(document).ready(function($) {
