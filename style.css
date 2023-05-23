@@ -136,6 +136,10 @@ div {
 .no-hover {
   column-gap: 8px;
 }
+.error-msg {
+  display: none;
+  color: red;
+}
 
 /*--------------------------------------------------------------
 >>> LOGIN PAGE:

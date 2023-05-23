@@ -5,10 +5,11 @@
             <a class="close-modal" href="javascript:void(0)"><img src="<?= get_template_directory_uri() . '/img/icons/close.png' ?>"></a>
         </div>
         <div class="cure-modal-body">
-            <form id="client-overview" method="post" action="">
+            <form id="client-overview" method="GET" action="">
                 <div class="cure-field-group">
                     <label>Client name</label>
-                    <input type="text" name="co_client_name" value="1">
+                    <input type="text" name="co_client_name" value="">
+                    <p class="error-msg">Please enter client name</p>
                 </div>
                 <div class="cure-field-group hidden">
                     <input type="hidden" name="co_date_created" value="">
