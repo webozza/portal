@@ -520,6 +520,7 @@ tr.channel-total td {
   align-items: center;
   justify-content: center;
   background-color: rgba(12, 17, 22, 20%);
+  z-index: 999;
 }
 .cure-modal .inner {
   min-width: 451px;
@@ -626,6 +627,9 @@ tr.channel-total td {
 /*--------------------------------------------------------------
 >>> Approvals Section
 ----------------------------------------------------------------*/
+.main.approvals .cr-table {
+  margin-bottom: 40px;
+}
 .approval-row td {
   white-space: nowrap;
 }
@@ -832,5 +836,68 @@ a.save--changes.btn-cure img {
   display: none;
 }
 .main.project-briefs .cr-table {
+  margin-bottom: 40px;
+}
+
+/*--------------------------------------------------------------
+>>> Create Client Overview
+----------------------------------------------------------------*/
+.create-client-overview .cure-filters {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.client-overview-info ul {
+  list-style: none;
+  padding-left: 0;
+  opacity: 0.5;
+}
+.client-overview-fields {
+  width: 700px;
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+}
+.client-overview-fields .cure-field-group {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cure-primary-color);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+.client-overview-fields .cure-field-group > h3 {
+  margin-bottom: 5px;
+}
+.client-overview-fields .swiper-wrapper {
+  display: flex;
+}
+.swiper-slide {
+  visibility: hidden;
+}
+.swiper-slide.swiper-slide-active {
+  visibility: visible;
+}
+.cure-slide-controls > div {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.cure-prev-slide {
+  display: none;
+}
+.cure-next-slide,
+.btn-co-approval {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+  transition: all 0.2s ease;
+}
+.cure-next-slide.active,
+.btn-co-approval.active {
+  opacity: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.main.approvals .cr-table {
   margin-bottom: 40px;
 }

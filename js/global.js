@@ -94,4 +94,12 @@ jQuery(document).ready(function ($) {
 
   // Initiate Select2
   $(".has-select2").select2();
+
+  // Current Date
+  const date = new Date();
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  let currentDate = `${day}-${month}-${year}`;
+  cure["currentDate"] = currentDate;
 });

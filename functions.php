@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.32' );
+	define( '_S_VERSION', '1.0.33' );
 }
 
 /**
@@ -144,9 +144,11 @@ function cure_portal_scripts() {
 	// Libraries - Global Styles
 	wp_enqueue_style( 'data-table', get_template_directory_uri() . '/css/datatables.min.css' );
 	wp_enqueue_style( 'select2', get_template_directory_uri() . '/css/select2.min.css' );
+	wp_enqueue_style( 'swiper', get_template_directory_uri() . '/css/swiper.min.css' );
 
 	// Libraries - Global Scripts
 	wp_enqueue_script( 'data-table-script', get_template_directory_uri() . '/js/datatables.min.js', array('jquery') );
+	wp_enqueue_script( 'swiper', get_template_directory_uri() . '/js/swiper.min.js', array('jquery') );
 	wp_enqueue_script( "jspdf", get_template_directory_uri() . '/js/jspdf.min.js', array('jquery') );
 	wp_enqueue_script( "autotable", get_template_directory_uri() . '/js/autotable.min.js', array('jquery') );
 	wp_enqueue_script( 'select2', get_template_directory_uri() . '/js/select2.min.js', array(), _S_VERSION, true );
@@ -175,6 +177,11 @@ function cure_portal_scripts() {
 	// Scripts - Single Reports CPT
 	if( is_singular('reports') ) {
 		wp_enqueue_script( "single-reports", get_template_directory_uri() . '/js/single-reports.js', array('jquery'), _S_VERSION, true );
+	}
+
+	// Scripts - Briefs Overview
+	if( is_page('briefs') ) {
+		wp_enqueue_script( "briefs", get_template_directory_uri() . '/js/briefs.js', array('jquery'), _S_VERSION, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cure_portal_scripts' );

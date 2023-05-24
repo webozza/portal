@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-  let deleteApprovals = () => {
+  let deleteReport = () => {
     var deleteID;
 
     let prepareDeleteReport = async () => {
@@ -30,5 +30,37 @@ jQuery(document).ready(function ($) {
     });
   };
 
-  deleteApprovals();
+  let deleteClientOverview = () => {
+    var deleteID;
+
+    let prepareDeleteClientOverview = async () => {
+      const url = `${cure.root}/wp-json/wp/v2/client-overview/${deleteID}`;
+      let res = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "X-WP-Nonce": cure.nonce,
+        },
+      });
+      return await res.json();
+    };
+
+    let deleteClientOverview = async () => {
+      let res = await prepareDeleteClientOverview();
+      console.log(res);
+    };
+
+    $("tr.approval-row.client-overview .approval-delete").click(function () {
+      let rowParent = $(this).parent().parent().parent();
+      let theApproval = rowParent.find(".the-approval").text();
+      deleteID = rowParent.data("id");
+      if (confirm(`Are you sure you want to delete ${theApproval}?`) == true) {
+        deleteClientOverview();
+        rowParent.remove();
+      }
+    });
+  };
+
+  deleteReport();
+  deleteClientOverview();
 });
