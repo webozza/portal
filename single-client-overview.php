@@ -23,7 +23,7 @@
             </div>
             <div class="filter cr-send">
                 <a href="javascript:void(0)" data-modal="cr-send">
-                    Send to an email address
+                    Approve
                     <img src="<?= get_template_directory_uri() . '/img/icons/send.png'?>">
                 </a>
             </div>
