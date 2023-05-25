@@ -57,6 +57,10 @@ table {
   width: 100%;
 }
 
+.cure-section {
+  padding: 20px;
+}
+
 p,
 input,
 label,
@@ -757,6 +761,10 @@ a.save--changes.btn-cure img {
 /*--------------------------------------------------------------
 >>> Single Report Comment / Revision Functionality
 ----------------------------------------------------------------*/
+#wpdcom {
+  margin-left: 0;
+  padding: 20px;
+}
 #wpdcom .wpd-form-head {
   display: none;
 }
@@ -900,4 +908,19 @@ a.save--changes.btn-cure img {
 }
 .main.approvals .cr-table {
   margin-bottom: 40px;
+}
+
+/*--------------------------------------------------------------
+>>> Single Client Overview
+----------------------------------------------------------------*/
+.cod-body td {
+  border: 1px solid #d1d1d1;
+  padding: 5px;
+}
+.cod-body tr td:first-child {
+  width: 25%;
+}
+.cod-body table {
+  margin-top: 30px;
+  max-width: 1200px;
 }
