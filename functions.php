@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.33' );
+	define( '_S_VERSION', '1.0.34' );
 }
 
 /**
@@ -177,6 +177,11 @@ function cure_portal_scripts() {
 	// Scripts - Single Reports CPT
 	if( is_singular('reports') ) {
 		wp_enqueue_script( "single-reports", get_template_directory_uri() . '/js/single-reports.js', array('jquery'), _S_VERSION, true );
+	}
+
+	// Scripts - Single Client Overview CPT
+	if( is_singular('client-overview') ) {
+		wp_enqueue_script( "client-overview", get_template_directory_uri() . '/js/single-client-overview.js', array('jquery'), _S_VERSION, true );
 	}
 
 	// Scripts - Briefs Overview

@@ -2,7 +2,7 @@
 
 <script>
     // Additional Variables
-    cure['report_id'] = "<?php the_ID() ?>";
+    cure['client_overview_id'] = "<?php the_ID() ?>";
 </script>
 
 <div class="main single-client-overview">
@@ -21,8 +21,8 @@
                     <img src="<?= get_template_directory_uri() . '/img/icons/download.png'?>">
                 </a>
             </div>
-            <div class="filter cr-send">
-                <a href="javascript:void(0)" data-modal="cr-send">
+            <div class="filter cr-approve">
+                <a href="javascript:void(0)" data-modal="cr-approve">
                     Approve
                     <img src="<?= get_template_directory_uri() . '/img/icons/send.png'?>">
                 </a>
