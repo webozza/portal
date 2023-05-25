@@ -25,7 +25,7 @@
     </div>
     <div class="cure-filters">
         <div class="date-notice">
-            Confidential - Digital Advertising Brief - <strong><?= $_GET['client'] ?></strong>
+            Confidential - <?= $_GET['template'] ?> Brief - <strong><?= $_GET['client'] ?></strong>
         </div>
         <div class="client-overview-info">
             <ul>
@@ -107,7 +107,7 @@
                     <div class="swiper-slide">
                         <div class="cure-field-group">
                             <h3>Any other supporting files</h3>
-                            <?php wp_editor('', 'supporting_files', $editor_toolbar) ?>
+                            <input type="file" name="supporting_files">
                         </div>
                     </div>
                 </div>

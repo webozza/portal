@@ -102,6 +102,115 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  let validateEmptyBriefs = () => {
+    // Background
+    let background = tinymce.get("background");
+    background.on("keyup", function (e) {
+      let thisContent = this.getContent();
+      if (thisContent !== "") {
+        $(".cure-next-slide").addClass("active");
+      } else {
+        $(".cure-next-slide").removeClass("active");
+      }
+    });
+
+    // Campaign objective
+    let campaignObjective = tinymce.get("campaign_objective");
+    campaignObjective.on("keyup", function (e) {
+      let thisContent = this.getContent();
+      if (thisContent !== "") {
+        $(".cure-next-slide").addClass("active");
+      } else {
+        $(".cure-next-slide").removeClass("active");
+      }
+    });
+
+    // Audience
+    let audience = tinymce.get("audience");
+    audience.on("keyup", function (e) {
+      let thisContent = this.getContent();
+      if (thisContent !== "") {
+        $(".cure-next-slide").addClass("active");
+      } else {
+        $(".cure-next-slide").removeClass("active");
+      }
+    });
+
+    // Deliverables
+    let deliverables = tinymce.get("deliverables");
+    deliverables.on("keyup", function (e) {
+      let thisContent = this.getContent();
+      if (thisContent !== "") {
+        $(".cure-next-slide").addClass("active");
+      } else {
+        $(".cure-next-slide").removeClass("active");
+      }
+    });
+
+    // Key messages
+    let keyMessages = tinymce.get("key_messages");
+    keyMessages.on("keyup", function (e) {
+      let thisContent = this.getContent();
+      if (thisContent !== "") {
+        $(".cure-next-slide").addClass("active");
+      } else {
+        $(".cure-next-slide").removeClass("active");
+      }
+    });
+
+    // Desired action
+    let desiredAction = tinymce.get("desired_action");
+    desiredAction.on("keyup", function (e) {
+      let thisContent = this.getContent();
+      if (thisContent !== "") {
+        $(".cure-next-slide").addClass("active");
+        $(".btn-co-approval").addClass("active");
+      } else {
+        $(".cure-next-slide").removeClass("active");
+        $(".btn-co-approval").removeClass("active");
+      }
+    });
+
+    // Budget
+    let budget = tinymce.get("budget");
+    budget.on("keyup", function (e) {
+      let thisContent = this.getContent();
+      if (thisContent !== "") {
+        $(".cure-next-slide").addClass("active");
+        $(".btn-co-approval").addClass("active");
+      } else {
+        $(".cure-next-slide").removeClass("active");
+        $(".btn-co-approval").removeClass("active");
+      }
+    });
+
+    // Expected return
+    let expectedReturn = tinymce.get("expected_return");
+    expectedReturn.on("keyup", function (e) {
+      let thisContent = this.getContent();
+      if (thisContent !== "") {
+        $(".cure-next-slide").addClass("active");
+        $(".btn-co-approval").addClass("active");
+      } else {
+        $(".cure-next-slide").removeClass("active");
+        $(".btn-co-approval").removeClass("active");
+      }
+    });
+
+    // Metrics to track
+    let metricsToTrack = tinymce.get("metrics_to_track");
+    metricsToTrack.on("keyup", function (e) {
+      let thisContent = this.getContent();
+      if (thisContent !== "") {
+        $(".cure-next-slide").addClass("active");
+        $(".btn-co-approval").addClass("active");
+      } else {
+        $(".cure-next-slide").removeClass("active");
+        $(".btn-co-approval").removeClass("active");
+      }
+    });
+  };
+
   let cureSlideValidation = () => {
     let swiperSlides = $(".swiper-slide").length - 1;
 
@@ -126,6 +235,56 @@ jQuery(document).ready(function ($) {
       } else if (opportunities !== "" && swiper.activeIndex == 4) {
         $(".cure-next-slide").addClass("active");
       } else if (competitors !== "" && swiper.activeIndex == 5) {
+        $(".cure-next-slide").addClass("active");
+      }
+
+      // Controls
+      swiper.activeIndex !== 0
+        ? $(".cure-prev-slide").show()
+        : $(".cure-prev-slide").hide();
+
+      swiper.activeIndex == swiperSlides
+        ? $(".cure-next-slide").hide()
+        : $(".cure-next-slide").show();
+    });
+  };
+
+  let slideValidationBriefs = () => {
+    let swiperSlides = $(".swiper-slide").length - 1;
+
+    swiper.on("slideChange", function () {
+      let background = tinymce.get("background").getContent();
+      let campaignObjective = tinymce.get("campaign_objective").getContent();
+      let audience = tinymce.get("audience").getContent();
+      let deliverables = tinymce.get("deliverables").getContent();
+      let keyMesssages = tinymce.get("key_messages").getContent();
+      let desiredAction = tinymce.get("desired_action").getContent();
+      let budget = tinymce.get("budget").getContent();
+      let expectedReturn = tinymce.get("expected_return").getContent();
+      let metricsToTrack = tinymce.get("metrics_to_track").getContent();
+      let supportingFiles = tinymce.get("metrics_to_track").getContent();
+
+      $(".cure-next-slide").removeClass("active");
+
+      if (background !== "" && swiper.activeIndex == 0) {
+        $(".cure-next-slide").addClass("active");
+      } else if (campaignObjective !== "" && swiper.activeIndex == 1) {
+        $(".cure-next-slide").addClass("active");
+      } else if (audience !== "" && swiper.activeIndex == 2) {
+        $(".cure-next-slide").addClass("active");
+      } else if (deliverables !== "" && swiper.activeIndex == 3) {
+        $(".cure-next-slide").addClass("active");
+      } else if (keyMesssages !== "" && swiper.activeIndex == 4) {
+        $(".cure-next-slide").addClass("active");
+      } else if (desiredAction !== "" && swiper.activeIndex == 5) {
+        $(".cure-next-slide").addClass("active");
+      } else if (budget !== "" && swiper.activeIndex == 6) {
+        $(".cure-next-slide").addClass("active");
+      } else if (expectedReturn !== "" && swiper.activeIndex == 7) {
+        $(".cure-next-slide").addClass("active");
+      } else if (metricsToTrack !== "" && swiper.activeIndex == 8) {
+        $(".cure-next-slide").addClass("active");
+      } else if (supportingFiles !== "" && swiper.activeIndex == 9) {
         $(".cure-next-slide").addClass("active");
       }
 
@@ -227,6 +386,10 @@ jQuery(document).ready(function ($) {
     cureSlideControls();
     cureSlideValidation();
     sendForApproval();
+  } else if (window.location.href.indexOf("?client") > -1) {
+    cureSlideControls();
+    validateEmptyBriefs();
+    slideValidationBriefs();
   } else {
     createNewBrief();
     noClients();
