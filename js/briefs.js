@@ -217,7 +217,7 @@ jQuery(document).ready(function ($) {
       $(".nb-select-client")
         .parent()
         .append(
-          `<p class="error-msg">There are no approved client overviews</p>`
+          `<p style="color:red">There are no approved client overviews</p>`
         );
     }
   };
