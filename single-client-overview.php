@@ -96,9 +96,9 @@
                         <td>
                             <div><p>Opportunities/challenges</p></div>
                         </td>
-                        <td class="cod-data challenges">
+                        <td class="cod-data opportunities">
                             <div>
-                                <?= get_field('challenges') ?>
+                                <?= get_field('opportunities') ?>
                             </div>
                         </td>
                     </tr>
