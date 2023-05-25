@@ -211,6 +211,17 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  let noClients = () => {
+    let clientCount = $(".nb-select-client option").length;
+    if (clientCount == 0) {
+      $(".nb-select-client")
+        .parent()
+        .append(
+          `<p class="error-msg">There are no approved client overviews</p>`
+        );
+    }
+  };
+
   if (window.location.href.indexOf("?co_client") > -1) {
     validateEmpty();
     cureSlideControls();
@@ -218,5 +229,6 @@ jQuery(document).ready(function ($) {
     sendForApproval();
   } else {
     createNewBrief();
+    noClients();
   }
 });
