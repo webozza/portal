@@ -201,10 +201,22 @@ jQuery(document).ready(function ($) {
     });
   };
 
-  if (window.location.href.indexOf("?") > -1) {
+  let createNewBrief = () => {
+    $(".cure-modal.new-brief .modal-submit").click(async function () {
+      let client = $(".nb-select-client").find(":selected").val();
+      let template = $(".nb-select-template").find(":selected").val();
+      $('#new-brief [name="client"]').val(client);
+      $('#new-brief [name="template"]').val(template);
+      $(this).parent().parent().parent().find("form").submit();
+    });
+  };
+
+  if (window.location.href.indexOf("?co_client") > -1) {
     validateEmpty();
     cureSlideControls();
     cureSlideValidation();
     sendForApproval();
+  } else {
+    createNewBrief();
   }
 });

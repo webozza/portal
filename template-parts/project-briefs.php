@@ -7,6 +7,8 @@ get_header(); ?>
 
 <?php if( isset($_GET['client_overview']) == "1" ) {
     include(get_template_directory() . '/template-parts/create/new-client-overview.php');
+} else if( isset($_GET['new-brief']) == "1" ) {
+    include(get_template_directory() . '/template-parts/create/new-brief.php');
 } else { ?>
     <div class="main project-briefs">
         <div class="greetings has-options">

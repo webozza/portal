@@ -1,3 +1,14 @@
+<?php
+    $client_overviews = array(
+        'numberposts'   => -1,
+        'post_type'     => 'client-overview',
+        'meta_key'      => 'status',
+        'meta_value'    => 'Approved'
+    );
+    $clientoverview = new WP_Query($client_overviews);
+    //var_dump($clientoverview);
+?>
+
 <div class="cure-modal new-brief hidden" style="display:none" data-modal="new-brief">
     <div class="inner">
         <div class="cure-modal-header">
@@ -5,24 +16,32 @@
             <a class="close-modal" href="javascript:void(0)"><img src="<?= get_template_directory_uri() . '/img/icons/close.png' ?>"></a>
         </div>
         <div class="cure-modal-body">
-            <form id="new-brief" method="post" action="">
+            <form id="new-brief" method="GET" action="">
                 <div class="cure-field-group">
                     <label>Select Client</label>
-                    <select class="has-select2">
-                        <option>Client 1</option>
-                        <option>Client 2</option>
-                        <option>Client 3</option>
+                    
+                    <select class="nb-select-client has-select2">
+                        <?php if( $clientoverview->have_posts() ): ?>
+                            <?php while( $clientoverview->have_posts() ) : $clientoverview->the_post(); ?>
+                                <option>
+                                    <?php the_field('prepared_for') ?>
+                                </option>
+                            <?php endwhile; ?>
+                        <?php endif; ?>
+                    <?php wp_reset_query(); ?>
                     </select>
                 </div>
                 <div class="cure-field-group">
                     <label>Select Template</label>
-                    <select class="has-select2">
+                    <select class="nb-select-template has-select2">
                         <option>Advertising</option>
                         <option>Design</option>
                         <option>WordPress</option>
                     </select>
                 </div>
                 <div class="cure-field-group hidden">
+                    <input type="hidden" name="client" value="">
+                    <input type="hidden" name="template" value="">
                     <input type="hidden" name="new-brief" value="1">
                     <input type="submit" class="hidden">
                 </div>
