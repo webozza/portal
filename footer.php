@@ -46,6 +46,8 @@
 			profileImg.attr("src", `${tempDir}/img/users/lee-morgan.jpeg`);
 		} else if (fullName == "Shawn Peh") {
 			profileImg.attr("src", `${tempDir}/img/users/shawn-peh.jpeg`);
+		} else if (fullName == "Syiqin Shukri") {
+			profileImg.attr("src", `${tempDir}/img/users/syiqin-shukri.jpeg`);
 		}
 	});
 </script>
