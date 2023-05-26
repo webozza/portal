@@ -14,6 +14,10 @@
     cure['preparedBy'] = "<?= $first_name . ' ' . $last_name ?>";
     cure['preparedFor'] = "<?= $_GET['client'] ?>";
     cure['preparedDate'] = "<?= date("d-m-Y") ?>";
+    cure['draftsDate'] = "<?= $_GET['drafts_date'] ?>";
+    cure['deliveryDate'] = "<?= $_GET['delivery_date'] ?>";
+    cure['inMarketDate'] = "<?= $_GET['in_market_date'] ?>";
+    cure['template'] = "<?= $_GET['template'] ?>";
 </script>
 
 <div class="main create-client-overview">
@@ -31,9 +35,9 @@
             <ul>
                 <li class="prepared-by">From: <?= $first_name . ' ' . $last_name?></li>
                 <li class="prepared-date">Briefing Date: <?= date("d-m-Y") ?></li>
-                <li>Drafts: <span></span></li>
-                <li>Delivery Date:</li>
-                <li>In Market Date:</li>
+                <li>Drafts: <?= $_GET['drafts_date'] ?></li>
+                <li>Delivery Date: <?= $_GET['delivery_date'] ?></li>
+                <li>In Market Date: <?= $_GET['in_market_date'] ?></li>
             </ul>
         </div>
         <!-- SLIDES -->

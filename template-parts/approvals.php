@@ -22,6 +22,14 @@ get_header(); ?>
         'order' => 'ASC',
     );
     $co = new WP_Query($client_overviews);
+
+    // Query project brief
+    $project_briefs = array(
+        'post_type' => 'project-brief',
+        'posts_per_page' => -1,
+        'order' => 'ASC',
+    );
+    $pb = new WP_Query($project_briefs);
 ?>
 
 <div class="main approvals">
@@ -107,7 +115,7 @@ get_header(); ?>
                     <?php wp_reset_postdata(); ?>
                 <?php endif; ?>
 
-                <!-- Client Reports -->
+                <!-- Client Overview -->
                 <?php if ( $co->have_posts() ) : ?>
                     <?php while ( $co->have_posts() ) : $co->the_post(); ?>
                     <?php 
@@ -126,6 +134,47 @@ get_header(); ?>
                             
                             <!-- Approval ID -->
                             <td><?= 'CO' . get_the_ID() ?></td>
+
+                            <!-- Approval Status -->
+                            <td class="status-of-approval <?php if(get_field('status') == "Pending Approval") {echo 'pending';} else {echo 'approved';} ?>">
+                                <div><?php the_field('status') ?></div>
+                            </td>
+
+                            <!-- Approval Actions -->
+                            <td>
+                                <div class="approval-actions">
+                                    <a class="approval-edit" href="<?php the_permalink() ?>">
+                                        <img src="<?= get_template_directory_uri() . '/img/icons/edit.png' ?>">
+                                    </a>
+                                    <a class="approval-delete" href="javascript:void(0)">
+                                        <img src="<?= get_template_directory_uri() . '/img/icons/delete.png' ?>">
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                    <?php wp_reset_postdata(); ?>
+                <?php endif; ?>
+
+                <!-- Project Brief -->
+                <?php if ( $pb->have_posts() ) : ?>
+                    <?php while ( $pb->have_posts() ) : $pb->the_post(); ?>
+                    <?php 
+                        $assigned_name = get_field('prepared_by');
+                    ?>
+                        <tr data-id="<?php the_ID() ?>" class="approval-row project-brief">	
+
+                            <!-- Approval Name -->
+                            <td class="the-approval"><a href="<?php the_permalink() ?>"><?= get_field('template') . ' ' . 'Brief' ?></a></td>
+
+                            <!-- Approval From -->
+                            <td><?= $assigned_name ?></td>
+
+                            <!-- Approval Client -->
+                            <td><?php the_field('prepared_for') ?></td>
+                            
+                            <!-- Approval ID -->
+                            <td><?= 'PB' . get_the_ID() ?></td>
 
                             <!-- Approval Status -->
                             <td class="status-of-approval <?php if(get_field('status') == "Pending Approval") {echo 'pending';} else {echo 'approved';} ?>">

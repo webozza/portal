@@ -61,6 +61,38 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  let deleteProjectBrief = () => {
+    var deleteID;
+
+    let prepareDeleteProjectBrief = async () => {
+      const url = `${cure.root}/wp-json/wp/v2/project-brief/${deleteID}`;
+      let res = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "X-WP-Nonce": cure.nonce,
+        },
+      });
+      return await res.json();
+    };
+
+    let deleteBrief = async () => {
+      let res = await prepareDeleteProjectBrief();
+      console.log(res);
+    };
+
+    $("tr.approval-row.project-brief .approval-delete").click(function () {
+      let rowParent = $(this).parent().parent().parent();
+      let theApproval = rowParent.find(".the-approval").text();
+      deleteID = rowParent.data("id");
+      if (confirm(`Are you sure you want to delete ${theApproval}?`) == true) {
+        deleteBrief();
+        rowParent.remove();
+      }
+    });
+  };
+
   deleteReport();
   deleteClientOverview();
+  deleteProjectBrief();
 });

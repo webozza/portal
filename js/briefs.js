@@ -364,9 +364,26 @@ jQuery(document).ready(function ($) {
     $(".cure-modal.new-brief .modal-submit").click(async function () {
       let client = $(".nb-select-client").find(":selected").val();
       let template = $(".nb-select-template").find(":selected").val();
+      let draftsDate = $(".nb-drafts-date").val();
+      let deliveryDate = $(".nb-delivery-date").val();
+      let inMarketDate = $(".nb-in-market-date").val();
       $('#new-brief [name="client"]').val(client);
       $('#new-brief [name="template"]').val(template);
-      $(this).parent().parent().parent().find("form").submit();
+      $('#new-brief [name="drafts_date"]').val(draftsDate);
+      $('#new-brief [name="delivery_date"]').val(deliveryDate);
+      $('#new-brief [name="in_market_date"]').val(inMarketDate);
+
+      if (
+        client !== "" &&
+        template !== "" &&
+        draftsDate !== "" &&
+        deliveryDate !== "" &&
+        inMarketDate !== ""
+      ) {
+        $(".cure-modal.new-brief form").submit();
+      } else {
+        $(this).parent().parent().parent().find(".error-msg").fadeIn();
+      }
     });
   };
 
@@ -381,6 +398,80 @@ jQuery(document).ready(function ($) {
     }
   };
 
+  const _ProjectBriefData = {
+    title: "",
+    content: "",
+    status: "publish",
+    acf: {
+      background: "",
+      campaign_objective: "",
+      audience: "",
+      deliverables: "",
+      key_messages: "",
+      desired_action: "",
+      budget: "",
+      expected_return: "",
+      metrics_to_track: "",
+      drafts_date: cure.draftsDate,
+      delivery_date: cure.deliveryDate,
+      in_market_date: cure.inMarketDate,
+      template: cure.template,
+      status: "Pending Approval",
+      prepared_for: cure.preparedFor,
+      prepared_by: cure.preparedBy,
+      briefing_date: cure.preparedDate,
+    },
+  };
+
+  let fetchProjectBrief = async () => {
+    const url = `${cure.root}/wp-json/wp/v2/project-brief`;
+    let res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "X-WP-Nonce": cure.nonce,
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(_ProjectBriefData),
+    });
+    return await res.json();
+  };
+
+  let renderProjectBrief = async () => {
+    let data = await fetchProjectBrief();
+    console.log("project brief data saved =>", data);
+  };
+
+  let sendBriefApproval = async () => {
+    $(".btn-co-approval").click(async function () {
+      let background = tinymce.get("background").getContent();
+      let campaignObjective = tinymce.get("campaign_objective").getContent();
+      let audience = tinymce.get("audience").getContent();
+      let deliverables = tinymce.get("deliverables").getContent();
+      let keyMesssages = tinymce.get("key_messages").getContent();
+      let desiredAction = tinymce.get("desired_action").getContent();
+      let budget = tinymce.get("budget").getContent();
+      let expectedReturn = tinymce.get("expected_return").getContent();
+      let metricsToTrack = tinymce.get("metrics_to_track").getContent();
+      _ProjectBriefData.acf.background = background;
+      _ProjectBriefData.acf.campaign_objective = campaignObjective;
+      _ProjectBriefData.acf.audience = audience;
+      _ProjectBriefData.acf.deliverables = deliverables;
+      _ProjectBriefData.acf.key_messages = keyMesssages;
+      _ProjectBriefData.acf.desired_action = desiredAction;
+      _ProjectBriefData.acf.budget = budget;
+      _ProjectBriefData.acf.expected_return = expectedReturn;
+      _ProjectBriefData.acf.metrics_to_track = metricsToTrack;
+      if (
+        confirm(
+          "Are you sure you want to send this in for approval? Make sure to doublecheck for careless mistakes and save others the hassle of having to correct you!"
+        ) == true
+      ) {
+        renderProjectBrief();
+        $(".project-brief-success").fadeIn().css("display", "flex");
+      }
+    });
+  };
+
   if (window.location.href.indexOf("?co_client") > -1) {
     validateEmpty();
     cureSlideControls();
@@ -390,6 +481,7 @@ jQuery(document).ready(function ($) {
     cureSlideControls();
     validateEmptyBriefs();
     slideValidationBriefs();
+    sendBriefApproval();
   } else {
     createNewBrief();
     noClients();
