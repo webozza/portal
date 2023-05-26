@@ -60,15 +60,13 @@
                     <input type="hidden" name="new-brief" value="1">
                     <input type="submit" class="hidden">
                 </div>
+                <p class="error-msg">You missed something..</p>
             </form>
         </div>
         <div class="cure-modal-footer">
             <div class="modal-btn-wrapper">
-                <p class="error-msg">You missed something..</p>
-                <div>
-                    <a class="btn-cure-secondary btn-close" href="javascript:void(0)">Cancel</a>
-                    <a class="btn-cure modal-submit" href="javascript:void(0)">Create</a>
-                </div>
+                <a class="btn-cure-secondary btn-close" href="javascript:void(0)">Cancel</a>
+                <a class="btn-cure modal-submit" href="javascript:void(0)">Create</a>
             </div>
         </div>
     </div>
