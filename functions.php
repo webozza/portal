@@ -277,7 +277,7 @@ function send_client_report() {
 	
 		//user posted variables
 		$name = 'gadfsafd';
-		$email = '<lee.morgan@curecollective.com.au>';
+		$email = '<web@curecollective.com.au>';
 		ob_start();
 		include(get_template_directory() . '/template-parts/emails/send-report.php');
 		$message = ob_get_clean();
