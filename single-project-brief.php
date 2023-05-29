@@ -3,6 +3,9 @@
 <script>
     // Additional Variables
     cure['brief_id'] = "<?php the_ID() ?>";
+    cure['preparedBy'] = "<?= get_field('prepared_by') ?>";
+    cure['preparedByEmail'] = "<?= get_userdata(get_the_author_ID())->user_email ?>";
+    cure['template'] = "<?= get_field('template') ?>";
 </script>
 
 <div class="main single-client-overview">

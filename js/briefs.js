@@ -440,9 +440,12 @@ jQuery(document).ready(function ($) {
   let renderProjectBrief = async () => {
     let data = await fetchProjectBrief();
     console.log("project brief data saved =>", data);
-    // For Email Notification
+    // For Email Notification - Approval Request
     $('[name="your-name"]').val(cure.preparedBy);
     $('[name="your-email"]').val(cure.preparedByEmail);
+    $('[name="your-subject"]').val(
+      `${cure.preparedBy} Submitted an Approval Request`
+    );
     $('[name="your-message"]').val(
       `To view this ${cure.template} brief, please visit: ${cure.root}/project-brief/${data.id}`
     );

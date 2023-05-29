@@ -893,15 +893,13 @@ a.save--changes.btn-cure img {
 .cure-prev-slide {
   display: none;
 }
-.cure-next-slide,
-.btn-co-approval {
+.cure-next-slide {
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;
   transition: all 0.2s ease;
 }
-.cure-next-slide.active,
-.btn-co-approval.active {
+.cure-next-slide.active {
   opacity: 1;
   pointer-events: auto;
   cursor: pointer;

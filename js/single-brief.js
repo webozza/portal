@@ -21,10 +21,23 @@ jQuery(document).ready(function ($) {
       });
       return await res.json();
     };
+    let sendEmailNotification = async () => {
+      // For Email Notification - Approved
+      $('[name="your-name"]').val(cure.preparedBy);
+      $('[name="your-email"]').val(cure.preparedByEmail);
+      $('[name="your-subject"]').val(``);
+      $('[name="your-message"]').val(
+        `A ${cure.template} brief has been approved! Please visit: ${cure.root}/project-brief/${cure.brief_id} to view the ${cure.template} brief.`
+      );
+      $(".wpcf7-submit").click();
+    };
     let renderProjectBrief = async () => {
       let response = await fetchProjectBrief();
       console.log("Approved this project brief =>", response);
-      window.location.href = `${cure.root}/approvals`;
+      await sendEmailNotification();
+      setTimeout(() => {
+        window.location.href = `${cure.root}/approvals`;
+      }, 600);
     };
     $(".cr-approve a").click(function () {
       if (
