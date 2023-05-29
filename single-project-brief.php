@@ -1,13 +1,14 @@
 <?php get_header() ?>
-
+<?php
+    $author_id = get_post_field( 'post_author', get_the_ID() );
+?>
 <script>
     // Additional Variables
     cure['brief_id'] = "<?php the_ID() ?>";
     cure['preparedBy'] = "<?= get_field('prepared_by') ?>";
-    cure['preparedByEmail'] = "<?= get_userdata(get_the_author_ID())->user_email ?>";
+    cure['preparedByEmail'] = "<?= get_userdata($author_id)->user_email ?>";
     cure['template'] = "<?= get_field('template') ?>";
 </script>
-
 <div class="main single-client-overview">
     <!-- BREADCRUMBS -->
     <div class="greetings">
