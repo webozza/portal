@@ -37,9 +37,9 @@ jQuery(document).ready(function ($) {
       let response = await fetchProjectBrief();
       console.log("Approved this project brief =>", response);
       await sendEmailNotification();
-      // setTimeout(() => {
-      //   window.location.href = `${cure.root}/approvals`;
-      // }, 600);
+      setTimeout(() => {
+        window.location.href = `${cure.root}/approvals`;
+      }, 600);
     };
     $(".cr-approve a").click(function () {
       if (
