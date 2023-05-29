@@ -52,6 +52,12 @@
 	});
 </script>
 
+<div class="hidden">
+	<div class="approval-notification">
+		<?= do_shortcode('[contact-form-7 id="153" title="Approval Notifcation"]'); ?>
+	</div>
+</div>
+
 <?php wp_footer(); ?>
 
 </body>

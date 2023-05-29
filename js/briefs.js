@@ -440,6 +440,13 @@ jQuery(document).ready(function ($) {
   let renderProjectBrief = async () => {
     let data = await fetchProjectBrief();
     console.log("project brief data saved =>", data);
+    // For Email Notification
+    $('[name="your-name"]').val(cure.preparedBy);
+    $('[name="your-email"]').val(cure.preparedByEmail);
+    $('[name="your-message"]').val(
+      `To view this ${cure.template} brief, please visit: ${cure.root}/project-brief/${data.id}`
+    );
+    $(".wpcf7-submit").click();
   };
 
   let sendBriefApproval = async () => {

@@ -8,10 +8,12 @@
         'editor_height' => 200,
         'textarea_rows' => 20,
     );
+    $assigned_email = get_userdata(get_current_user_id())->user_email;
 ?>
 
 <script>
     cure['preparedBy'] = "<?= $first_name . ' ' . $last_name ?>";
+    cure['preparedByEmail'] = "<?= $assigned_email ?>";
     cure['preparedFor'] = "<?= $_GET['client'] ?>";
     cure['preparedDate'] = "<?= date("d-m-Y") ?>";
     cure['draftsDate'] = "<?= $_GET['drafts_date'] ?>";
