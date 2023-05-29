@@ -420,6 +420,7 @@ jQuery(document).ready(function ($) {
       prepared_for: cure.preparedFor,
       prepared_by: cure.preparedBy,
       briefing_date: cure.preparedDate,
+      supporting_files: "",
     },
   };
 
@@ -461,6 +462,9 @@ jQuery(document).ready(function ($) {
       _ProjectBriefData.acf.budget = budget;
       _ProjectBriefData.acf.expected_return = expectedReturn;
       _ProjectBriefData.acf.metrics_to_track = metricsToTrack;
+      _ProjectBriefData.acf.supporting_files = $(
+        '[name="supporting_files"]'
+      )[0].files[0];
       if (
         confirm(
           "Are you sure you want to send this in for approval? Make sure to doublecheck for careless mistakes and save others the hassle of having to correct you!"

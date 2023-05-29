@@ -90,7 +90,7 @@ div {
 }
 
 .main {
-  width: 100%;
+  width: calc(100% - 240px);
 }
 
 .hidden {
@@ -923,4 +923,51 @@ a.save--changes.btn-cure img {
 .cod-body table {
   margin-top: 30px;
   max-width: 1200px;
+}
+
+/*--------------------------------------------------------------
+>>> File upload
+----------------------------------------------------------------*/
+#drop_file_zone {
+  background-color: #eee;
+  border: #999 5px dashed;
+  width: 290px;
+  height: 200px;
+  padding: 8px;
+  font-size: 18px;
+}
+#drag_upload_file {
+  width: 50%;
+  margin: 0 auto;
+}
+#drag_upload_file p {
+  text-align: center;
+}
+#drag_upload_file #selectfile {
+  display: none;
+}
+
+/*--------------------------------------------------------------
+>>> Single Project Brief
+----------------------------------------------------------------*/
+.cb-edit img {
+  max-height: 20px;
+  transition: all 0.3s ease;
+}
+.cb-edit:hover img {
+  transform: scale(1.2);
+}
+.cr-actions .filter.cb-edit.active {
+  background-color: var(--cure-primary-color);
+  color: #000;
+  border-radius: 32px;
+}
+.cod-footer {
+  margin-top: 20px;
+  text-align: right;
+  display: none;
+}
+.cod-footer .save--changes img {
+  position: relative;
+  top: -1px;
 }
