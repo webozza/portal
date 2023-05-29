@@ -51,7 +51,6 @@
 		}
 	});
 </script>
-<?= get_site_url() ?>
 <div class="hidden">
 	<div class="approval-notification">
 		<?php 
