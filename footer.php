@@ -51,10 +51,17 @@
 		}
 	});
 </script>
-
+<?= get_site_url() ?>
 <div class="hidden">
 	<div class="approval-notification">
-		<?= do_shortcode('[contact-form-7 id="153" title="Approval Notifcation"]'); ?>
+		<?= get_site_url() ?>
+		<?php 
+			if(get_site_url() == "http://localhost:9090/portal") {
+				do_shortcode('[contact-form-7 id="153" title="Approval Notifcation"]');
+			} else {
+				do_shortcode('[contact-form-7 id="95" title="Approval Notification - Briefs"]');
+			}
+		?>
 	</div>
 </div>
 
