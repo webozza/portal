@@ -41,8 +41,9 @@ jQuery(document).ready(function ($) {
     };
     $(".cr-approve a").click(function () {
       if (
-        confirm(`Are you sure you want to approve this client overview?`) ==
-        true
+        confirm(
+          `Are you sure you want to approve this ${cure.template} brief?`
+        ) == true
       ) {
         renderProjectBrief();
       }
