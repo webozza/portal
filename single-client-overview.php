@@ -15,6 +15,11 @@
         <div class="filters">
         </div>
         <div class="filters cr-actions has-modal">
+            <div class="filter co-edit">
+                <a href="javascript:void(0)" class="">
+                    <img src="<?= get_template_directory_uri() . '/img/icons/edit.png' ?>">
+                </a>
+            </div>
             <div class="filter cr-download">
                 <a class="cr--download" href="javascript:void(0)" data-modal="cr-download">
                     Download Client Overview
@@ -115,6 +120,12 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="cod-footer">
+            <a class="save--changes btn-cure" href="javascript:void(0)">
+                <img src="<?= get_template_directory_uri() . '/img/live-update-loader.gif' ?>">
+            SAVE CHANGES
+            </a>
         </div>
     </div>
 

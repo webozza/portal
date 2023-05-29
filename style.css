@@ -950,14 +950,17 @@ a.save--changes.btn-cure img {
 /*--------------------------------------------------------------
 >>> Single Project Brief
 ----------------------------------------------------------------*/
-.cb-edit img {
+.cb-edit img,
+.co-edit img {
   max-height: 20px;
   transition: all 0.3s ease;
 }
-.cb-edit:hover img {
+.cb-edit:hover img,
+.co-edit:hover img {
   transform: scale(1.2);
 }
-.cr-actions .filter.cb-edit.active {
+.cr-actions .filter.cb-edit.active,
+.cr-actions .filter.co-edit.active {
   background-color: var(--cure-primary-color);
   color: #000;
   border-radius: 32px;
