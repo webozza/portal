@@ -54,7 +54,6 @@
 <?= get_site_url() ?>
 <div class="hidden">
 	<div class="approval-notification">
-		<?= get_site_url() ?>
 		<?php 
 			if(get_site_url() == "http://localhost:9090/portal") {
 				do_shortcode('[contact-form-7 id="153" title="Approval Notifcation"]');
