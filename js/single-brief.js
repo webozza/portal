@@ -31,7 +31,7 @@ jQuery(document).ready(function ($) {
       $('[name="your-message"]').val(
         `A ${cure.template} brief has been approved! Please visit: ${cure.root}/project-brief/${cure.brief_id} to view the ${cure.template} brief.`
       );
-      $(".wpcf7-submit").click();
+      $("#wpcf7-f101-o2 form").submit();
     };
     let renderProjectBrief = async () => {
       let response = await fetchProjectBrief();
