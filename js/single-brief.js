@@ -25,7 +25,9 @@ jQuery(document).ready(function ($) {
       // For Email Notification - Approved
       $('[name="your-name"]').val(cure.preparedBy);
       $('[name="your-email"]').val(cure.preparedByEmail);
-      $('[name="your-subject"]').val(``);
+      $('[name="your-subject"]').val(
+        `The ${cure.template} Brief has been Approved. [Brief ID - ${cure.brief_id}]`
+      );
       $('[name="your-message"]').val(
         `A ${cure.template} brief has been approved! Please visit: ${cure.root}/project-brief/${cure.brief_id} to view the ${cure.template} brief.`
       );
