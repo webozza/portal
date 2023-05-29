@@ -6,6 +6,7 @@
     // Additional Variables
     cure['brief_id'] = "<?php the_ID() ?>";
     cure['preparedBy'] = "<?= get_field('prepared_by') ?>";
+    cure['preparedFor'] = "<?= get_field('prepared_for') ?>";
     cure['preparedByEmail'] = "<?= get_userdata($author_id)->user_email ?>";
     cure['template'] = "<?= get_field('template') ?>";
 </script>

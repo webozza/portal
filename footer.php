@@ -57,7 +57,8 @@
 			if(get_site_url() == "http://localhost:9090/portal") {
 				echo do_shortcode('[contact-form-7 id="153" title="Approval Notifcation"]');
 			} else {
-				echo do_shortcode('[contact-form-7 id="95" title="Approval Notification - Briefs"]');
+				echo do_shortcode('[contact-form-7 id="95" title="Approval Request Notification - Briefs"]');
+				echo do_shortcode('[contact-form-7 id="101" title="Approved Notification - Briefs"]');
 			}
 		?>
 	</div>

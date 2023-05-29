@@ -443,13 +443,10 @@ jQuery(document).ready(function ($) {
     // For Email Notification - Approval Request
     $('[name="your-name"]').val(cure.preparedBy);
     $('[name="your-email"]').val(cure.preparedByEmail);
-    $('[name="your-subject"]').val(
-      `${cure.preparedBy} Submitted an Approval Request`
-    );
     $('[name="your-message"]').val(
       `To view this ${cure.template} brief, please visit: ${cure.root}/project-brief/${data.id}`
     );
-    $(".wpcf7-submit").click();
+    $("#wpcf7-f95-o1 form").submit();
   };
 
   let sendBriefApproval = async () => {
