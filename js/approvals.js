@@ -125,20 +125,51 @@ jQuery(document).ready(function ($) {
     let selectedClient = $(".f--client select").find(":selected").val();
     let approvalRow = $(".approval-row");
 
-    if (selectedUser !== "All Users" && selectedClient !== "All Clients") {
-      approvalRow.each(function () {
-        let thisApprovalRow = $(this);
-        let eachClient = thisApprovalRow.find(".the-client").text();
-        let eachUser = thisApprovalRow.find(".the-user").text();
-        if (eachClient !== selectedClient || eachUser !== selectedUser) {
+    approvalRow.each(function () {
+      let thisApprovalRow = $(this);
+      let eachClient = thisApprovalRow.find(".the-client").text();
+      let eachUser = thisApprovalRow.find(".the-user").text();
+
+      if (selectedUser == "All Users" && selectedClient == "All Clients") {
+        approvalRow.show();
+      } else if (
+        selectedUser == "All Users" &&
+        selectedClient !== "All Clients"
+      ) {
+        if (eachClient !== selectedClient) {
           thisApprovalRow.hide();
-        } else if (eachClient == selectedClient || eachUser == selectedUser) {
+        } else {
           thisApprovalRow.show();
         }
-      });
-    } else {
-      approvalRow.show();
-    }
+      } else if (
+        selectedUser !== "All Users" &&
+        selectedClient == "All Clients"
+      ) {
+        if (eachUser !== selectedUser) {
+          thisApprovalRow.hide();
+        } else {
+          thisApprovalRow.show();
+        }
+      } else if (
+        selectedUser !== "All Users" &&
+        selectedClient !== "All Clients"
+      ) {
+        if (eachUser !== selectedUser || eachClient !== selectedClient) {
+          thisApprovalRow.hide();
+        } else {
+          thisApprovalRow.show();
+        }
+      }
+
+      // if (
+      //   (eachClient !== selectedClient || eachUser !== selectedUser) &&
+      //   (selectedUser !== "All Users" || selectedClient !== "All Clients")
+      // ) {
+      //   thisApprovalRow.hide();
+      // } else if (eachClient == selectedClient || eachUser == selectedUser) {
+      //   thisApprovalRow.show();
+      // }
+    });
   };
 
   $(".f--search a").click(function () {

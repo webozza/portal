@@ -54,11 +54,13 @@ get_header(); ?>
             <div class="filter f--status">
                 <select>
                     <option selected>Status</option>
+                    <option>Approved</option>
+                    <option>Pending Approval</option>
                 </select>
             </div>
             <div class="filter f--type">
                 <select>
-                    <option selected>Type</option>
+                    <option selected>All Types</option>
                 </select>
             </div>
             <div class="filter f--search">
