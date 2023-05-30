@@ -154,7 +154,7 @@ jQuery(document).ready(function ($) {
         (selectedUser === "All Users" || rowUser === selectedUser) &&
         (selectedClient === "All Clients" || rowClient === selectedClient) &&
         (selectedStatus === "Status" || rowStatus === selectedStatus) &&
-        (selectedStatus === "All Types" || rowType === selectedType);
+        (selectedType === "All Types" || rowType === selectedType);
 
       // Show or hide the row based on the result
       $row.toggle(showRow);
