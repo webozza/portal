@@ -114,6 +114,8 @@ jQuery(document).ready(function ($) {
       let eachUser = thisApprovalRow.find(".the-user").text();
       if (eachUser !== selectedUser) {
         thisApprovalRow.hide();
+      } else if (eachUser == selectedUser) {
+        thisApprovalRow.show();
       }
     });
   };
