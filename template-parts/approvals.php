@@ -43,26 +43,26 @@ get_header(); ?>
         <div class="filters">
             <div class="filter f--user">
                 <select>
-                    <option selected disabled>User</option>
+                    <option selected>All Users</option>
                 </select>
             </div>
             <div class="filter f--client">
                 <select>
-                    <option selected disabled>Client</option>
+                    <option selected>All Clients</option>
                 </select>
             </div>
             <div class="filter f--status">
                 <select>
-                    <option selected disabled>Status</option>
+                    <option selected>Status</option>
                 </select>
             </div>
             <div class="filter f--type">
                 <select>
-                    <option selected disabled>Type</option>
+                    <option selected>Type</option>
                 </select>
             </div>
             <div class="filter f--search">
-                <a href="javascript:void(0)">Search >></a>
+                <a href="javascript:void(0)">Filter >></a>
             </div>
         </div>
     </div>
@@ -100,7 +100,7 @@ get_header(); ?>
                             <td class="the-user"><?= $assigned_name ?></td>
 
                             <!-- Approval Client -->
-                            <td><?php the_field('client') ?></td>
+                            <td class="the-client"><?php the_field('client') ?></td>
                             
                             <!-- Approval ID -->
                             <td><?= 'CR' . get_the_ID() ?></td>
@@ -141,7 +141,7 @@ get_header(); ?>
                             <td class="the-user"><?= $assigned_name ?></td>
 
                             <!-- Approval Client -->
-                            <td><?php the_field('prepared_for') ?></td>
+                            <td class="the-client"><?php the_field('prepared_for') ?></td>
                             
                             <!-- Approval ID -->
                             <td><?= 'CO' . get_the_ID() ?></td>
@@ -182,7 +182,7 @@ get_header(); ?>
                             <td class="the-user"><?= $assigned_name ?></td>
 
                             <!-- Approval Client -->
-                            <td><?php the_field('prepared_for') ?></td>
+                            <td class="the-client"><?php the_field('prepared_for') ?></td>
                             
                             <!-- Approval ID -->
                             <td><?= 'PB' . get_the_ID() ?></td>

@@ -106,18 +106,52 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  let filterClients = async () => {
+    let allClients = [];
+    $(".the-client").each(function () {
+      let clientName = $(this).text();
+      allClients.push(clientName);
+    });
+    let uniqueClients = [...new Set(allClients)];
+    uniqueClients.map((entries) => {
+      $(".f--client select").append(`
+        <option>${entries}</option>
+      `);
+    });
+  };
+
   let runFilter = async () => {
     let selectedUser = $(".f--user select").find(":selected").val();
+    let selectedClient = $(".f--client select").find(":selected").val();
     let approvalRow = $(".approval-row");
-    approvalRow.each(function () {
-      let thisApprovalRow = $(this);
-      let eachUser = thisApprovalRow.find(".the-user").text();
-      if (eachUser !== selectedUser) {
-        thisApprovalRow.hide();
-      } else if (eachUser == selectedUser) {
-        thisApprovalRow.show();
-      }
-    });
+
+    if (selectedUser !== "All Users") {
+      approvalRow.each(function () {
+        let thisApprovalRow = $(this);
+        let eachUser = thisApprovalRow.find(".the-user").text();
+        if (eachUser !== selectedUser) {
+          thisApprovalRow.hide();
+        } else if (eachUser == selectedUser) {
+          thisApprovalRow.show();
+        }
+      });
+    } else {
+      approvalRow.show();
+    }
+
+    if (selectedClient !== "All Clients") {
+      approvalRow.each(function () {
+        let thisApprovalRow = $(this);
+        let eachClient = thisApprovalRow.find(".the-client").text();
+        if (eachClient !== selectedClient) {
+          thisApprovalRow.hide();
+        } else if (eachClient == selectedClient) {
+          thisApprovalRow.show();
+        }
+      });
+    } else {
+      approvalRow.show();
+    }
   };
 
   $(".f--search a").click(function () {
@@ -128,4 +162,5 @@ jQuery(document).ready(function ($) {
   deleteClientOverview();
   deleteProjectBrief();
   filterUsers();
+  filterClients();
 });
