@@ -972,3 +972,11 @@ a.save--changes.btn-cure img {
   position: relative;
   top: -1px;
 }
+
+/*--------------------------------------------------------------
+>>> Approvals Filter
+----------------------------------------------------------------*/
+.main.approvals .hide-approved.active {
+  background-color: var(--cure-primary-color);
+  color: #fff;
+}

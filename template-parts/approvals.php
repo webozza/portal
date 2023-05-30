@@ -41,17 +41,28 @@ get_header(); ?>
             All kinds of approvals
         </div>
         <div class="filters">
-            <div class="filter">
-                <a href="javascript:void(0)">By User</a>
+            <div class="filter f--user">
+                <select>
+                    <option selected disabled>User</option>
+                </select>
             </div>
-            <div class="filter">
-                <a href="javascript:void(0)">By Client</a>
+            <div class="filter f--client">
+                <select>
+                    <option selected disabled>Client</option>
+                </select>
             </div>
-            <div class="filter">
-                <a href="javascript:void(0)">Hide Approved</a>
+            <div class="filter f--status">
+                <select>
+                    <option selected disabled>Status</option>
+                </select>
             </div>
-            <div class="filter">
-                <a href="javascript:void(0)">By Type</a>
+            <div class="filter f--type">
+                <select>
+                    <option selected disabled>Type</option>
+                </select>
+            </div>
+            <div class="filter f--search">
+                <a href="javascript:void(0)">Search >></a>
             </div>
         </div>
     </div>
@@ -86,7 +97,7 @@ get_header(); ?>
                             <td class="the-approval"><a href="<?php the_permalink() ?>"><?php the_field('approval_type') ?></a></td>
 
                             <!-- Approval From -->
-                            <td><?= $assigned_name ?></td>
+                            <td class="the-user"><?= $assigned_name ?></td>
 
                             <!-- Approval Client -->
                             <td><?php the_field('client') ?></td>
@@ -127,7 +138,7 @@ get_header(); ?>
                             <td class="the-approval"><a href="<?php the_permalink() ?>"><?= 'Client Overview' ?></a></td>
 
                             <!-- Approval From -->
-                            <td><?= $assigned_name ?></td>
+                            <td class="the-user"><?= $assigned_name ?></td>
 
                             <!-- Approval Client -->
                             <td><?php the_field('prepared_for') ?></td>
@@ -168,7 +179,7 @@ get_header(); ?>
                             <td class="the-approval"><a href="<?php the_permalink() ?>"><?= get_field('template') . ' ' . 'Brief' ?></a></td>
 
                             <!-- Approval From -->
-                            <td><?= $assigned_name ?></td>
+                            <td class="the-user"><?= $assigned_name ?></td>
 
                             <!-- Approval Client -->
                             <td><?php the_field('prepared_for') ?></td>

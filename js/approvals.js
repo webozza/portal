@@ -92,7 +92,38 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  let filterUsers = async () => {
+    let allUsers = [];
+    $(".the-user").each(function () {
+      let userName = $(this).text();
+      allUsers.push(userName);
+    });
+    let uniqueUsers = [...new Set(allUsers)];
+    uniqueUsers.map((entries) => {
+      $(".f--user select").append(`
+        <option>${entries}</option>
+      `);
+    });
+  };
+
+  let runFilter = async () => {
+    let selectedUser = $(".f--user select").find(":selected").val();
+    let approvalRow = $(".approval-row");
+    approvalRow.each(function () {
+      let thisApprovalRow = $(this);
+      let eachUser = thisApprovalRow.find(".the-user").text();
+      if (eachUser !== selectedUser) {
+        thisApprovalRow.hide();
+      }
+    });
+  };
+
+  $(".f--search a").click(function () {
+    runFilter();
+  });
+
   deleteReport();
   deleteClientOverview();
   deleteProjectBrief();
+  filterUsers();
 });
