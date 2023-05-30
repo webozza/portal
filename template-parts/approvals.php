@@ -109,7 +109,7 @@ get_header(); ?>
 
                             <!-- Approval Status -->
                             <td class="status-of-approval <?php if(get_field('status') == "Pending Approval") {echo 'pending';} else {echo 'approved';} ?>">
-                                <div><?php the_field('status') ?></div>
+                                <div class="the-status"><?php the_field('status') ?></div>
                             </td>
 
                             <!-- Approval Actions -->
@@ -150,7 +150,7 @@ get_header(); ?>
 
                             <!-- Approval Status -->
                             <td class="status-of-approval <?php if(get_field('status') == "Pending Approval") {echo 'pending';} else {echo 'approved';} ?>">
-                                <div><?php the_field('status') ?></div>
+                                <div class="the-status"><?php the_field('status') ?></div>
                             </td>
 
                             <!-- Approval Actions -->
@@ -191,7 +191,7 @@ get_header(); ?>
 
                             <!-- Approval Status -->
                             <td class="status-of-approval <?php if(get_field('status') == "Pending Approval") {echo 'pending';} else {echo 'approved';} ?>">
-                                <div><?php the_field('status') ?></div>
+                                <div class="the-status"><?php the_field('status') ?></div>
                             </td>
 
                             <!-- Approval Actions -->

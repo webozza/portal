@@ -120,55 +120,44 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  let filterTypes = async () => {
+    let allTypes = [];
+    $(".the-approval").each(function () {
+      let typeName = $(this).text();
+      allTypes.push(typeName);
+    });
+    let uniqueTypes = [...new Set(allTypes)];
+    uniqueTypes.map((entries) => {
+      $(".f--type select").append(`
+        <option>${entries}</option>
+      `);
+    });
+  };
+
   let runFilter = async () => {
-    let selectedUser = $(".f--user select").find(":selected").val();
-    let selectedClient = $(".f--client select").find(":selected").val();
-    let approvalRow = $(".approval-row");
+    // Get the selected filter values
+    let selectedUser = $(".f--user select").val();
+    let selectedClient = $(".f--client select").val();
+    let selectedStatus = $(".f--status select").val();
+    let selectedType = $(".f--type select").val();
 
-    approvalRow.each(function () {
-      let thisApprovalRow = $(this);
-      let eachClient = thisApprovalRow.find(".the-client").text();
-      let eachUser = thisApprovalRow.find(".the-user").text();
+    // Iterate over each approval row
+    $(".approval-row").each(function () {
+      let $row = $(this);
+      let rowUser = $row.find(".the-user").text();
+      let rowClient = $row.find(".the-client").text();
+      let rowStatus = $row.find(".the-status").text();
+      let rowType = $row.find(".the-approval a").text();
 
-      if (selectedUser == "All Users" && selectedClient == "All Clients") {
-        approvalRow.show();
-      } else if (
-        selectedUser == "All Users" &&
-        selectedClient !== "All Clients"
-      ) {
-        if (eachClient !== selectedClient) {
-          thisApprovalRow.hide();
-        } else {
-          thisApprovalRow.show();
-        }
-      } else if (
-        selectedUser !== "All Users" &&
-        selectedClient == "All Clients"
-      ) {
-        if (eachUser !== selectedUser) {
-          thisApprovalRow.hide();
-        } else {
-          thisApprovalRow.show();
-        }
-      } else if (
-        selectedUser !== "All Users" &&
-        selectedClient !== "All Clients"
-      ) {
-        if (eachUser !== selectedUser || eachClient !== selectedClient) {
-          thisApprovalRow.hide();
-        } else {
-          thisApprovalRow.show();
-        }
-      }
+      // Check if the row matches the selected filters
+      let showRow =
+        (selectedUser === "All Users" || rowUser === selectedUser) &&
+        (selectedClient === "All Clients" || rowClient === selectedClient) &&
+        (selectedStatus === "Status" || rowStatus === selectedStatus) &&
+        (selectedStatus === "All Types" || rowType === selectedType);
 
-      // if (
-      //   (eachClient !== selectedClient || eachUser !== selectedUser) &&
-      //   (selectedUser !== "All Users" || selectedClient !== "All Clients")
-      // ) {
-      //   thisApprovalRow.hide();
-      // } else if (eachClient == selectedClient || eachUser == selectedUser) {
-      //   thisApprovalRow.show();
-      // }
+      // Show or hide the row based on the result
+      $row.toggle(showRow);
     });
   };
 
@@ -181,4 +170,5 @@ jQuery(document).ready(function ($) {
   deleteProjectBrief();
   filterUsers();
   filterClients();
+  filterTypes();
 });
