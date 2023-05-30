@@ -125,27 +125,14 @@ jQuery(document).ready(function ($) {
     let selectedClient = $(".f--client select").find(":selected").val();
     let approvalRow = $(".approval-row");
 
-    if (selectedUser !== "All Users") {
-      approvalRow.each(function () {
-        let thisApprovalRow = $(this);
-        let eachUser = thisApprovalRow.find(".the-user").text();
-        if (eachUser !== selectedUser) {
-          thisApprovalRow.hide();
-        } else if (eachUser == selectedUser) {
-          thisApprovalRow.show();
-        }
-      });
-    } else {
-      approvalRow.show();
-    }
-
-    if (selectedClient !== "All Clients") {
+    if (selectedUser !== "All Users" && selectedClient !== "All Clients") {
       approvalRow.each(function () {
         let thisApprovalRow = $(this);
         let eachClient = thisApprovalRow.find(".the-client").text();
-        if (eachClient !== selectedClient) {
+        let eachUser = thisApprovalRow.find(".the-user").text();
+        if (eachClient !== selectedClient || eachUser !== selectedUser) {
           thisApprovalRow.hide();
-        } else if (eachClient == selectedClient) {
+        } else if (eachClient == selectedClient || eachUser == selectedUser) {
           thisApprovalRow.show();
         }
       });
