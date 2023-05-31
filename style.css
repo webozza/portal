@@ -980,3 +980,6 @@ a.save--changes.btn-cure img {
   background-color: var(--cure-primary-color);
   color: #fff;
 }
+.main.approvals .f--search {
+  display: none;
+}

@@ -161,7 +161,7 @@ jQuery(document).ready(function ($) {
     });
   };
 
-  $(".f--search a").click(function () {
+  $(".main.approvals .filters select").change(function () {
     runFilter();
   });
 
