@@ -29,9 +29,7 @@ get_header(); ?>
             </div>
         </div>
         <div class="cure-filters">
-            <div class="date-notice">
-                COMING SOON!
-            </div>
+            <div class="date-notice"></div>
             <!-- FILTERS -->
             <div class="filters">
                 <div class="filter search-brief cure-search">

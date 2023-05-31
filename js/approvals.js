@@ -171,4 +171,5 @@ jQuery(document).ready(function ($) {
   filterUsers();
   filterClients();
   filterTypes();
+  $(".main.approvals .filters select").select2();
 });
