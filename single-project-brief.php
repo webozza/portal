@@ -17,7 +17,8 @@
     </div>
     <!-- FILTERS -->
     <div class="cure-filters">
-        <div class="filters">
+        <div class="filters status-of-approval <?php if(get_field('status') == "Pending Approval") {echo 'pending';} else {echo 'approved';} ?>">
+            <div class="the-status"><?= get_field('status') ?></div>
         </div>
         <div class="filters cr-actions has-modal">
             <div class="filter cb-edit">
@@ -31,12 +32,14 @@
                     <img src="<?= get_template_directory_uri() . '/img/icons/download.png'?>">
                 </a>
             </div>
-            <div class="filter cr-approve">
-                <a href="javascript:void(0)">
-                    Approve
-                    <img src="<?= get_template_directory_uri() . '/img/icons/send.png'?>">
-                </a>
-            </div>
+            <?php if(get_field('status') !== "Approved") { ?>
+                <div class="filter cr-approve">
+                    <a href="javascript:void(0)">
+                        Approve
+                        <img src="<?= get_template_directory_uri() . '/img/icons/send.png'?>">
+                    </a>
+                </div>
+            <?php } ?>
         </div>
     </div>
     <!-- THE CLIENT OVERVIEW -->

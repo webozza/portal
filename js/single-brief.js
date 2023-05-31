@@ -1,4 +1,33 @@
 jQuery(document).ready(function ($) {
+  let createTasks = async () => {
+    let _createTasks = {
+      title: "Get it signed",
+      description: "Need to get it signed off immediately",
+      start_date: "2016-11-10",
+      due_date: "2016-11-10",
+      estimated_hours: 5,
+      estimated_mins: 30,
+    };
+    let fetchTasks = async () => {
+      const url = `https://curecollective.proofhub.com/api/v3/projects/7585025549/todolists/263718320785/tasks`;
+      let res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "User-Agent": "AppName (lee.morgan@curecollective.com.au)",
+          "Content-Type": "application/json",
+          "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
+        },
+        body: JSON.stringify(_createTasks),
+      });
+      return await res.json();
+    };
+    let postTasks = async () => {
+      let response = await fetchTasks();
+      console.log(response);
+    };
+    postTasks();
+  };
+
   let _updateApproval = {
     title: "",
     content: "",
@@ -37,9 +66,10 @@ jQuery(document).ready(function ($) {
       let response = await fetchProjectBrief();
       console.log("Approved this project brief =>", response);
       await sendEmailNotification();
-      setTimeout(() => {
-        window.location.href = `${cure.root}/approvals`;
-      }, 600);
+      await createTasks();
+      // setTimeout(() => {
+      //   window.location.href = `${cure.root}/approvals`;
+      // }, 600);
     };
     $(".cr-approve a").click(function () {
       if (
