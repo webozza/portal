@@ -983,3 +983,12 @@ a.save--changes.btn-cure img {
 .main.approvals .f--search {
   display: none;
 }
+
+/*--------------------------------------------------------------
+>>> Approvals Filter
+----------------------------------------------------------------*/
+.cure-modal.new-checklist form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}

@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.62' );
+	define( '_S_VERSION', '1.0.64' );
 }
 
 /**
@@ -192,6 +192,11 @@ function cure_portal_scripts() {
 	// Scripts - Briefs Overview
 	if( is_page('briefs') ) {
 		wp_enqueue_script( "briefs", get_template_directory_uri() . '/js/briefs.js', array('jquery'), _S_VERSION, true );
+	}
+
+	// Scripts - Checklists
+	if( is_page('checklists') ) {
+		wp_enqueue_script( "checklists", get_template_directory_uri() . '/js/checklists.js', array('jquery'), _S_VERSION, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cure_portal_scripts' );

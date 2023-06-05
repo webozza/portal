@@ -83,17 +83,17 @@
 						<li class="<?php if($url == "client-reporting" ) {echo 'active';} ?>">
 							<a href="<?= home_url() . '/client-reporting' ?>"><img src="<?php if($url == "client-reporting") {echo get_template_directory_uri() . '/img/icons/client-reporting-active.png';} else {echo get_template_directory_uri() . '/img/icons/client-reporting.png';} ?>">Client Reporting</a>
 						</li>
-						<!-- <li class="<?php if($url == "checklists" ) {echo 'active';} ?>">
-							<a href="<?= home_url() . '/checklists' ?>">
-								<img src="<?php if($url == "checklists") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
-								Checklists
-							</a>
-						</li> -->
 						<li class="<?php if($url == "approvals" ) {echo 'active';} ?>">
 							<a href="<?= home_url() . '/approvals' ?>"><img src="<?php if($url == "approvals") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">Approvals</a>
 						</li>
 						<li class="<?php if($url == "briefs" ) {echo 'active';} ?>">
 							<a href="<?= home_url() . '/briefs' ?>"><img src="<?php if($url == "briefs") {echo get_template_directory_uri() . '/img/icons/briefing-active.png';} else {echo get_template_directory_uri() . '/img/icons/briefing.png';} ?>">Project Briefs</a>
+						</li>
+						<li class="<?php if($url == "checklists" ) {echo 'active';} ?>">
+							<a href="<?= home_url() . '/checklists' ?>">
+								<img src="<?php if($url == "checklists") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
+								Checklists
+							</a>
 						</li>
 					</ul>
 				</nav>

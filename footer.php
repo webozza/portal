@@ -11,19 +11,7 @@
 
 ?>
 
-	<!-- <footer id="colophon" class="site-footer">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'cure-portal' ) ); ?>">
-				<?php
-				printf( esc_html__( 'Proudly powered by %s', 'cure-portal' ), 'WordPress' );
-				?>
-			</a>
-			<span class="sep"> | </span>
-				<?php
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'cure-portal' ), 'cure-portal', '<a href="http://underscores.me/">Underscores.me</a>' );
-				?>
-		</div>
-	</footer> -->
+
 </div>
 
 <?php 
@@ -54,7 +42,7 @@
 <div class="hidden">
 	<div class="approval-notification">
 		<?php 
-			if(get_site_url() == "http://localhost:9090/portal") {
+			if(get_site_url() == "https://cure-portal.local") {
 				echo do_shortcode('[contact-form-7 id="153" title="Approval Notifcation"]');
 			} else {
 				echo do_shortcode('[contact-form-7 id="95" title="Approval Request Notification - Briefs"]');

@@ -8,45 +8,41 @@ $user_id = get_current_user_id();
 $user_first_name = get_user_meta( $user_id, 'first_name', true ); ?>
 
 <div class="main">
-    <div class="greetings">
+    <div class="greetings has-options">
         <h2><?= get_the_title() ?></h2>
+        <div>
+            <a class="btn-cure trigger-modal" href="javascript:void(0)" data-modal="new-checklist">New Checklist +</a>
+        </div>
     </div>
     <div class="cure-filters">
         <div class="date-notice">
-            Last updated Sat Apr 8, 2023 9:17PM
+            COMING SOON!
         </div>
         <div class="filters">
             <div class="filter">
-                <a href="javascript:void(0)">Weekly</a>
-            </div>
-            <div class="filter">
-                <a href="javascript:void(0)">Monthly</a>
-            </div>
-            <div class="filter">
-                <a href="javascript:void(0)">Custom</a>
-            </div>
-            <div class="filter">
-                <a href="javascript:void(0)">Sort Client</a>
+                <a href="javascript:void(0)">Filters</a>
             </div>
         </div>
     </div>
     <div class="cr-table">
         <table>
             <tr>
-                <th>Client</th>
-                <th>Ad Spend</th>
-                <th>Conversions</th>
-                <th>CPA</th>
+                <th>Project name</th>
+                <th>Checklist type</th>
+                <th>Status</th>
+                <th>Contributors</th>
+                <th>Last updated</th>
+                <th>Actions</th>
             </tr>
             <tbody>
-                <tr>
-                    <td>Vyro</td>
-                </tr>
+                <!-- RUN LOOPS HERE -->
             </tbody>
         </table>
     </div>
 </div>
 
 
+<!-- MODALS -->
+<?php include(get_template_directory() . '/template-parts/modals/new-checklist.php') ?>
 
 <?php get_footer();

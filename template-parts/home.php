@@ -15,7 +15,9 @@ $user_last_name = get_user_meta( $user_id, 'last_name', true ); ?>
     </div>
     <div class="cure-filters">
         <div class="date-notice">
-            COMING SOON!
+            DASHBOARD COMING SOON!
+            <br>
+            <?= 'Current Version: ' . _S_VERSION ?>
         </div>
     </div>
 </div>
