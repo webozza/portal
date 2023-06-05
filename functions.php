@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.65' );
+	define( '_S_VERSION', '1.0.66' );
 }
 
 /**
@@ -247,6 +247,14 @@ function redirect_logged_in() {
 	}
 }
 add_action('template_redirect', 'redirect_logged_in');
+
+/**
+ * Block super admin access
+ */
+function blockusers_init() { 
+	if ( is_admin() && get_current_user_id() != 1 && ! ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) { wp_redirect( home_url() ); exit; } 
+}
+add_action( 'init', 'blockusers_init' ); 
 
 /**
  * Filter & Function to rename the WordPress login URL
