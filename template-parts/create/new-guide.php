@@ -15,14 +15,17 @@
             <a class="btn-cure btn-guide-publish" href="javascript:void(0)">Publish</a>
         </div>
     </div>
-    <div class="cure-filters">
-        <div class="date-notice">
-            <label>Title:</label>
-            <input type="text" name="guide_title" value="<?= $_GET['guide_title'] ?>">
+    <form id="newGuide" method="post" action="">
+        <div class="cure-filters">
+            <div class="date-notice">
+                <label>Title:</label>
+                <input type="text" name="guide_title" value="<?= $_GET['guide_title'] ?>">
+            </div>
         </div>
-    </div>
-    <div class="guide-content cure-section">
-        <label>Content</label>
-        <?php wp_editor('', 'guide_content', $editor_toolbar) ?>
-    </div>
+        <div class="guide-content cure-section">
+            <label>Content</label>
+            <?php wp_editor('', 'guide_content', $editor_toolbar) ?>
+        </div>
+        <input type="hidden" name="new_guide" value="1">
+    </form>
 </div>

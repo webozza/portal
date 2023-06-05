@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.66' );
+	define( '_S_VERSION', '1.0.67' );
 }
 
 /**
@@ -321,3 +321,20 @@ function auto_redirect_external_after_logout(){
   wp_redirect( get_site_url() . '/login' );
   exit();
 }
+
+/**
+ * Publish new post
+ */
+function new_guide() {
+	if( isset($_POST['new_guide']) == "1" ) {
+		$post_data = array(
+			'post_type' => 'guide',
+			'post_title' => $_POST['guide_title'],
+			'post_content' => $_POST['guide_content'],
+			'post_status' => 'publish',
+		);
+		wp_insert_post( $post_data );
+		wp_redirect(get_site_url() . '/info-centre');
+	}
+}
+add_action('init','new_guide');

@@ -1000,3 +1000,20 @@ a.save--changes.btn-cure img {
 .create-new-guide .date-notice input {
   width: 100%;
 }
+.guides {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.guide a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: underline;
+}
+.guide {
+  box-shadow: 0 0 7px rgba(0, 0, 0, 20%);
+  border-radius: 20px;
+  padding: 20px;
+}

@@ -5,4 +5,8 @@ jQuery(document).ready(function ($) {
     });
   };
   createNewGuide();
+
+  $(".btn-guide-publish").click(function () {
+    $("#newGuide").submit();
+  });
 });
