@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.70' );
+	define( '_S_VERSION', '1.0.71' );
 }
 
 /**
@@ -205,8 +205,8 @@ function cure_portal_scripts() {
 	}
 
 	// Scripts - Single Project Brief CPT
-	if( is_singular('guide') ) {
-		wp_enqueue_script( "single-guide", get_template_directory_uri() . '/js/single-guide.js', array('jquery'), _S_VERSION, true );
+	if( is_singular('info-centre') ) {
+		wp_enqueue_script( "single-info-centre", get_template_directory_uri() . '/js/single-info-centre.js', array('jquery'), _S_VERSION, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cure_portal_scripts' );
