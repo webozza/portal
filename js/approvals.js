@@ -174,7 +174,6 @@ jQuery(document).ready(function ($) {
     let selectedClient = $(".f--client select").val();
     let selectedStatus = $(".f--status select").val();
     let selectedType = $(".f--type select").val();
-    let selectedGuide = "Guidelines";
 
     // Iterate over each approval row
     $(".approval-row").each(function () {

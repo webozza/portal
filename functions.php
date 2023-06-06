@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.71' );
+	define( '_S_VERSION', '1.0.72' );
 }
 
 /**
@@ -340,7 +340,7 @@ function new_guide() {
 		);
 		$post_id = wp_insert_post( $post_data );
 		update_post_meta($post_id,'status','Pending Approval');
-		wp_redirect(get_site_url() . '/guidelines');
+		wp_redirect(get_site_url() . '/info-centre');
 	}
 }
 add_action('init','new_guide');

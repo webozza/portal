@@ -12,7 +12,7 @@
 <div class="main single-guide">
     <!-- BREADCRUMBS -->
     <div class="greetings">
-        <h2><a class="breadcrumb_parent" href="<?= get_site_url() . '/guidelines'?>">Guidelines</a> / <?= the_title() ?> </h2>
+        <h2><a class="breadcrumb_parent" href="<?= get_site_url() . '/info-centre'?>">Info Centre</a> / <?= the_title() ?> </h2>
     </div>
     <!-- FILTERS -->
     <div class="cure-filters">
