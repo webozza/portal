@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.69' );
+	define( '_S_VERSION', '1.0.70' );
 }
 
 /**
@@ -200,8 +200,8 @@ function cure_portal_scripts() {
 	}
 
 	// Scripts - Checklists
-	if( is_page('guidelines') ) {
-		wp_enqueue_script( "guidelines", get_template_directory_uri() . '/js/guidelines.js', array('jquery'), _S_VERSION, true );
+	if( is_page('info-centre') ) {
+		wp_enqueue_script( "info-centre", get_template_directory_uri() . '/js/info-centre.js', array('jquery'), _S_VERSION, true );
 	}
 
 	// Scripts - Single Project Brief CPT
@@ -333,7 +333,7 @@ function auto_redirect_external_after_logout(){
 function new_guide() {
 	if( isset($_POST['new_guide']) == "1" ) {
 		$post_data = array(
-			'post_type' => 'guide',
+			'post_type' => 'info-centre',
 			'post_title' => $_POST['guide_title'],
 			'post_content' => $_POST['guide_content'],
 			'post_status' => 'publish',

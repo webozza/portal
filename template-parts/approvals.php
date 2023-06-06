@@ -33,7 +33,7 @@ get_header(); ?>
 
     // Query Guidelines
     $guidelines = array(
-        'post_type' => 'guide',
+        'post_type' => 'info-centre',
         'posts_per_page' => -1,
         'order' => 'ASC'
     );

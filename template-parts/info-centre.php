@@ -1,13 +1,13 @@
 <?php
 /**
-* Template Name: Guidelines
+* Template Name: Info Centre
 */
 
 get_header(); ?>
 
 <?php
     $guides = array(
-        'post_type' => 'guide',
+        'post_type' => 'info-centre',
         'posts_per_page' => -1,
         'meta_query' => array(
             array(
@@ -23,7 +23,7 @@ get_header(); ?>
 <?php if( isset($_GET['new-guide']) != "1") { ?>
     <div class="main guidelines">
         <div class="greetings has-options">
-            <h2>Guidelines</h2>
+            <h2>Info Centre</h2>
             <div>
                 <a class="btn-cure trigger-modal" href="javascript:void(0)" data-modal="new-guide">New Guide +</a>
             </div>

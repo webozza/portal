@@ -96,7 +96,7 @@ jQuery(document).ready(function ($) {
     var deleteID;
 
     let prepareDeleteGuideline = async () => {
-      const url = `${cure.root}/wp-json/wp/v2/guide/${deleteID}`;
+      const url = `${cure.root}/wp-json/wp/v2/info-centre/${deleteID}`;
       let res = await fetch(url, {
         method: "DELETE",
         headers: {

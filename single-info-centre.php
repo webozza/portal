@@ -9,7 +9,7 @@
     cure['guide_id'] = "<?php the_ID() ?>";
 </script>
 
-<<div class="main single-guide">
+<div class="main single-guide">
     <!-- BREADCRUMBS -->
     <div class="greetings">
         <h2><a class="breadcrumb_parent" href="<?= get_site_url() . '/guidelines'?>">Guidelines</a> / <?= the_title() ?> </h2>

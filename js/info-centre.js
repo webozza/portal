@@ -16,7 +16,7 @@ jQuery(document).ready(function ($) {
     };
 
     let fetchGuide = async () => {
-      const url = `${cure.root}/wp-json/wp/v2/guide`;
+      const url = `${cure.root}/wp-json/wp/v2/info-centre`;
       let res = await fetch(url, {
         method: "POST",
         headers: {
