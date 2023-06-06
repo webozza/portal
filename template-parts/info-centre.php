@@ -25,7 +25,7 @@ get_header(); ?>
         <div class="greetings has-options">
             <h2>Info Centre</h2>
             <div>
-                <a class="btn-cure trigger-modal" href="javascript:void(0)" data-modal="new-guide">New Guide +</a>
+                <a class="btn-cure trigger-modal" href="javascript:void(0)" data-modal="new-guide">New Post +</a>
             </div>
         </div>
         <div class="cure-filters">

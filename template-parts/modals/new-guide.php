@@ -1,7 +1,7 @@
 <div class="cure-modal new-guide hidden" style="display:none" data-modal="new-guide">
     <div class="inner">
         <div class="cure-modal-header">
-            <h3>New Guide</h3>
+            <h3>New Post</h3>
             <a class="close-modal" href="javascript:void(0)"><img src="<?= get_template_directory_uri() . '/img/icons/close.png' ?>"></a>
         </div>
         <div class="cure-modal-body">
