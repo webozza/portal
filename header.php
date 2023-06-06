@@ -95,8 +95,8 @@
 								Checklists
 							</a>
 						</li>
-						<li class="<?php if($url == "info-centre" ) {echo 'active';} ?>">
-							<a href="<?= home_url() . '/info-centre' ?>"><img src="<?php if($url == "info-centre") {echo get_template_directory_uri() . '/img/icons/briefing-active.png';} else {echo get_template_directory_uri() . '/img/icons/briefing.png';} ?>">Info Centre</a>
+						<li class="<?php if($url == "guidelines" ) {echo 'active';} ?>">
+							<a href="<?= home_url() . '/guidelines' ?>"><img src="<?php if($url == "guidelines") {echo get_template_directory_uri() . '/img/icons/briefing-active.png';} else {echo get_template_directory_uri() . '/img/icons/briefing.png';} ?>">Guidelines</a>
 						</li>
 					</ul>
 				</nav>

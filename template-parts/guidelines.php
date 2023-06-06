@@ -1,22 +1,29 @@
 <?php
 /**
-* Template Name: Info Centre
+* Template Name: Guidelines
 */
 
 get_header(); ?>
 
 <?php
-    $info_centre = array(
+    $guides = array(
         'post_type' => 'guide',
-        'posts_per_page' => -1
+        'posts_per_page' => -1,
+        'meta_query' => array(
+            array(
+               'key' => 'status',
+               'value' => 'Approved',
+               'compare' => '=',
+            )
+         )
     );
-    $guides = new WP_Query($info_centre);
+    $guidelines = new WP_Query($guides);
 ?>
 
 <?php if( isset($_GET['new-guide']) != "1") { ?>
-    <div class="main info-centre">
+    <div class="main guidelines">
         <div class="greetings has-options">
-            <h2>INFO CENTRE</h2>
+            <h2>Guidelines</h2>
             <div>
                 <a class="btn-cure trigger-modal" href="javascript:void(0)" data-modal="new-guide">New Guide +</a>
             </div>
@@ -25,6 +32,7 @@ get_header(); ?>
             <div class="date-notice">
                 ONBOARD!
             </div>
+
             <!-- FILTERS -->
             <div class="filters">
                 <div class="filter search-guide cure-search">
@@ -36,9 +44,9 @@ get_header(); ?>
         </div>
         <!-- GUIDES LOOP -->
         <div class="guides cure-section">
-            <?php if ( $guides->have_posts() ) : ?>
+            <?php if ( $guidelines->have_posts() ) : ?>
 
-            <?php while ( $guides->have_posts() ) : $guides->the_post(); ?>
+            <?php while ( $guidelines->have_posts() ) : $guidelines->the_post(); ?>
                 <div class="guide">
                     <a href="<?= get_the_permalink() ?>">
                         <?= get_the_title() ?>
@@ -58,5 +66,6 @@ get_header(); ?>
 
 <!-- MODALS -->
 <?php include(get_template_directory() . '/template-parts/modals/new-guide.php') ?>
+<?php include(get_template_directory() . '/template-parts/modals/guideline-success.php') ?>
 
 <?php get_footer();

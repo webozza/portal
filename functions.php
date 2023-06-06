@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.67' );
+	define( '_S_VERSION', '1.0.68' );
 }
 
 /**
@@ -200,8 +200,13 @@ function cure_portal_scripts() {
 	}
 
 	// Scripts - Checklists
-	if( is_page('info-centre') ) {
-		wp_enqueue_script( "info-centre", get_template_directory_uri() . '/js/info-centre.js', array('jquery'), _S_VERSION, true );
+	if( is_page('guidelines') ) {
+		wp_enqueue_script( "guidelines", get_template_directory_uri() . '/js/guidelines.js', array('jquery'), _S_VERSION, true );
+	}
+
+	// Scripts - Single Project Brief CPT
+	if( is_singular('guide') ) {
+		wp_enqueue_script( "single-guide", get_template_directory_uri() . '/js/single-guide.js', array('jquery'), _S_VERSION, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cure_portal_scripts' );
@@ -333,8 +338,9 @@ function new_guide() {
 			'post_content' => $_POST['guide_content'],
 			'post_status' => 'publish',
 		);
-		wp_insert_post( $post_data );
-		wp_redirect(get_site_url() . '/info-centre');
+		$post_id = wp_insert_post( $post_data );
+		update_post_meta($post_id,'status','Pending Approval');
+		wp_redirect(get_site_url() . '/guidelines');
 	}
 }
 add_action('init','new_guide');

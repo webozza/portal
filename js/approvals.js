@@ -92,6 +92,39 @@ jQuery(document).ready(function ($) {
     });
   };
 
+  let deleteGuideline = () => {
+    var deleteID;
+
+    let prepareDeleteGuideline = async () => {
+      const url = `${cure.root}/wp-json/wp/v2/guide/${deleteID}`;
+      let res = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          "X-WP-Nonce": cure.nonce,
+        },
+      });
+      return await res.json();
+    };
+
+    let deleteGuide = async () => {
+      let res = await prepareDeleteGuideline();
+      console.log(res);
+    };
+
+    $("tr.approval-row.guidelines .approval-delete").click(function () {
+      let rowParent = $(this).parent().parent().parent();
+      let theApproval = rowParent.find(".the-approval").text();
+      deleteID = rowParent.data("id");
+      if (
+        confirm(`Are you sure you want to delete this ${theApproval}?`) == true
+      ) {
+        deleteGuide();
+        rowParent.remove();
+      }
+    });
+  };
+
   let filterUsers = async () => {
     let allUsers = [];
     $(".the-user").each(function () {
@@ -122,8 +155,9 @@ jQuery(document).ready(function ($) {
 
   let filterTypes = async () => {
     let allTypes = [];
-    $(".the-approval").each(function () {
-      let typeName = $(this).text();
+    $(".the-approval").each(async function () {
+      let thisApproval = $(this);
+      let typeName = thisApproval.text();
       allTypes.push(typeName);
     });
     let uniqueTypes = [...new Set(allTypes)];
@@ -140,6 +174,7 @@ jQuery(document).ready(function ($) {
     let selectedClient = $(".f--client select").val();
     let selectedStatus = $(".f--status select").val();
     let selectedType = $(".f--type select").val();
+    let selectedGuide = "Guidelines";
 
     // Iterate over each approval row
     $(".approval-row").each(function () {
@@ -168,6 +203,7 @@ jQuery(document).ready(function ($) {
   deleteReport();
   deleteClientOverview();
   deleteProjectBrief();
+  deleteGuideline();
   filterUsers();
   filterClients();
   filterTypes();

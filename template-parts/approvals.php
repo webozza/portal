@@ -30,6 +30,14 @@ get_header(); ?>
         'order' => 'ASC',
     );
     $pb = new WP_Query($project_briefs);
+
+    // Query Guidelines
+    $guidelines = array(
+        'post_type' => 'guide',
+        'posts_per_page' => -1,
+        'order' => 'ASC'
+    );
+    $guides = new WP_Query($guidelines);
 ?>
 
 <div class="main approvals">
@@ -188,6 +196,44 @@ get_header(); ?>
                             
                             <!-- Approval ID -->
                             <td><?= 'PB' . get_the_ID() ?></td>
+
+                            <!-- Approval Status -->
+                            <td class="status-of-approval <?php if(get_field('status') == "Pending Approval") {echo 'pending';} else {echo 'approved';} ?>">
+                                <div class="the-status"><?php the_field('status') ?></div>
+                            </td>
+
+                            <!-- Approval Actions -->
+                            <td>
+                                <div class="approval-actions">
+                                    <a class="approval-edit" href="<?php the_permalink() ?>">
+                                        <img src="<?= get_template_directory_uri() . '/img/icons/edit.png' ?>">
+                                    </a>
+                                    <a class="approval-delete" href="javascript:void(0)">
+                                        <img src="<?= get_template_directory_uri() . '/img/icons/delete.png' ?>">
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                    <?php wp_reset_postdata(); ?>
+                <?php endif; ?>
+
+                <!-- Guidelines -->
+                <?php if ( $guides->have_posts() ) : ?>
+                    <?php while ( $guides->have_posts() ) : $guides->the_post(); ?>
+                        <tr data-id="<?php the_ID() ?>" class="approval-row guidelines">	
+
+                            <!-- Approval Name -->
+                            <td class="the-approval for-guide"><a href="<?php the_permalink() ?>"><?= 'Guideline' ?></a></td>
+
+                            <!-- Approval From -->
+                            <td class="the-user"><?= get_the_author() ?></td>
+
+                            <!-- Approval Client -->
+                            <td class="the-client"><?= 'Internal' ?></td>
+                            
+                            <!-- Approval ID -->
+                            <td><?= 'GL' . get_the_ID() ?></td>
 
                             <!-- Approval Status -->
                             <td class="status-of-approval <?php if(get_field('status') == "Pending Approval") {echo 'pending';} else {echo 'approved';} ?>">
