@@ -10,7 +10,7 @@
 
 <div class="main create-new-guide">
     <div class="greetings has-options">
-        <h2>Create New Guide</h2>
+        <h2>Create New Post</h2>
         <div>
             <a class="btn-cure btn-guide-publish" href="javascript:void(0)">Send for Approval</a>
         </div>

@@ -218,13 +218,13 @@ get_header(); ?>
                     <?php wp_reset_postdata(); ?>
                 <?php endif; ?>
 
-                <!-- Guidelines -->
+                <!-- Info Centre -->
                 <?php if ( $guides->have_posts() ) : ?>
                     <?php while ( $guides->have_posts() ) : $guides->the_post(); ?>
                         <tr data-id="<?php the_ID() ?>" class="approval-row guidelines">	
 
                             <!-- Approval Name -->
-                            <td class="the-approval for-guide"><a href="<?php the_permalink() ?>"><?= 'Guideline' ?></a></td>
+                            <td class="the-approval for-guide"><a href="<?php the_permalink() ?>"><?= 'Cure Post' ?></a></td>
 
                             <!-- Approval From -->
                             <td class="the-user"><?= get_the_author() ?></td>
@@ -233,7 +233,7 @@ get_header(); ?>
                             <td class="the-client"><?= 'Internal' ?></td>
                             
                             <!-- Approval ID -->
-                            <td><?= 'GL' . get_the_ID() ?></td>
+                            <td><?= 'IC' . get_the_ID() ?></td>
 
                             <!-- Approval Status -->
                             <td class="status-of-approval <?php if(get_field('status') == "Pending Approval") {echo 'pending';} else {echo 'approved';} ?>">

@@ -1,7 +1,7 @@
 <div class="cure-modal guideline-success hidden" style="display:none" data-modal="guideline-success">
     <div class="inner">
         <div class="cure-modal-header">
-            <h3>Guide sent for Approval!</h3>
+            <h3>Post sent for Approval!</h3>
             <a class="close-modal" href="javascript:void(0)"><img src="<?= get_template_directory_uri() . '/img/icons/close.png' ?>"></a>
         </div>
         <div class="cure-modal-body">
