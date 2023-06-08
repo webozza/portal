@@ -1027,3 +1027,10 @@ a.save--changes.btn-cure img {
   border: 1px solid #eeeeee;
   border-radius: 7px;
 }
+
+/*--------------------------------------------------------------
+>>> User Management
+----------------------------------------------------------------*/
+.main.user-management td {
+  white-space: nowrap;
+}
