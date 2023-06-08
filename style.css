@@ -144,6 +144,15 @@ div {
   display: none;
   color: red;
 }
+.cure-modal .cure-field-group.multi {
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
+}
+.cure-field-group.multi > div {
+  display: flex;
+  flex-direction: column;
+}
 
 /*--------------------------------------------------------------
 >>> LOGIN PAGE:
@@ -1033,4 +1042,9 @@ a.save--changes.btn-cure img {
 ----------------------------------------------------------------*/
 .main.user-management td {
   white-space: nowrap;
+}
+.cure-modal.new-user form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
 }

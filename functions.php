@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.78' );
+	define( '_S_VERSION', '1.0.80' );
 }
 
 /**
@@ -204,6 +204,11 @@ function cure_portal_scripts() {
 		wp_enqueue_script( "info-centre", get_template_directory_uri() . '/js/info-centre.js', array('jquery'), _S_VERSION, true );
 	}
 
+	// Scripts - User Management
+	if( is_page('users') ) {
+		wp_enqueue_script( "users", get_template_directory_uri() . '/js/users.js', array('jquery'), _S_VERSION, true );
+	}
+
 	// Scripts - Single Project Brief CPT
 	if( is_singular('info-centre') ) {
 		wp_enqueue_script( "single-info-centre", get_template_directory_uri() . '/js/single-info-centre.js', array('jquery'), _S_VERSION, true );
@@ -344,3 +349,27 @@ function new_guide() {
 	}
 }
 add_action('init','new_guide');
+
+function add_new_user() {
+	if( isset($_POST['new_user']) == "1") {
+		$username = strtolower($_POST['user_first_name']);
+		$user_data = array(
+			'user_login' => $username,
+			'user_pass' => 'zXJrbhaviRe1A9P',
+			'first_name' => $_POST['user_first_name'],
+			'last_name' => $_POST['user_last_name'],
+			'user_email' => $_POST['user_email_address'],
+			'role' => 'administrator',
+		);
+		$user_id = wp_insert_user($user_data);
+
+		// Send password reset email
+
+		// Update user meta
+		update_field( 'hours_per_day', $_POST['hours_per_day'], 'user_'.$user_id );
+		update_field( 'days_per_week', $_POST['working_days_per_week'], 'user_' . $user_id );
+		update_field( 'cure_role', $_POST['cure_role'], 'user_' . $user_id );
+		wp_redirect(get_site_url() . '/users');
+	}
+}
+add_action('init','add_new_user');

@@ -9,7 +9,7 @@ get_header(); ?>
     <div class="greetings has-options">
         <h2>User Management</h2>
         <div>
-            <a class="btn-cure trigger-modal" href="javascript:void(0)" data-modal="new-guide">Add User +</a>
+            <a class="btn-cure trigger-modal" href="javascript:void(0)" data-modal="new-user">Add User +</a>
         </div>
     </div>
     <div class="cure-filters">
@@ -27,7 +27,7 @@ get_header(); ?>
                     <option selected>All Roles</option>
                 </select>
             </div>
-            <div class="filter f--search">
+            <div class="filter f--search hidden">
                 <a href="javascript:void(0)">Filter >></a>
             </div>
         </div>
@@ -51,7 +51,7 @@ get_header(); ?>
                     <tr>
                         <td class="cure-user"><?= $user->display_name ?></td>
                         <td class="cure-user-id"><?= 'C-' . sprintf('%03d', $user->ID); ?></td>
-                        <td><?php echo ($user->ID == "1" || $user->ID == "3") ? 'Administrator' : 'Member' ?></td>
+                        <td><?php echo get_field('cure_role', 'user_'.$user->ID) ?></td>
                         <td>
                             <div class="approval-actions">
                                 <a class="approval-edit" href="javascript:void(0)">
@@ -68,5 +68,8 @@ get_header(); ?>
         </table>
     </div>
 </div>
+
+<!-- Modals -->
+<?php include(get_template_directory() . '/template-parts/modals/new-user.php') ?>
 
 <?php get_footer();

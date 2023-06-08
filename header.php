@@ -33,6 +33,7 @@
 
 	<?php wp_head(); ?>
 	<script>
+		$ = jQuery;
 		let tempDir = "<?= get_template_directory_uri() ?>";
 	</script>
 	<?php if(is_user_logged_in()) { ?>
