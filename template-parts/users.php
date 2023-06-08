@@ -51,7 +51,7 @@ get_header(); ?>
                     <tr>
                         <td class="cure-user"><?= $user->display_name ?></td>
                         <td class="cure-user-id"><?= 'C-' . sprintf('%03d', $user->ID); ?></td>
-                        <td><?php echo ($user->ID == "1") ? 'Dev' : 'Member' ?></td>
+                        <td><?php echo ($user->ID == "1" || $user->ID == "3") ? 'Administrator' : 'Member' ?></td>
                         <td>
                             <div class="approval-actions">
                                 <a class="approval-edit" href="javascript:void(0)">
