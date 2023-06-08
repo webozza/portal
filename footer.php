@@ -36,6 +36,8 @@
 			profileImg.attr("src", `${tempDir}/img/users/shawn-peh.jpeg`);
 		} else if (fullName == "Syiqin Shukri") {
 			profileImg.attr("src", `${tempDir}/img/users/syiqin-shukri.jpeg`);
+		} else if (fullName == "Tom Jacob") {
+			profileImg.attr("src", `${tempDir}/img/users/tom-jacob.jpeg`);
 		}
 	});
 </script>

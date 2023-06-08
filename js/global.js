@@ -135,6 +135,7 @@ jQuery(document).ready(function ($) {
     let shawnPeh = `${tempDir}/img/users/shawn-peh.jpeg`;
     let leeMorgan = `${tempDir}/img/users/lee-morgan.jpeg`;
     let syiqinShukri = `${tempDir}/img/users/syiqin-shukri.jpeg`;
+    let tomJacob = `${tempDir}/img/users/tom-jacob.jpeg`;
     $(".wpd-avatar img").each(function () {
       let imgAlt = $(this).attr("alt");
       if (imgAlt == "Rony Chowdhury") {
@@ -149,6 +150,9 @@ jQuery(document).ready(function ($) {
       } else if (imgAlt == "Syiqin Shukri") {
         $(this).attr("src", syiqinShukri);
         $(this).attr("srcset", syiqinShukri);
+      } else if (imgAlt == "Tom Jacob") {
+        $(this).attr("src", tomJacob);
+        $(this).attr("srcset", tomJacob);
       }
     });
   };
