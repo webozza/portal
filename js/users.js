@@ -18,7 +18,7 @@ let compareHoursPH = async () => {
     let thisUserID_PH = thisUser.data("id-ph");
     let thisUserTarget =
       thisUser.data("hours-per-day") * thisUser.data("days-per-week") * 60;
-    console.log(thisUserID, thisUserID_PH, thisUserTarget);
+    //console.log(thisUserID, thisUserID_PH, thisUserTarget);
 
     let fetchUserTime = async () => {
       const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=${thisUserID_PH}&from_date=${cure.dates.wtd_start}&to_date=${cure.dates.today}`;
@@ -52,11 +52,11 @@ let compareHoursPH = async () => {
         // console.log(logggedStatus, loggedHours, loggedMins);
       });
 
-      console.log(totalLoggedHoursArray, totalLoggedMinsArray);
+      //console.log(totalLoggedHoursArray, totalLoggedMinsArray);
 
       totalLoggedHours = totalLoggedHoursArray.reduce((a, b) => a + b, 0);
       totalLoggedMins = totalLoggedMinsArray.reduce((a, b) => a + b, 0);
-      console.log(totalLoggedHours, totalLoggedMins);
+      //console.log(totalLoggedHours, totalLoggedMins);
 
       let totalTimeLogged =
         Number(totalLoggedHours * 60) + Number(totalLoggedMins);
@@ -87,4 +87,4 @@ let checkIDs = async () => {
   let response = await fetchPeople();
   console.log(response);
 };
-//checkIDs();
+checkIDs();
