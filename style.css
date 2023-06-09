@@ -903,9 +903,9 @@ a.save--changes.btn-cure img {
   display: none;
 }
 .cure-next-slide {
-  opacity: 0.5;
+  /* opacity: 0.5;
   pointer-events: none;
-  cursor: not-allowed;
+  cursor: not-allowed; */
   transition: all 0.2s ease;
 }
 .cure-next-slide.active {

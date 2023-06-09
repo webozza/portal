@@ -483,13 +483,13 @@ let sendBriefApproval = async () => {
 };
 
 if (window.location.href.indexOf("?co_client") > -1) {
-  validateEmpty();
+  //validateEmpty();
   cureSlideControls();
   cureSlideValidation();
   sendForApproval();
 } else if (window.location.href.indexOf("?client") > -1) {
   cureSlideControls();
-  validateEmptyBriefs();
+  //validateEmptyBriefs();
   slideValidationBriefs();
   sendBriefApproval();
 } else {
