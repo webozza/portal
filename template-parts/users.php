@@ -40,6 +40,7 @@ get_header(); ?>
             <thead>
                 <tr>
                     <th>User</th>
+                    <th>Target Hit this Week</th>
                     <th>ID</th>
                     <th>Role</th>
                     <th>Actions</th>
@@ -48,10 +49,11 @@ get_header(); ?>
             <tbody>
                 <!-- RUN USER LOOP HERE -->
                 <?php foreach($users as $user) { ?>
-                    <tr>
+                    <tr data-id="<?= $user->ID ?>" data-id-ph="<?= get_field('userid_ph', 'user_'.$user->ID) ?>" data-hours-per-day="<?= get_field('hours_per_day', 'user_'.$user->ID) ?>" data-days-per-week="<?= get_field('days_per_week', 'user_'.$user->ID) ?>">
                         <td class="cure-user"><?= $user->display_name ?></td>
+                        <td class="total-hours-hit"></td>
                         <td class="cure-user-id"><?= 'C-' . sprintf('%03d', $user->ID); ?></td>
-                        <td><?php echo get_field('cure_role', 'user_'.$user->ID) ?></td>
+                        <td><?= get_field('cure_role', 'user_'.$user->ID) ?></td>
                         <td>
                             <div class="approval-actions">
                                 <a class="approval-edit" href="javascript:void(0)">

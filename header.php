@@ -43,6 +43,11 @@
 				nonce: "<?= wp_create_nonce( 'wp_rest' ) ?>",
 				current_user_id: "<?= get_current_user_id() ?>",
 				themeDir: "<?= get_template_directory_uri() ?>",
+				dates: {
+					wtd_start: '<?= date('Y-m-d', strtotime("this week")) ?>',
+					today : '<?= date('Y-m-d', strtotime("today")) ?>',
+					mtd_start: '<?= date('Y-m-d', strtotime("first day of this month")) ?>',
+				}
 			}
 		</script>
 	<?php } ?>
