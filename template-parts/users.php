@@ -59,7 +59,7 @@ get_header(); ?>
                                     <div class="green"></div>
                                 </div>
                                 <span>
-                                    <img height="20" src="<?= get_template_directory_uri() . '/img/data-loader.gif' ?>">
+                                    <img height="15" src="<?= get_template_directory_uri() . '/img/data-loader.gif' ?>">
                                 </span>
                             </div>
                         </td>
