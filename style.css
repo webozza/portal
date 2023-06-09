@@ -1049,14 +1049,15 @@ a.save--changes.btn-cure img {
   row-gap: 20px;
 }
 .traffic-lights > div {
-  width: 20px;
-  height: 20px;
+  width: 12px;
+  height: 12px;
   background-color: #f1f3f4;
   border-radius: 50%;
 }
 .traffic-lights {
   display: flex;
   column-gap: 2px;
+  align-items: center;
 }
 .total-hours-hit > div {
   display: flex;
