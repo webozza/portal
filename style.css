@@ -1063,3 +1063,17 @@ a.save--changes.btn-cure img {
   display: flex;
   column-gap: 5px;
 }
+.cure-user img {
+  width: 16px;
+  border-radius: 50%;
+}
+.cure-user > div {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+.cure-user img {
+  width: 19px;
+  border-radius: 50%;
+  border: 1px solid blanchedalmond;
+}

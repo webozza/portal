@@ -95,5 +95,10 @@ let fetchPeople = async () => {
 let checkIDs = async () => {
   let response = await fetchPeople();
   console.log(response);
+  response.map((entries) => {
+    $(`.user-management .cr-table tbody tr[data-id-ph="${entries.id}"]`)
+      .find(".cure-user img")
+      .attr("src", entries.image_url);
+  });
 };
 checkIDs();
