@@ -1048,3 +1048,17 @@ a.save--changes.btn-cure img {
   flex-direction: column;
   row-gap: 20px;
 }
+.traffic-lights > div {
+  width: 20px;
+  height: 20px;
+  background-color: #f1f3f4;
+  border-radius: 50%;
+}
+.traffic-lights {
+  display: flex;
+  column-gap: 2px;
+}
+.total-hours-hit > div {
+  display: flex;
+  column-gap: 5px;
+}

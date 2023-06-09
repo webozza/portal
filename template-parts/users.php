@@ -51,7 +51,18 @@ get_header(); ?>
                 <?php foreach($users as $user) { ?>
                     <tr data-id="<?= $user->ID ?>" data-id-ph="<?= get_field('userid_ph', 'user_'.$user->ID) ?>" data-hours-per-day="<?= get_field('hours_per_day', 'user_'.$user->ID) ?>" data-days-per-week="<?= get_field('days_per_week', 'user_'.$user->ID) ?>">
                         <td class="cure-user"><?= $user->display_name ?></td>
-                        <td class="total-hours-hit"></td>
+                        <td class="total-hours-hit">
+                            <div>
+                                <div class="traffic-lights">
+                                    <div class="red"></div>
+                                    <div class="yellow"></div>
+                                    <div class="green"></div>
+                                </div>
+                                <span>
+                                    <img height="20" src="<?= get_template_directory_uri() . '/img/data-loader.gif' ?>">
+                                </span>
+                            </div>
+                        </td>
                         <td class="cure-user-id"><?= 'C-' . sprintf('%03d', $user->ID); ?></td>
                         <td><?= get_field('cure_role', 'user_'.$user->ID) ?></td>
                         <td>

@@ -64,7 +64,16 @@ let compareHoursPH = async () => {
       // Calculate the weektodate target (in mins)
 
       let thisUserHits = (totalTimeLogged / thisUserTarget) * 100;
-      thisUser.find(".total-hours-hit").text(`${thisUserHits.toFixed(2)}%`);
+      thisUser
+        .find(".total-hours-hit > div > span")
+        .text(`${thisUserHits.toFixed(2)}%`);
+
+      // traffic lights
+      if (thisUserHits < 80) {
+        thisUser.find(".red").css("background-color", "#FF605C");
+      } else if (thisUserHits >= 80 && thisUserHits <= 120) {
+        thisUser.find(".green").css("background-color", "#00CA4E");
+      }
     };
     renderUserTime();
   });
