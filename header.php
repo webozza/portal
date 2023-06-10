@@ -47,7 +47,8 @@
 					wtd_start: '<?= date('Y-m-d', strtotime("this week")) ?>',
 					today : '<?= date('Y-m-d', strtotime("today")) ?>',
 					mtd_start: '<?= date('Y-m-d', strtotime("first day of this month")) ?>',
-				}
+				},
+				user_ph_id: <?= get_field('userid_ph', 'user_'.get_current_user_ID()) ?>,
 			}
 		</script>
 	<?php } ?>
@@ -120,7 +121,7 @@
 						</li>
 						<li class="cure-user-role">
 							<a href="javascript:void(0)">
-								<img class="user-profile-img" src="">
+								<img class="user-profile-img" src="<?= get_template_directory_uri() . '/img/data-loader.gif' ?>">
 								<div class="inner">
 									<div class="name"><?= $user_first_name . ' ' . $user_last_name ?></div>
 									<div class="role"><?= $role ?></div>

@@ -14,33 +14,7 @@
 
 </div>
 
-<?php 
-	$user_id = get_current_user_id();
-	$user_first_name = get_user_meta( $user_id, 'first_name', true );
-	$user_last_name = get_user_meta( $user_id, 'last_name', true );
-?>
 
-<script>
-	jQuery(document).ready(function ($) {
-		// Profile Image
-		let firstName = "<?= $user_first_name ?>";
-		let lastName = "<?= $user_last_name ?>";
-		let fullName = `${firstName} ${lastName}`;
-		let profileImg = $(".user-profile-img");
-
-		if (fullName == "Rony Chowdhury") {
-			profileImg.attr("src", `${tempDir}/img/users/rony-chowdhury.jpeg`);
-		} else if (fullName == "Lee Morgan") {
-			profileImg.attr("src", `${tempDir}/img/users/lee-morgan.jpeg`);
-		} else if (fullName == "Shawn Peh") {
-			profileImg.attr("src", `${tempDir}/img/users/shawn-peh.jpeg`);
-		} else if (fullName == "Syiqin Shukri") {
-			profileImg.attr("src", `${tempDir}/img/users/syiqin-shukri.jpeg`);
-		} else if (fullName == "Tom Jacob") {
-			profileImg.attr("src", `${tempDir}/img/users/tom-jacob.jpeg`);
-		}
-	});
-</script>
 <div class="hidden">
 	<div class="approval-notification">
 		<?php 

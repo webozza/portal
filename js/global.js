@@ -161,3 +161,23 @@ if ($("body").hasClass("single")) {
   runOnComment();
   profileImages();
 }
+
+// Hold user data for use globally
+let fetchPerson = async () => {
+  const url = `https://curecollective.proofhub.com/api/v3/people/${cure.user_ph_id}`;
+  let res = await fetch(url, {
+    headers: {
+      "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
+    },
+  });
+  return await res.json();
+};
+let renderPerson = async () => {
+  let response = await fetchPerson();
+  cure["user_data"] = response;
+  let profileImg = $(".user-profile-img");
+  profileImg.attr("src", cure.user_data.image_url);
+};
+renderPerson();
+
+// Render user's profile pic
