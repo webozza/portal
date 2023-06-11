@@ -31,6 +31,7 @@ let compareHoursPH = async () => {
     };
     let renderUserTime = async () => {
       let response = await fetchUserTime();
+      console.log(response);
 
       let totalLoggedHours = 0;
       let totalLoggedMins = 0;

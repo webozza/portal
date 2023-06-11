@@ -32,6 +32,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 	<?php wp_head(); ?>
+	<?php date_default_timezone_set("Australia/Sydney"); ?>
 	<script>
 		$ = jQuery;
 		let tempDir = "<?= get_template_directory_uri() ?>";
