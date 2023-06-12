@@ -212,3 +212,10 @@ let cureDateConverter = (sd, ed) => {
   let date_range = `${start_date_day} ${start_date_month} — ${end_date_day} ${end_date_month}`;
   return date_range;
 };
+
+let activeFilter = () => {
+  $(".filters .filter a").click(function () {
+    $(".filters .filter").removeClass("active");
+    $(this).parent().addClass("active");
+  });
+};

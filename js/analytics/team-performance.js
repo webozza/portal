@@ -11,8 +11,9 @@ let compareHoursPH = async (start_date, end_date) => {
     let thisUser = $(this);
     let thisUserID = thisUser.data("id");
     let thisUserID_PH = thisUser.data("id-ph");
-    let thisUserTarget =
-      thisUser.data("hours-per-day") * thisUser.data("days-per-week") * 60;
+    let thisUserHoursPerDay = thisUser.data("hours-per-day");
+    let thisUserDaysPerWeek = thisUser.data("days-per-week");
+    let thisUserTarget = thisUserHoursPerDay * thisUserDaysPerWeek * 60;
     //console.log(thisUserID, thisUserID_PH, thisUserTarget);
 
     let fetchUserTime = async () => {
@@ -65,7 +66,8 @@ let compareHoursPH = async (start_date, end_date) => {
 
       // traffic lights
       thisUser.find(".total-hours-hit meter").val(thisUserHits);
-      $(".status-text > img").remove();
+      $(".status-text > img").hide();
+      $(".user-status > div").hide();
       let bgColor;
 
       if (thisUserHits < 80) {
@@ -74,6 +76,9 @@ let compareHoursPH = async (start_date, end_date) => {
       } else if (thisUserHits >= 80 && thisUserHits <= 100) {
         thisUser.find(".user-status .on-target").show();
         bgColor = "#00CA4E";
+      } else if (thisUserHits > 100) {
+        thisUser.find(".user-status .over").show();
+        bgColor = "green";
       }
 
       $(".status-text").attr(
@@ -86,7 +91,17 @@ let compareHoursPH = async (start_date, end_date) => {
 };
 
 constructUserModal();
+activeFilter();
 compareHoursPH(cure.dates.wtd_start, cure.dates.today); // pull week to date metrics
+$(".filters .filter a").click(function () {
+  $(".status-text > img").show();
+  let filterClicked = $(this).text();
+  if (filterClicked == "WTD") {
+    compareHoursPH(cure.dates.wtd_start, cure.dates.today);
+  } else if (filterClicked == "MTD") {
+    compareHoursPH(cure.dates.mtd_start, cure.dates.today);
+  }
+});
 
 // CHECKING USER IDS ON PH
 let fetchPeople = async () => {
