@@ -5,6 +5,11 @@ if (windowHeight > bodyHeight) {
   $("body, html").css("height", "100%");
 }
 
+// Navigation sub-menu
+$(".main-navigation .menu li.has-children a").click(function () {
+  $(".cure-sub-menu").slideToggle("fast").css("display", "flex");
+});
+
 // Navigation Footer
 let siteBranding = $(".site-branding").height();
 let extraBar = 12;
@@ -180,4 +185,30 @@ let renderPerson = async () => {
 };
 renderPerson();
 
-// Render user's profile pic
+// Converts time to different Format
+let cureDateConverter = (sd, ed) => {
+  let start_date = new Date(sd);
+  let end_date = new Date(ed);
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  let start_date_day = start_date.getDate();
+  let start_date_month = monthNames[start_date.getMonth()];
+  let end_date_day = end_date.getDate();
+  let end_date_month = monthNames[end_date.getMonth()];
+
+  let date_range = `${start_date_day} ${start_date_month} — ${end_date_day} ${end_date_month}`;
+  return date_range;
+};

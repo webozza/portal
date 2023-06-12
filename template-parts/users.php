@@ -40,7 +40,6 @@ get_header(); ?>
             <thead>
                 <tr>
                     <th>User</th>
-                    <th>Target Hit this Week</th>
                     <th>ID</th>
                     <th>Role</th>
                     <th>Actions</th>
@@ -55,19 +54,6 @@ get_header(); ?>
                             <div>
                                 <img src="<?= get_template_directory_uri() . '/img/data-loader.gif' ?>">
                                 <span><?= $user->display_name ?></span>
-                            </div>
-                        </td>
-                        <!-- TOTAL HOURS HIT -->
-                        <td class="total-hours-hit">
-                            <div>
-                                <div class="traffic-lights">
-                                    <div class="red"></div>
-                                    <div class="yellow"></div>
-                                    <div class="green"></div>
-                                </div>
-                                <span>
-                                    <img height="15" src="<?= get_template_directory_uri() . '/img/data-loader.gif' ?>">
-                                </span>
                             </div>
                         </td>
                         <td class="cure-user-id"><?= 'C-' . sprintf('%03d', $user->ID); ?></td>

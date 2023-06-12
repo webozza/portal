@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.93' );
+	define( '_S_VERSION', '1.0.94' );
 }
 
 /**
@@ -145,6 +145,7 @@ function cure_portal_scripts() {
 	wp_enqueue_style( 'data-table', get_template_directory_uri() . '/css/datatables.min.css' );
 	wp_enqueue_style( 'select2', get_template_directory_uri() . '/css/select2.min.css' );
 	wp_enqueue_style( 'swiper', get_template_directory_uri() . '/css/swiper.min.css' );
+	wp_enqueue_style( 'flaticon', get_template_directory_uri() . '/css/flaticon.css' );
 
 	// Libraries - Global Scripts
 	wp_enqueue_script( 'data-table-script', get_template_directory_uri() . '/js/datatables.min.js', array('jquery') );
@@ -212,6 +213,11 @@ function cure_portal_scripts() {
 	// Scripts - Single Project Brief CPT
 	if( is_singular('info-centre') ) {
 		wp_enqueue_script( "single-info-centre", get_template_directory_uri() . '/js/single-info-centre.js', array('jquery'), _S_VERSION, true );
+	}
+
+	// Scripts - Team Performance Page
+	if( is_page('team-performance') ) {
+		wp_enqueue_script( "team-performance", get_template_directory_uri() . '/js/analytics/team-performance.js', array('jquery'), _S_VERSION, true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cure_portal_scripts' );
