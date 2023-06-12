@@ -64,7 +64,7 @@ let compareHoursPH = async (start_date, end_date) => {
         .text(`${thisUserHits.toFixed(2)}%`);
 
       // traffic lights
-      $(".total-hours-hit meter").val(thisUserHits);
+      thisUser.find(".total-hours-hit meter").val(thisUserHits);
       $(".status-text > img").remove();
       let bgColor;
 
