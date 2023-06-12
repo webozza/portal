@@ -67,7 +67,6 @@ let compareHoursPH = async (start_date, end_date) => {
       // traffic lights
       thisUser.find(".total-hours-hit meter").val(thisUserHits);
       $(".status-text > img").hide();
-      $(".user-status > div").hide();
       let bgColor;
 
       if (thisUserHits < 80) {
@@ -96,6 +95,7 @@ compareHoursPH(cure.dates.wtd_start, cure.dates.today); // pull week to date met
 $(".filters .filter a").click(function () {
   let dateRange;
   $(".status-text > img").show();
+  $(".user-status > div").hide();
   let filterClicked = $(this).text();
   if (filterClicked == "WTD") {
     compareHoursPH(cure.dates.wtd_start, cure.dates.today);
