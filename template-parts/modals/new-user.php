@@ -30,11 +30,7 @@
                 </div>
                 <div class="cure-field-group">
                     <label>Role</label>
-                    <select class="select-user-role">
-                        <option>Administrator</option>
-                        <option>Team Leader</option>
-                        <option>Member</option>
-                    </select>
+                    <input type="text" name="cure_role" value="">
                 </div>
                 <div class="cure-field-group hidden">
                     <input type="hidden" name="cure_role" value="">

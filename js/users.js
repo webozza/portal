@@ -1,17 +1,10 @@
-let setCureRole = async () => {
-  let cureRole = $(".select-user-role").find(":selected").val();
-  $('[name="cure_role"]').val(cureRole);
-};
-
 let constructUserModal = async () => {
-  $(".select-user-role").select2();
   $(".cure-modal.new-user .modal-submit").click(async function () {
-    await setCureRole();
     $(".cure-modal.new-user form").submit();
   });
 };
 
-let compareHoursPH = async () => {
+let compareHoursPH = async (start_date, end_date) => {
   $(".user-management .cr-table tbody tr").each(function () {
     let thisUser = $(this);
     let thisUserID = thisUser.data("id");
@@ -21,7 +14,7 @@ let compareHoursPH = async () => {
     //console.log(thisUserID, thisUserID_PH, thisUserTarget);
 
     let fetchUserTime = async () => {
-      const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=${thisUserID_PH}&from_date=${cure.dates.wtd_start}&to_date=${cure.dates.today}`;
+      const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=${thisUserID_PH}&from_date=${start_date}&to_date=${end_date}`;
       let res = await fetch(url, {
         headers: {
           "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
@@ -81,7 +74,7 @@ let compareHoursPH = async () => {
 };
 
 constructUserModal();
-compareHoursPH();
+compareHoursPH(cure.dates.wtd_start, cure.dates.today); // pull week to date metrics
 
 // CHECKING USER IDS ON PH
 let fetchPeople = async () => {
@@ -95,7 +88,6 @@ let fetchPeople = async () => {
 };
 let checkIDs = async () => {
   let response = await fetchPeople();
-  console.log(response);
   response.map((entries) => {
     $(`.user-management .cr-table tbody tr[data-id-ph="${entries.id}"]`)
       .find(".cure-user img")
