@@ -94,13 +94,17 @@ constructUserModal();
 activeFilter();
 compareHoursPH(cure.dates.wtd_start, cure.dates.today); // pull week to date metrics
 $(".filters .filter a").click(function () {
+  let dateRange;
   $(".status-text > img").show();
   let filterClicked = $(this).text();
   if (filterClicked == "WTD") {
     compareHoursPH(cure.dates.wtd_start, cure.dates.today);
+    dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.today);
   } else if (filterClicked == "MTD") {
     compareHoursPH(cure.dates.mtd_start, cure.dates.today);
+    dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.today);
   }
+  $(".date-notice").text(dateRange);
 });
 
 // CHECKING USER IDS ON PH
