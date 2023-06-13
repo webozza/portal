@@ -61,6 +61,15 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
           new Date(cure.dates.mtd_end)
         ) *
         60;
+    } else if (time_frame == "custom") {
+      thisUserTarget =
+        thisUserHoursPerDay *
+        countCertainDays(
+          workingDays,
+          new Date(cure.dates.mtd_start),
+          new Date(cure.dates.mtd_end)
+        ) *
+        60;
     }
 
     //console.log(thisUserID, thisUserID_PH, thisUserTarget);
@@ -263,6 +272,17 @@ $(".filters .filter a").click(function () {
 $(".f--status select").change(async function () {
   // await runFilter();
   $(".filter.filter-date-range.active a").trigger("click");
+});
+
+// Custom date range filter
+$(".cds-btn-submit").click(function () {
+  let fromDate = $('[name="cds_from"]').val();
+  let toDate = $('[name="cds_to"]').val();
+  let statusSelected = $(".f--status select").find(":selected").val();
+  $(".custom-date-selector").fadeOut();
+
+  // RUN hours
+  compareHoursPH(fromDate, toDate, "custom", statusSelected);
 });
 
 // CHECKING USER IDS ON PH
