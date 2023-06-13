@@ -122,9 +122,39 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
   });
 };
 
+// Filters users
+let filterUsers = async () => {
+  // append users to filter
+  let allUsers = [];
+  $(".cure-user").each(function () {
+    let userName = $(this).find("span").text();
+    allUsers.push(userName);
+  });
+  let uniqueUsers = [...new Set(allUsers)];
+  uniqueUsers.map((entries) => {
+    $(".f--user select").append(`
+        <option>${entries}</option>
+      `);
+  });
+
+  // run the filter
+  $(".f--user select").change(function () {
+    let selectedUser = $(this).find(":selected").val();
+    $(".user-management tbody tr").each(function () {
+      let thisRow = $(this);
+      let rowUser = thisRow.find(".cure-user span").text();
+
+      let showRow = selectedUser === "All Users" || rowUser === selectedUser;
+      thisRow.toggle(showRow);
+    });
+  });
+};
+
 constructUserModal();
 activeFilter();
 compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "all"); // pull week to date metrics
+filterUsers();
+
 $(".filters .filter a").click(function () {
   let dateRange;
   $(".status-text > img").show();
@@ -156,8 +186,6 @@ $(".f--status select").change(function () {
     );
   }
 });
-
-// Filters for all users
 
 // CHECKING USER IDS ON PH
 let fetchPeople = async () => {
