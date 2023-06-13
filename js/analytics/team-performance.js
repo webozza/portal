@@ -6,7 +6,7 @@ let constructUserModal = async () => {
   });
 };
 
-let compareHoursPH = async (start_date, end_date, time_frame) => {
+let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
   $(".user-management .cr-table tbody tr").each(function () {
     let thisUser = $(this);
     let thisUserID = thisUser.data("id");
@@ -44,16 +44,41 @@ let compareHoursPH = async (start_date, end_date, time_frame) => {
       response.map((entries) => {
         let logggedStatus = entries.status;
 
-        // Logged Hours - TOTAL
-        let loggedHours = entries.logged_hours;
-        if (loggedHours == null) {
-          loggedHours = 0;
-        }
-        totalLoggedHoursArray.push(loggedHours);
+        if (time_status == "all") {
+          // Logged Hours - TOTAL
+          let loggedHours = entries.logged_hours;
+          if (loggedHours == null) {
+            loggedHours = 0;
+          }
+          totalLoggedHoursArray.push(loggedHours);
 
-        let loggedMins = entries.logged_mins;
-        totalLoggedMinsArray.push(loggedMins);
-        // console.log(logggedStatus, loggedHours, loggedMins);
+          let loggedMins = entries.logged_mins;
+          totalLoggedMinsArray.push(loggedMins);
+          // console.log(logggedStatus, loggedHours, loggedMins);
+        } else if (time_status == "billable" && entries.status == "billable") {
+          // Logged Hours - TOTAL
+          let loggedHours = entries.logged_hours;
+          if (loggedHours == null) {
+            loggedHours = 0;
+          }
+          totalLoggedHoursArray.push(loggedHours);
+
+          let loggedMins = entries.logged_mins;
+          totalLoggedMinsArray.push(loggedMins);
+        } else if (
+          time_status == "non-billable" &&
+          entries.status == "non-billable"
+        ) {
+          // Logged Hours - TOTAL
+          let loggedHours = entries.logged_hours;
+          if (loggedHours == null) {
+            loggedHours = 0;
+          }
+          totalLoggedHoursArray.push(loggedHours);
+
+          let loggedMins = entries.logged_mins;
+          totalLoggedMinsArray.push(loggedMins);
+        }
       });
 
       //console.log(totalLoggedHoursArray, totalLoggedMinsArray);
@@ -99,21 +124,40 @@ let compareHoursPH = async (start_date, end_date, time_frame) => {
 
 constructUserModal();
 activeFilter();
-compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd"); // pull week to date metrics
+compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "all"); // pull week to date metrics
 $(".filters .filter a").click(function () {
   let dateRange;
   $(".status-text > img").show();
   $(".user-status > div").hide();
   let filterClicked = $(this).text();
   if (filterClicked == "WTD") {
-    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd");
+    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "all");
     dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.today);
   } else if (filterClicked == "MTD") {
-    compareHoursPH(cure.dates.mtd_start, cure.dates.today, "mtd");
+    compareHoursPH(cure.dates.mtd_start, cure.dates.today, "mtd", "all");
     dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.today);
   }
   $(".date-notice").text(dateRange);
 });
+
+// Filters for status
+$(".f--status select").change(function () {
+  let getSelected = $(this).find(":selected").val();
+  if (getSelected == "all") {
+    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "all");
+  } else if (getSelected == "billable") {
+    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "billable");
+  } else if (getSelected == "non-billable") {
+    compareHoursPH(
+      cure.dates.wtd_start,
+      cure.dates.today,
+      "wtd",
+      "non-billable"
+    );
+  }
+});
+
+// Filters for all users
 
 // CHECKING USER IDS ON PH
 let fetchPeople = async () => {

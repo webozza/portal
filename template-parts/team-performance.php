@@ -44,13 +44,15 @@ get_header(); ?>
                 </div>
             </div>
             <div class="filter f--user">
-                <select>
+                <select class="has-select2">
                     <option selected>All Users</option>
                 </select>
             </div>
-            <div class="filter f--client">
-                <select>
-                    <option selected>All Status</option>
+            <div class="filter f--status">
+                <select class="has-select2">
+                    <option value="all" selected>All Status</option>
+                    <option value="billable">Billable</option>
+                    <option value="non-billable">Non-Billable</option>
                 </select>
             </div>
             <div class="filter f--search hidden">

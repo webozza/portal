@@ -1123,3 +1123,6 @@ a.save--changes.btn-cure img {
   background-color: var(--cure-primary-color);
   color: #fff;
 }
+.user-management .select2-container {
+  width: 100% !important;
+}
