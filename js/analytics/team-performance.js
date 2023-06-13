@@ -211,8 +211,7 @@ $(".filters .filter a").click(function () {
   $(".date-notice").text(dateRange);
 });
 
-// Filters for status
-$(".f--status select").change(function () {
+let runFilter = () => {
   let getSelected = $(this).find(":selected").val();
   let dateRangeSelected = $(this).find(".filters .filter.active a").text();
 
@@ -262,6 +261,15 @@ $(".f--status select").change(function () {
       "non-billable"
     );
   }
+};
+
+// Filters for status
+$(".f--status select").change(function () {
+  runFilter();
+});
+
+$(".filter-date-range a").click(function () {
+  runFilter();
 });
 
 // CHECKING USER IDS ON PH

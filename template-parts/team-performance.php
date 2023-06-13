@@ -17,10 +17,10 @@ get_header(); ?>
             Let Rony know if there's an issue!!
         </div>
         <div class="filters">
-            <div class="filter active">
+            <div class="filter active filter-date-range">
                 <a href="javascript:void(0)">WTD</a>
             </div>
-            <div class="filter">
+            <div class="filter filter-date-range">
                 <a href="javascript:void(0)">MTD</a>
             </div>
             <div class="filter">
