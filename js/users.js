@@ -23,7 +23,7 @@ constructUserModal();
 
 // DELETING A USER FROM SYSTEM
 let getUserToDelete = async (user_id) => {
-  const url = `/wp-json/wp/v2/users/${user_id}?reassign=1`;
+  const url = `/wp-json/wp/v2/users/${user_id}?reassign=1&force=true`;
   let res = await fetch(url, {
     method: "DELETE",
     headers: {
@@ -40,8 +40,13 @@ let deleteUser = async (user_id) => {
 };
 
 $(".approval-delete").click(async function () {
-  let userID = $(this).parent().parent().parent().data("id");
-  deleteUser(userID);
+  let getParent = $(this).parent().parent().parent();
+  let userID = getParent.data("id");
+  let userName = getParent.find(".cure-user span").text();
+  if (confirm(`Are you sure you want to delete ${userName}?`) == true) {
+    deleteUser(userID);
+    getParent.remove();
+  }
 });
 
 // CHECKING USER IDS ON PH

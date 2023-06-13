@@ -220,4 +220,10 @@ let activeFilter = () => {
   });
 };
 
-// function to find occurrences
+// enable preloader when Client Reporting is clicked
+$("#site-navigation .menu li a").click(function () {
+  let menuClicked = $(this).text();
+  if (menuClicked == "Client Reporting") {
+    $(".cure-loader").show().css("display", "flex");
+  }
+});

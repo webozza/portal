@@ -60,6 +60,9 @@ get_header(); ?>
                         <td><?= get_field('cure_role', 'user_'.$user->ID) ?></td>
                         <td>
                             <div class="approval-actions">
+                                <a class="send-password-reset" href="javascript:void(0)">
+                                    <img title="Send password reset" src="<?= get_template_directory_uri() . '/img/icons/email.png' ?>">
+                                </a>
                                 <a class="approval-edit" href="javascript:void(0)">
                                     <img src="<?= get_template_directory_uri() . '/img/icons/edit.png' ?>">
                                 </a>
