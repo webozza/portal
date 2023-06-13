@@ -14,7 +14,14 @@ let countCertainDays = (days, d0, d1) => {
   return days.reduce(sum, 0);
 };
 
-let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
+let compareHoursPH = async (
+  start_date,
+  end_date,
+  time_frame,
+  time_status,
+  selected_from_date,
+  selected_end_date
+) => {
   $(".user-management .cr-table tbody tr").each(function () {
     let thisUser = $(this);
     let thisUserID = thisUser.data("id");
@@ -66,8 +73,8 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
         thisUserHoursPerDay *
         countCertainDays(
           workingDays,
-          new Date(cure.dates.mtd_start),
-          new Date(cure.dates.mtd_end)
+          new Date(selected_from_date),
+          new Date(selected_end_date)
         ) *
         60;
     }
@@ -150,6 +157,7 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
       // traffic lights
       thisUser.find(".total-hours-hit meter").val(thisUserHits);
       $(".status-text > img").hide();
+      $(".user-status > div").hide();
       let bgColor;
 
       if (thisUserHits < 80) {
@@ -160,13 +168,16 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
         bgColor = "#00CA4E";
       } else if (thisUserHits > 100) {
         thisUser.find(".user-status .over").show();
-        bgColor = "green";
+        bgColor = "blue";
       }
 
-      $(".status-text").attr(
-        "style",
-        `width: 12px;height: 12px;background-color: ${bgColor};border-radius: 50%;`
-      );
+      thisUser
+        .find(".status-text")
+        .attr(
+          "style",
+          `width: 12px;height: 12px;background-color: ${bgColor};border-radius: 50%;`
+        );
+      $(".data--loader").hide();
     };
     renderUserTime();
   });
@@ -215,6 +226,10 @@ $(".filters .filter a").click(function () {
   }
 
   let filterClicked = $(this).text();
+
+  if (filterClicked !== "Custom") {
+    $(".data--loader").show();
+  }
 
   // WTD + VARIABLES
   if (filterClicked == "WTD" && statusSelected == "all") {
@@ -270,19 +285,26 @@ $(".filters .filter a").click(function () {
 
 // Filters for status
 $(".f--status select").change(async function () {
-  // await runFilter();
   $(".filter.filter-date-range.active a").trigger("click");
+  let cdsFrom = $('[name="cds_from"]').val();
+  let cdsTo = $('[name="cds_to"]').val();
+  if ($(".filter-cds").hasClass("active") && cdsFrom !== "" && cdsTo !== "") {
+    $(".cds-btn-submit").trigger("click");
+  }
 });
 
 // Custom date range filter
 $(".cds-btn-submit").click(function () {
+  $(".data--loader").show();
   let fromDate = $('[name="cds_from"]').val();
   let toDate = $('[name="cds_to"]').val();
   let statusSelected = $(".f--status select").find(":selected").val();
+  let dateNotice = cureDateConverter(fromDate, toDate);
   $(".custom-date-selector").fadeOut();
 
   // RUN hours
-  compareHoursPH(fromDate, toDate, "custom", statusSelected);
+  compareHoursPH(fromDate, toDate, "custom", statusSelected, fromDate, toDate);
+  $(".date-notice").text(dateNotice);
 });
 
 // CHECKING USER IDS ON PH

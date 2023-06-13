@@ -23,7 +23,7 @@ get_header(); ?>
             <div class="filter filter-date-range">
                 <a href="javascript:void(0)">MTD</a>
             </div>
-            <div class="filter">
+            <div class="filter filter-cds">
                 <a class="cds-filter" href="javascript:void(0)">Custom</a>
                 <div class="custom-date-selector" style="display: none;">
                     <div class="cds-from">
@@ -90,9 +90,8 @@ get_header(); ?>
                         <td class="total-hours-hit">
                             <div>
                                 <meter min="0" max="100" value=""></meter>
-                                <div class="percentage-hit">
-                                    <img height="15" src="<?= get_template_directory_uri() . '/img/data-loader.gif' ?>">
-                                </div>
+                                <img class="data--loader" height="15" src="<?= get_template_directory_uri() . '/img/data-loader.gif' ?>">
+                                <div class="percentage-hit"></div>
                             </div>
                         </td>
                         <td class="total-hours-hit">
