@@ -197,23 +197,52 @@ compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "all"); // pull we
 filterUsers();
 
 $(".filters .filter a").click(function () {
+  let statusSelected = $(".f--status select").find(":selected").val();
   let dateRange;
   $(".status-text > img").show();
   $(".user-status > div").hide();
   let filterClicked = $(this).text();
-  if (filterClicked == "WTD") {
+
+  // WTD + VARIABLES
+  if (filterClicked == "WTD" && statusSelected == "all") {
     compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "all");
     dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.today);
-  } else if (filterClicked == "MTD") {
+  } else if (filterClicked == "WTD" && statusSelected == "billable") {
+    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "billable");
+    dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.today);
+  } else if (filterClicked == "WTD" && statusSelected == "non-billable") {
+    compareHoursPH(
+      cure.dates.wtd_start,
+      cure.dates.today,
+      "wtd",
+      "non-billable"
+    );
+    dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.today);
+  }
+
+  // MTD + VARIABLES
+  if (filterClicked == "MTD" && statusSelected == "all") {
     compareHoursPH(cure.dates.mtd_start, cure.dates.today, "mtd", "all");
     dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.today);
+  } else if (filterClicked == "MTD" && statusSelected == "billable") {
+    compareHoursPH(cure.dates.mtd_start, cure.dates.today, "mtd", "billable");
+    dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.today);
+  } else if (filterClicked == "MTD" && statusSelected == "non-billable") {
+    compareHoursPH(
+      cure.dates.mtd_start,
+      cure.dates.today,
+      "mtd",
+      "non-billable"
+    );
+    dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.today);
   }
+
   $(".date-notice").text(dateRange);
 });
 
-let runFilter = () => {
-  let getSelected = $(this).find(":selected").val();
-  let dateRangeSelected = $(this).find(".filters .filter.active a").text();
+let runFilter = async () => {
+  let getSelected = $(".f--status select").find(":selected").val();
+  let dateRangeSelected = $(".filter-date-range.active a").text();
 
   // filter type 1
   if (getSelected == "all" && dateRangeSelected == "WTD") {
@@ -265,10 +294,6 @@ let runFilter = () => {
 
 // Filters for status
 $(".f--status select").change(function () {
-  runFilter();
-});
-
-$(".filter-date-range a").click(function () {
   runFilter();
 });
 
