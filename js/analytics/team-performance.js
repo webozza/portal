@@ -157,7 +157,6 @@ let compareHoursPH = async (
       // traffic lights
       thisUser.find(".total-hours-hit meter").val(thisUserHits);
       $(".status-text > img").hide();
-      $(".user-status > div").hide();
       let bgColor;
 
       /*
@@ -169,14 +168,17 @@ let compareHoursPH = async (
 
       if (thisUserHits < 80) {
         // Red - more than 20% under billed
+        thisUser.find(".user-status > div").hide();
         thisUser.find(".user-status .under").show();
         bgColor = "#FF605C";
       } else if (thisUserHits >= 80 && thisUserHits <= 120) {
         // Green - on target or over by up to 20%
+        thisUser.find(".user-status > div").hide();
         thisUser.find(".user-status .on-target").show();
         bgColor = "#00CA4E";
       } else if (thisUserHits > 120) {
         // Grey - more than 20% over
+        thisUser.find(".user-status > div").hide();
         thisUser.find(".user-status .over").show();
         bgColor = "#808080";
       }
