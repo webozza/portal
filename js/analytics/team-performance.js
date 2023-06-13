@@ -214,15 +214,51 @@ $(".filters .filter a").click(function () {
 // Filters for status
 $(".f--status select").change(function () {
   let getSelected = $(this).find(":selected").val();
-  if (getSelected == "all") {
+  let dateRangeSelected = $(this).find(".filters .filter.active a").text();
+
+  // filter type 1
+  if (getSelected == "all" && dateRangeSelected == "WTD") {
     compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "all");
-  } else if (getSelected == "billable") {
+  } else if (getSelected == "all" && dateRangeSelected == "MTD") {
+    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "mtd", "all");
+  } else if (getSelected == "all" && dateRangeSelected == "Custom") {
+    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "custom", "all");
+  }
+
+  // filter type 2
+  if (getSelected == "billable" && dateRangeSelected == "WTD") {
     compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "billable");
-  } else if (getSelected == "non-billable") {
+  } else if (getSelected == "billable" && dateRangeSelected == "MTD") {
+    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "mtd", "billable");
+  } else if (getSelected == "billable" && dateRangeSelected == "Custom") {
+    compareHoursPH(
+      cure.dates.wtd_start,
+      cure.dates.today,
+      "custom",
+      "billable"
+    );
+  }
+
+  // filter type 3
+  if (getSelected == "non-billable" && dateRangeSelected == "WTD") {
     compareHoursPH(
       cure.dates.wtd_start,
       cure.dates.today,
       "wtd",
+      "non-billable"
+    );
+  } else if (getSelected == "non-billable" && dateRangeSelected == "MTD") {
+    compareHoursPH(
+      cure.dates.wtd_start,
+      cure.dates.today,
+      "mtd",
+      "non-billable"
+    );
+  } else if (getSelected == "non-billable" && dateRangeSelected == "Custom") {
+    compareHoursPH(
+      cure.dates.wtd_start,
+      cure.dates.today,
+      "custom",
       "non-billable"
     );
   }
