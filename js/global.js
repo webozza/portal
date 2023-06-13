@@ -219,3 +219,5 @@ let activeFilter = () => {
     $(this).parent().addClass("active");
   });
 };
+
+// function to find occurrences

@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.0.98' );
+	define( '_S_VERSION', '1.0.99' );
 }
 
 /**
@@ -379,6 +379,8 @@ function add_new_user() {
 		update_field( 'hours_per_day', $_POST['hours_per_day'], 'user_'.$user_id );
 		update_field( 'days_per_week', $_POST['working_days_per_week'], 'user_' . $user_id );
 		update_field( 'cure_role', $_POST['cure_role'], 'user_' . $user_id );
+		update_field( 'working_days_selected', $_POST['working_days_selected'], 'user_' . $user_id );
+		update_field( 'userid_ph', $_POST['userid_ph'], 'user_' . $user_id );
 		wp_redirect(get_site_url() . '/users');
 	}
 }

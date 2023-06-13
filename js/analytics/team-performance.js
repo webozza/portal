@@ -6,14 +6,22 @@ let constructUserModal = async () => {
   });
 };
 
-let compareHoursPH = async (start_date, end_date) => {
+let compareHoursPH = async (start_date, end_date, time_frame) => {
   $(".user-management .cr-table tbody tr").each(function () {
     let thisUser = $(this);
     let thisUserID = thisUser.data("id");
     let thisUserID_PH = thisUser.data("id-ph");
     let thisUserHoursPerDay = thisUser.data("hours-per-day");
     let thisUserDaysPerWeek = thisUser.data("days-per-week");
-    let thisUserTarget = thisUserHoursPerDay * thisUserDaysPerWeek * 60;
+    let thisUserDaysSelected = thisUser.data("days-selected");
+
+    let thisUserTarget;
+    if (time_frame == "wtd") {
+      thisUserTarget = thisUserHoursPerDay * thisUserDaysPerWeek * 60;
+    } else if (time_frame == "mtd") {
+      thisUserTarget = thisUserHoursPerDay * thisUserDaysPerWeek * 60;
+    }
+
     //console.log(thisUserID, thisUserID_PH, thisUserTarget);
 
     let fetchUserTime = async () => {
@@ -91,17 +99,17 @@ let compareHoursPH = async (start_date, end_date) => {
 
 constructUserModal();
 activeFilter();
-compareHoursPH(cure.dates.wtd_start, cure.dates.today); // pull week to date metrics
+compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd"); // pull week to date metrics
 $(".filters .filter a").click(function () {
   let dateRange;
   $(".status-text > img").show();
   $(".user-status > div").hide();
   let filterClicked = $(this).text();
   if (filterClicked == "WTD") {
-    compareHoursPH(cure.dates.wtd_start, cure.dates.today);
+    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd");
     dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.today);
   } else if (filterClicked == "MTD") {
-    compareHoursPH(cure.dates.mtd_start, cure.dates.today);
+    compareHoursPH(cure.dates.mtd_start, cure.dates.today, "mtd");
     dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.today);
   }
   $(".date-notice").text(dateRange);

@@ -1104,3 +1104,22 @@ a.save--changes.btn-cure img {
 .total-hours-hit meter {
   transition: all 0.3s ease;
 }
+.days-of-the-week {
+  display: flex;
+  column-gap: 5px;
+  position: relative;
+  top: 10px;
+}
+.days-of-the-week > div {
+  background-color: rgba(0, 0, 0, 5%);
+  border-radius: 36px;
+  font-size: 0.8em;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.days-of-the-week > div.active,
+.days-of-the-week > div:hover {
+  background-color: var(--cure-primary-color);
+  color: #fff;
+}

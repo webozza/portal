@@ -2,6 +2,21 @@ let constructUserModal = async () => {
   $(".cure-modal.new-user .modal-submit").click(async function () {
     $(".cure-modal.new-user form").submit();
   });
+
+  // Working Days Added
+  $(".days-of-the-week > div").click(async function () {
+    let daysAdded = [];
+    $(this).toggleClass("active");
+    let daysCount = $(".days-of-the-week > div.active").length;
+    $('[name="working_days_per_week"]').val(daysCount);
+
+    $(".days-of-the-week > div.active").each(function () {
+      let getFullDay = $(this).data("day");
+      daysAdded.push(getFullDay);
+    });
+
+    $('[name="working_days_selected"]').val(JSON.stringify(daysAdded));
+  });
 };
 
 constructUserModal();

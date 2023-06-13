@@ -75,7 +75,7 @@ get_header(); ?>
             <tbody>
                 <!-- RUN USER LOOP HERE -->
                 <?php foreach($users as $user) { ?>
-                    <tr data-id="<?= $user->ID ?>" data-id-ph="<?= get_field('userid_ph', 'user_'.$user->ID) ?>" data-hours-per-day="<?= get_field('hours_per_day', 'user_'.$user->ID) ?>" data-days-per-week="<?= get_field('days_per_week', 'user_'.$user->ID) ?>">
+                    <tr data-id="<?= $user->ID ?>" data-id-ph="<?= get_field('userid_ph', 'user_'.$user->ID) ?>" data-hours-per-day="<?= get_field('hours_per_day', 'user_'.$user->ID) ?>" data-days-per-week="<?= get_field('days_per_week', 'user_'.$user->ID) ?>" data-days-selected='<?= get_field('working_days_selected', 'user_'.$user->ID) ?>'>
                         <!-- NAME & PROFILE PIC -->
                         <td class="cure-user">
                             <div>

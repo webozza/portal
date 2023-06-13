@@ -25,15 +25,26 @@
                     </div>
                     <div>
                         <label>Days per week</label>
-                        <input type="text" name="working_days_per_week" value="">
+                        <div class="days-of-the-week">
+                            <div data-day="Monday">Mon</div>
+                            <div data-day="Tuesday">Tue</div>
+                            <div data-day="Wednesday">Wed</div>
+                            <div data-day="Thursday">Thu</div>
+                            <div data-day="Friday">Fri</div>
+                        </div>
+                        <input type="hidden" name="working_days_per_week" value="">
                     </div>
                 </div>
                 <div class="cure-field-group">
                     <label>Role</label>
                     <input type="text" name="cure_role" value="">
                 </div>
+                <div class="cure-field-group">
+                    <label>User ID - ProofHub</label>
+                    <input type="text" name="userid_ph" value="">
+                </div>
                 <div class="cure-field-group hidden">
-                    <input type="hidden" name="cure_role" value="">
+                    <input type="hidden" name="working_days_selected" value="">
                     <input type="hidden" name="new_user" value="1">
                     <input type="submit" class="hidden">
                 </div>
