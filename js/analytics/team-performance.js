@@ -6,6 +6,14 @@ let constructUserModal = async () => {
   });
 };
 
+let countCertainDays = (days, d0, d1) => {
+  var ndays = 1 + Math.round((d1 - d0) / (24 * 3600 * 1000));
+  var sum = function (a, b) {
+    return a + Math.floor((ndays + ((d0.getDay() + 6 - b) % 7)) / 7);
+  };
+  return days.reduce(sum, 0);
+};
+
 let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
   $(".user-management .cr-table tbody tr").each(function () {
     let thisUser = $(this);
@@ -15,11 +23,44 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     let thisUserDaysPerWeek = thisUser.data("days-per-week");
     let thisUserDaysSelected = thisUser.data("days-selected");
 
+    let workingDays = [];
+    thisUserDaysSelected.map((entries) => {
+      if (entries == "Monday") {
+        workingDays.push(1);
+      }
+      if (entries == "Tuesday") {
+        workingDays.push(2);
+      }
+      if (entries == "Wednesday") {
+        workingDays.push(3);
+      }
+      if (entries == "Thursday") {
+        workingDays.push(4);
+      }
+      if (entries == "Friday") {
+        workingDays.push(5);
+      }
+    });
+
     let thisUserTarget;
     if (time_frame == "wtd") {
       thisUserTarget = thisUserHoursPerDay * thisUserDaysPerWeek * 60;
     } else if (time_frame == "mtd") {
-      thisUserTarget = thisUserHoursPerDay * thisUserDaysPerWeek * 60;
+      console.log(
+        countCertainDays(
+          workingDays,
+          new Date(cure.dates.mtd_start),
+          new Date(cure.dates.mtd_end)
+        )
+      );
+      thisUserTarget =
+        thisUserHoursPerDay *
+        countCertainDays(
+          workingDays,
+          new Date(cure.dates.mtd_start),
+          new Date(cure.dates.mtd_end)
+        ) *
+        60;
     }
 
     //console.log(thisUserID, thisUserID_PH, thisUserTarget);

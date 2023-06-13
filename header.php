@@ -48,6 +48,7 @@
 					wtd_start: '<?= date('Y-m-d', strtotime("this week")) ?>',
 					today : '<?= date('Y-m-d', strtotime("today")) ?>',
 					mtd_start: '<?= date('Y-m-d', strtotime("first day of this month")) ?>',
+					mtd_end: '<?= date('Y-m-d', strtotime("last day of this month")) ?>',
 				},
 				user_ph_id: <?= get_field('userid_ph', 'user_'.get_current_user_ID()) ?>,
 			}
