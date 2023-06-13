@@ -199,8 +199,12 @@ filterUsers();
 $(".filters .filter a").click(function () {
   let statusSelected = $(".f--status select").find(":selected").val();
   let dateRange;
-  $(".status-text > img").show();
-  $(".user-status > div").hide();
+
+  if ($(this).text() !== "Custom") {
+    $(".status-text > img").show();
+    $(".user-status > div").hide();
+  }
+
   let filterClicked = $(this).text();
 
   // WTD + VARIABLES
@@ -237,64 +241,28 @@ $(".filters .filter a").click(function () {
     dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.today);
   }
 
+  // Custom + VARIABLES
+  if (filterClicked == "Custom") {
+    $(".custom-date-selector").fadeToggle().css("display", "flex");
+  }
+
+  // If other than Custom filter is selected
+  if (!$(this).hasClass("cds-filter")) {
+    $(".custom-date-selector").hide();
+  }
+
+  // If cancel button is clicked on custom date filter
+  $(".cds-btn-cancel").click(function () {
+    $(".custom-date-selector").hide();
+  });
+
   $(".date-notice").text(dateRange);
 });
 
-let runFilter = async () => {
-  let getSelected = $(".f--status select").find(":selected").val();
-  let dateRangeSelected = $(".filter-date-range.active a").text();
-
-  // filter type 1
-  if (getSelected == "all" && dateRangeSelected == "WTD") {
-    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "all");
-  } else if (getSelected == "all" && dateRangeSelected == "MTD") {
-    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "mtd", "all");
-  } else if (getSelected == "all" && dateRangeSelected == "Custom") {
-    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "custom", "all");
-  }
-
-  // filter type 2
-  if (getSelected == "billable" && dateRangeSelected == "WTD") {
-    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "billable");
-  } else if (getSelected == "billable" && dateRangeSelected == "MTD") {
-    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "mtd", "billable");
-  } else if (getSelected == "billable" && dateRangeSelected == "Custom") {
-    compareHoursPH(
-      cure.dates.wtd_start,
-      cure.dates.today,
-      "custom",
-      "billable"
-    );
-  }
-
-  // filter type 3
-  if (getSelected == "non-billable" && dateRangeSelected == "WTD") {
-    compareHoursPH(
-      cure.dates.wtd_start,
-      cure.dates.today,
-      "wtd",
-      "non-billable"
-    );
-  } else if (getSelected == "non-billable" && dateRangeSelected == "MTD") {
-    compareHoursPH(
-      cure.dates.wtd_start,
-      cure.dates.today,
-      "mtd",
-      "non-billable"
-    );
-  } else if (getSelected == "non-billable" && dateRangeSelected == "Custom") {
-    compareHoursPH(
-      cure.dates.wtd_start,
-      cure.dates.today,
-      "custom",
-      "non-billable"
-    );
-  }
-};
-
 // Filters for status
-$(".f--status select").change(function () {
-  runFilter();
+$(".f--status select").change(async function () {
+  // await runFilter();
+  $(".filter.filter-date-range.active a").trigger("click");
 });
 
 // CHECKING USER IDS ON PH
