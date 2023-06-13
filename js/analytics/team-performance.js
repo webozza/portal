@@ -160,15 +160,25 @@ let compareHoursPH = async (
       $(".user-status > div").hide();
       let bgColor;
 
+      /*
+          Red - more than 20% under billed
+          Amber - 10% underbilled
+          Green - on target or over by up to 20%
+          Grey - more than 20% over
+      */
+
       if (thisUserHits < 80) {
+        // Red - more than 20% under billed
         thisUser.find(".user-status .under").show();
         bgColor = "#FF605C";
-      } else if (thisUserHits >= 80 && thisUserHits <= 100) {
+      } else if (thisUserHits >= 80 && thisUserHits <= 120) {
+        // Green - on target or over by up to 20%
         thisUser.find(".user-status .on-target").show();
         bgColor = "#00CA4E";
-      } else if (thisUserHits > 100) {
+      } else if (thisUserHits > 120) {
+        // Grey - more than 20% over
         thisUser.find(".user-status .over").show();
-        bgColor = "blue";
+        bgColor = "#808080";
       }
 
       thisUser
