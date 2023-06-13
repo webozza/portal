@@ -9,7 +9,7 @@ get_header(); ?>
     <div class="greetings has-options">
         <h2>Team Performance</h2>
         <div>
-            <a class="btn-cure trigger-modal" href="javascript:void(0)" data-modal="new-user">Add User +</a>
+            <!-- <a class="btn-cure trigger-modal" href="javascript:void(0)" data-modal="new-user">Add User +</a> -->
         </div>
     </div>
     <div class="cure-filters">
@@ -119,8 +119,5 @@ get_header(); ?>
         </table>
     </div>
 </div>
-
-<!-- Modals -->
-<?php include(get_template_directory() . '/template-parts/modals/new-user.php') ?>
 
 <?php get_footer();

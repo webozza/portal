@@ -11,6 +11,10 @@
                     <input type="email" name="user_email_address" value="">
                 </div>
                 <div class="cure-field-group">
+                    <label>User ID - ProofHub</label>
+                    <input type="text" name="userid_ph" value="">
+                </div>
+                <div class="cure-field-group">
                     <label>First name</label>
                     <input type="text" name="user_first_name" value="">
                 </div>
@@ -38,10 +42,6 @@
                 <div class="cure-field-group">
                     <label>Role</label>
                     <input type="text" name="cure_role" value="">
-                </div>
-                <div class="cure-field-group">
-                    <label>User ID - ProofHub</label>
-                    <input type="text" name="userid_ph" value="">
                 </div>
                 <div class="cure-field-group hidden">
                     <input type="hidden" name="working_days_selected" value="">
