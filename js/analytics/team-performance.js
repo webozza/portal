@@ -72,7 +72,7 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     ];
     let fullRecord = [];
 
-    record_looper.map((entries) => {
+    record_looper.map(async (entries) => {
       let fetchUserTime = async () => {
         const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=${thisUserID_PH}&from_date=${start_date}&to_date=${end_date}&start=${entries}&limit=100`;
         let res = await fetch(url, {
@@ -345,7 +345,9 @@ let checkIDs = async () => {
       .attr("src", entries.image_url);
   });
 };
-checkIDs();
+setTimeout(() => {
+  checkIDs();
+}, 1500);
 
 // // CHECK USER TIME
 // let record_looper = [
