@@ -15,13 +15,8 @@ let countCertainDays = (days, d0, d1) => {
 };
 
 let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
-  const users = $(".user-management .cr-table tbody tr");
-  const loader = $(".data--loader");
-
-  loader.show(); // Show the loader
-
-  for (let i = 0; i < users.length; i++) {
-    let thisUser = $(users[i]);
+  $(".user-management .cr-table tbody tr").each(async function () {
+    let thisUser = $(this);
     let thisUserID = thisUser.data("id");
     let thisUserID_PH = thisUser.data("id-ph");
     let thisUserHoursPerDay = thisUser.data("hours-per-day");
@@ -60,6 +55,12 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
           new Date(end_date)
         ) *
         60;
+    }
+
+    if (thisUserTarget === 0) {
+      // Skip calculation and UI update
+      $(".data--loader").hide();
+      return;
     }
 
     let fullRecord = [];
@@ -134,9 +135,9 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
         "style",
         `width: 12px;height: 12px;background-color: ${bgColor};border-radius: 50%;`
       );
-  }
 
-  loader.hide(); // Hide the loader after all calculations
+    $(".data--loader").hide();
+  });
 };
 
 // Filters users
