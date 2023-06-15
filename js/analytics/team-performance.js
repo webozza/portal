@@ -15,31 +15,41 @@ let countCertainDays = (days, d0, d1) => {
 };
 
 let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
-  $(".user-management .cr-table tbody tr").each(async function () {
-    let thisUser = $(this);
-    let thisUserID = thisUser.data("id");
-    let thisUserID_PH = thisUser.data("id-ph");
-    let thisUserHoursPerDay = thisUser.data("hours-per-day");
-    let thisUserDaysPerWeek = thisUser.data("days-per-week");
-    let thisUserDaysSelected = thisUser.data("days-selected");
-    let thisUserName = thisUser.find(".cure-user span").text();
+  const users = $(".user-management .cr-table tbody tr");
+  const workingDaysMap = {
+    Monday: 1,
+    Tuesday: 2,
+    Wednesday: 3,
+    Thursday: 4,
+    Friday: 5,
+  };
 
-    const workingDaysMap = {
-      Monday: 1,
-      Tuesday: 2,
-      Wednesday: 3,
-      Thursday: 4,
-      Friday: 5,
-    };
+  const fetchUserTime = async (userID_PH, entries) => {
+    const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=${userID_PH}&from_date=${start_date}&to_date=${end_date}&start=${entries}&limit=100`;
+    const res = await fetch(url, {
+      headers: {
+        "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
+      },
+    });
+    return res.json();
+  };
 
-    let workingDays = thisUserDaysSelected.map((day) => workingDaysMap[day]);
+  const processUserTime = async (user) => {
+    const userID = user.data("id");
+    const userID_PH = user.data("id-ph");
+    const userHoursPerDay = user.data("hours-per-day");
+    const userDaysPerWeek = user.data("days-per-week");
+    const userDaysSelected = user.data("days-selected");
+    const userName = user.find(".cure-user span").text();
 
-    let thisUserTarget;
+    const workingDays = userDaysSelected.map((day) => workingDaysMap[day]);
+
+    let userTarget;
     if (time_frame === "wtd") {
-      thisUserTarget = thisUserHoursPerDay * thisUserDaysPerWeek * 60;
+      userTarget = userHoursPerDay * userDaysPerWeek * 60;
     } else if (time_frame === "mtd") {
-      thisUserTarget =
-        thisUserHoursPerDay *
+      userTarget =
+        userHoursPerDay *
         countCertainDays(
           workingDays,
           new Date(cure.dates.mtd_start),
@@ -47,8 +57,8 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
         ) *
         60;
     } else if (time_frame === "custom") {
-      thisUserTarget =
-        thisUserHoursPerDay *
+      userTarget =
+        userHoursPerDay *
         countCertainDays(
           workingDays,
           new Date(start_date),
@@ -57,28 +67,24 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
         60;
     }
 
-    let fullRecord = [];
-
-    for (let entries of [
+    const records = [
       0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200,
-    ]) {
-      const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=${thisUserID_PH}&from_date=${start_date}&to_date=${end_date}&start=${entries}&limit=100`;
-      let res = await fetch(url, {
-        headers: {
-          "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
-        },
-      });
-      let response = await res.json();
+    ];
 
-      if (response.length === 0) {
-        break;
-      }
+    const fetchUserTimePromises = records.map((entries) =>
+      fetchUserTime(userID_PH, entries)
+    );
+    const responses = await Promise.all(fetchUserTimePromises);
 
-      fullRecord.push(response);
-    }
-
+    let fullRecord = [];
     let totalLoggedHours = 0;
     let totalLoggedMins = 0;
+
+    responses.forEach((response) => {
+      if (response.length !== 0) {
+        fullRecord.push(response);
+      }
+    });
 
     fullRecord.forEach((entries) => {
       entries.forEach((entry) => {
@@ -96,34 +102,30 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     });
 
     let totalTimeLogged = totalLoggedHours * 60 + totalLoggedMins;
-    let thisUserHits = (totalTimeLogged / thisUserTarget) * 100;
-    thisUser
+    let userHits = (totalTimeLogged / userTarget) * 100;
+    user
       .find(".total-hours-hit > div > .percentage-hit")
-      .text(`${thisUserHits.toFixed(2)}%`);
+      .text(`${userHits.toFixed(2)}%`);
 
-    // traffic lights
-    thisUser.find(".total-hours-hit meter").val(thisUserHits);
+    user.find(".total-hours-hit meter").val(userHits);
     $(".status-text > img").hide();
     let bgColor;
 
-    if (thisUserHits < 80) {
-      // Red - more than 20% under billed
-      thisUser.find(".user-status > div").hide();
-      thisUser.find(".user-status .under").show();
+    if (userHits < 80) {
+      user.find(".user-status > div").hide();
+      user.find(".user-status .under").show();
       bgColor = "#FF605C";
-    } else if (thisUserHits >= 80 && thisUserHits <= 120) {
-      // Green - on target or over by up to 20%
-      thisUser.find(".user-status > div").hide();
-      thisUser.find(".user-status .on-target").show();
+    } else if (userHits >= 80 && userHits <= 120) {
+      user.find(".user-status > div").hide();
+      user.find(".user-status .on-target").show();
       bgColor = "#00CA4E";
-    } else if (thisUserHits > 120) {
-      // Grey - more than 20% over
-      thisUser.find(".user-status > div").hide();
-      thisUser.find(".user-status .over").show();
+    } else if (userHits > 120) {
+      user.find(".user-status > div").hide();
+      user.find(".user-status .over").show();
       bgColor = "#808080";
     }
 
-    thisUser
+    user
       .find(".status-text")
       .attr(
         "style",
@@ -131,7 +133,13 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
       );
 
     $(".data--loader").hide();
+  };
+
+  const fetchUserTimePromises = users.map(function () {
+    return processUserTime($(this));
   });
+
+  await Promise.all(fetchUserTimePromises);
 };
 
 // Filters users
