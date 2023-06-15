@@ -168,11 +168,11 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
             let bgColor;
 
             /*
-              Red - more than 20% under billed
-              Amber - 10% underbilled
-              Green - on target or over by up to 20%
-              Grey - more than 20% over
-          */
+                Red - more than 20% under billed
+                Amber - 10% underbilled
+                Green - on target or over by up to 20%
+                Grey - more than 20% over
+            */
 
             if (thisUserHits < 80) {
               // Red - more than 20% under billed
@@ -201,7 +201,9 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
           };
           await runActions();
         };
-        renderUserTime();
+        setTimeout(() => {
+          renderUserTime();
+        }, 100);
       });
     }
 
@@ -353,7 +355,9 @@ let checkIDs = async () => {
       .attr("src", entries.image_url);
   });
 };
-checkIDs();
+setTimeout(() => {
+  checkIDs();
+}, 600);
 
 /* EXPERIMENTS
 ------------------------------------------------------------------------*/

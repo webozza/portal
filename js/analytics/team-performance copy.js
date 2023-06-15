@@ -309,25 +309,27 @@ $(".cds-btn-submit").click(function () {
 
 /* ADD USER PROFILE IMAGE FROM PROOFHUB
 ------------------------------------------------------------------------*/
-let fetchPeople = async () => {
-  const url = `https://curecollective.proofhub.com/api/v3/people`;
-  let res = await fetch(url, {
-    headers: {
-      "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
-    },
-  });
-  return await res.json();
-};
-let checkIDs = async () => {
-  let response = await fetchPeople();
-  console.log("All users", response);
-  response.map((entries) => {
-    $(`.user-management .cr-table tbody tr[data-id-ph="${entries.id}"]`)
-      .find(".cure-user img")
-      .attr("src", entries.image_url);
-  });
-};
-checkIDs();
+setTimeout(() => {
+  let fetchPeople = async () => {
+    const url = `https://curecollective.proofhub.com/api/v3/people`;
+    let res = await fetch(url, {
+      headers: {
+        "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
+      },
+    });
+    return await res.json();
+  };
+  let checkIDs = async () => {
+    let response = await fetchPeople();
+    console.log("All users", response);
+    response.map((entries) => {
+      $(`.user-management .cr-table tbody tr[data-id-ph="${entries.id}"]`)
+        .find(".cure-user img")
+        .attr("src", entries.image_url);
+    });
+  };
+  checkIDs();
+}, 600);
 
 /* EXPERIMENTS
 ------------------------------------------------------------------------*/
