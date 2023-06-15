@@ -22,6 +22,7 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     let thisUserHoursPerDay = thisUser.data("hours-per-day");
     let thisUserDaysPerWeek = thisUser.data("days-per-week");
     let thisUserDaysSelected = thisUser.data("days-selected");
+    let thisUserName = thisUser.find(".cure-user span").text();
 
     let workingDays = [];
     thisUserDaysSelected.map((entries) => {
@@ -78,7 +79,7 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     };
     let renderUserTime = async () => {
       let response = await fetchUserTime();
-      console.log(response);
+      console.log(thisUserName, response);
 
       let totalLoggedHours = 0;
       let totalLoggedMins = 0;
@@ -306,7 +307,8 @@ $(".cds-btn-submit").click(function () {
   $(".date-notice").text(dateNotice);
 });
 
-// CHECKING USER IDS ON PH
+/* ADD USER PROFILE IMAGE FROM PROOFHUB
+------------------------------------------------------------------------*/
 let fetchPeople = async () => {
   const url = `https://curecollective.proofhub.com/api/v3/people`;
   let res = await fetch(url, {
@@ -318,7 +320,7 @@ let fetchPeople = async () => {
 };
 let checkIDs = async () => {
   let response = await fetchPeople();
-  console.log(response);
+  console.log("All users", response);
   response.map((entries) => {
     $(`.user-management .cr-table tbody tr[data-id-ph="${entries.id}"]`)
       .find(".cure-user img")
@@ -327,20 +329,33 @@ let checkIDs = async () => {
 };
 checkIDs();
 
-// CHECK USER TIME
-let checkUserTime = async () => {
-  const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=10243611582&from_date=2023-04-01&to_date=2023-06-12&start=300&limit=100`;
-  let res = await fetch(url, {
-    headers: {
-      "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
-    },
-  });
-  return await res.json();
-};
+/* EXPERIMENTS
+------------------------------------------------------------------------*/
+// let records = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200];
+// let chunks = "true";
 
-let renderCheckTime = async () => {
-  let response = await checkUserTime();
-  console.log("check rony's time =>", response.length);
-};
+// records.map((entries) => {
+//   let checkUserTime = async () => {
+//     const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=10243611582&from_date=2023-04-01&to_date=2023-06-12&start=${entries}&limit=100`;
+//     let res = await fetch(url, {
+//       headers: {
+//         "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
+//       },
+//     });
+//     return await res.json();
+//   };
 
-renderCheckTime();
+//   let renderCheckTime = async () => {
+//     let response = await checkUserTime();
+//     if (response.length == 0) {
+//       chunks = "false";
+//     }
+//     if (chunks == "true") {
+//       setTimeout(() => {
+//         console.log("check rony's time =>", response.length);
+//       }, entries);
+//     }
+//   };
+
+//   renderCheckTime();
+// });
