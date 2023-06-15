@@ -15,6 +15,13 @@ let countCertainDays = (days, d0, d1) => {
 };
 
 let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
+  //console.log(thisUserID, thisUserID_PH, thisUserTarget);
+  let record_looper = [
+    0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300,
+    1400,
+  ];
+  let fullRecord = [];
+
   $(".user-management .cr-table tbody tr").each(function () {
     let thisUser = $(this);
     let thisUserID = thisUser.data("id");
@@ -65,18 +72,14 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
         60;
     }
 
-    //console.log(thisUserID, thisUserID_PH, thisUserTarget);
-    let record_looper = [
-      0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300,
-      1400,
-    ];
-    let fullRecord = [];
-
     record_looper.map(async (entries) => {
       let fetchUserTime = async () => {
         const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=${thisUserID_PH}&from_date=${start_date}&to_date=${end_date}&start=${entries}&limit=100`;
         let res = await fetch(url, {
+          method: "GET",
           headers: {
+            "User-Agent": "AppName (lee.morgan@curecollective.com.au)",
+            "Content-Type": "application/json",
             "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
           },
         });
@@ -195,10 +198,10 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
           );
         $(".data--loader").hide();
       };
-      renderUserTime();
+      setTimeout(() => {
+        renderUserTime();
+      }, 1000);
     });
-
-    console.log("full record =>", fullRecord);
   });
 };
 
@@ -331,6 +334,8 @@ let fetchPeople = async () => {
   const url = `https://curecollective.proofhub.com/api/v3/people`;
   let res = await fetch(url, {
     headers: {
+      "User-Agent": "AppName (lee.morgan@curecollective.com.au)",
+      "Content-Type": "application/json",
       "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
     },
   });
