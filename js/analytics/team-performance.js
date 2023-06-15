@@ -14,167 +14,126 @@ let countCertainDays = (days, d0, d1) => {
   return days.reduce(sum, 0);
 };
 
-const compareHoursPH = async (
-  start_date,
-  end_date,
-  time_frame,
-  time_status
-) => {
+let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
   const users = $(".user-management .cr-table tbody tr");
-  const loader = $(".data--loader");
 
-  loader.show(); // Show the loader
+  for (let i = 0; i < users.length; i++) {
+    let thisUser = $(users[i]);
+    let thisUserID = thisUser.data("id");
+    let thisUserID_PH = thisUser.data("id-ph");
+    let thisUserHoursPerDay = thisUser.data("hours-per-day");
+    let thisUserDaysPerWeek = thisUser.data("days-per-week");
+    let thisUserDaysSelected = thisUser.data("days-selected");
+    let thisUserName = thisUser.find(".cure-user span").text();
 
-  const workingDaysMap = {
-    Monday: 1,
-    Tuesday: 2,
-    Wednesday: 3,
-    Thursday: 4,
-    Friday: 5,
-  };
+    const workingDaysMap = {
+      Monday: 1,
+      Tuesday: 2,
+      Wednesday: 3,
+      Thursday: 4,
+      Friday: 5,
+    };
 
-  for (const user of users) {
-    const thisUser = $(user);
-    const thisUserID = thisUser.data("id");
-    const thisUserID_PH = thisUser.data("id-ph");
-    const thisUserHoursPerDay = thisUser.data("hours-per-day");
-    const thisUserDaysPerWeek = thisUser.data("days-per-week");
-    const thisUserDaysSelected = thisUser.data("days-selected");
-    const thisUserName = thisUser.find(".cure-user span").text();
+    let workingDays = thisUserDaysSelected.map((day) => workingDaysMap[day]);
 
-    const workingDays = thisUserDaysSelected.map((day) => workingDaysMap[day]);
-    const thisUserTarget = calculateUserTarget(
-      time_frame,
-      thisUserHoursPerDay,
-      thisUserDaysPerWeek,
-      workingDays,
-      start_date,
-      end_date
-    );
-
-    if (thisUserTarget === 0) {
-      // Skip calculation and UI update
-      continue;
+    let thisUserTarget;
+    if (time_frame === "wtd") {
+      thisUserTarget = thisUserHoursPerDay * thisUserDaysPerWeek * 60;
+    } else if (time_frame === "mtd") {
+      thisUserTarget =
+        thisUserHoursPerDay *
+        countCertainDays(
+          workingDays,
+          new Date(cure.dates.mtd_start),
+          new Date(cure.dates.mtd_end)
+        ) *
+        60;
+    } else if (time_frame === "custom") {
+      thisUserTarget =
+        thisUserHoursPerDay *
+        countCertainDays(
+          workingDays,
+          new Date(start_date),
+          new Date(end_date)
+        ) *
+        60;
     }
 
-    const fullRecord = await fetchUserRecord(
-      thisUserID_PH,
-      start_date,
-      end_date
-    );
+    let fullRecord = [];
 
-    const totalTimeLogged = calculateTotalTimeLogged(fullRecord, time_status);
+    for (let entries of [
+      0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200,
+    ]) {
+      const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=${thisUserID_PH}&from_date=${start_date}&to_date=${end_date}&start=${entries}&limit=100`;
+      let res = await fetch(url, {
+        headers: {
+          "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
+        },
+      });
+      let response = await res.json();
 
-    const thisUserHits = (totalTimeLogged / thisUserTarget) * 100;
-    updatePercentageHit(thisUser, thisUserHits);
-    updateTrafficLights(thisUser, thisUserHits);
-  }
+      if (response.length === 0) {
+        break;
+      }
 
-  loader.hide(); // Hide the loader after all calculations
-};
+      fullRecord.push(response);
+    }
 
-const calculateUserTarget = (
-  time_frame,
-  hoursPerDay,
-  daysPerWeek,
-  workingDays,
-  start_date,
-  end_date
-) => {
-  let target = 0;
+    let totalLoggedHours = 0;
+    let totalLoggedMins = 0;
 
-  if (time_frame === "wtd") {
-    target = hoursPerDay * daysPerWeek * 60;
-  } else if (time_frame === "mtd" || time_frame === "custom") {
-    const startDate = time_frame === "mtd" ? cure.dates.mtd_start : start_date;
-    const endDate = time_frame === "mtd" ? cure.dates.mtd_end : end_date;
-    target =
-      hoursPerDay *
-      countCertainDays(workingDays, new Date(startDate), new Date(endDate)) *
-      60;
-  }
-
-  return target;
-};
-
-const fetchUserRecord = async (userID_PH, start_date, end_date) => {
-  const fullRecord = [];
-  let entries = 0;
-
-  while (true) {
-    const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=${userID_PH}&from_date=${start_date}&to_date=${end_date}&start=${entries}&limit=100`;
-    const res = await fetch(url, {
-      headers: {
-        "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
-      },
+    fullRecord.forEach((entries) => {
+      entries.forEach((entry) => {
+        if (
+          time_status === "all" ||
+          (time_status === "billable" && entry.status === "billable") ||
+          (time_status === "non-billable" && entry.status === "non-billable")
+        ) {
+          let loggedHours = entry.logged_hours || 0;
+          let loggedMins = entry.logged_mins || 0;
+          totalLoggedHours += loggedHours;
+          totalLoggedMins += loggedMins;
+        }
+      });
     });
-    const response = await res.json();
 
-    if (response.length === 0) {
-      break;
+    let totalTimeLogged = totalLoggedHours * 60 + totalLoggedMins;
+    let thisUserHits = (totalTimeLogged / thisUserTarget) * 100;
+    thisUser
+      .find(".total-hours-hit > div > .percentage-hit")
+      .text(`${thisUserHits.toFixed(2)}%`);
+
+    // traffic lights
+    thisUser.find(".total-hours-hit meter").val(thisUserHits);
+    $(".status-text > img").hide();
+    let bgColor;
+
+    if (thisUserHits < 80) {
+      // Red - more than 20% under billed
+      thisUser.find(".user-status > div").hide();
+      thisUser.find(".user-status .under").show();
+      bgColor = "#FF605C";
+    } else if (thisUserHits >= 80 && thisUserHits <= 120) {
+      // Green - on target or over by up to 20%
+      thisUser.find(".user-status > div").hide();
+      thisUser.find(".user-status .on-target").show();
+      bgColor = "#00CA4E";
+    } else if (thisUserHits > 120) {
+      // Grey - more than 20% over
+      thisUser.find(".user-status > div").hide();
+      thisUser.find(".user-status .over").show();
+      bgColor = "#808080";
     }
 
-    fullRecord.push(...response);
-    entries += 100;
+    thisUser
+      .find(".status-text")
+      .attr(
+        "style",
+        `width: 12px;height: 12px;background-color: ${bgColor};border-radius: 50%;`
+      );
+
+    $(".data--loader").hide();
   }
-
-  return fullRecord;
-};
-
-const calculateTotalTimeLogged = (fullRecord, time_status) => {
-  let totalLoggedHours = 0;
-  let totalLoggedMins = 0;
-
-  fullRecord.forEach((entry) => {
-    if (
-      time_status === "all" ||
-      (time_status === "billable" && entry.status === "billable") ||
-      (time_status === "non-billable" && entry.status === "non-billable")
-    ) {
-      const loggedHours = entry.logged_hours || 0;
-      const loggedMins = entry.logged_mins || 0;
-      totalLoggedHours += loggedHours;
-      totalLoggedMins += loggedMins;
-    }
-  });
-
-  return totalLoggedHours * 60 + totalLoggedMins;
-};
-
-const updatePercentageHit = (userElement, percentage) => {
-  userElement
-    .find(".total-hours-hit > div > .percentage-hit")
-    .text(`${percentage.toFixed(2)}%`);
-};
-
-const updateTrafficLights = (userElement, percentage) => {
-  userElement.find(".total-hours-hit meter").val(percentage);
-  $(".status-text > img").hide();
-  let bgColor;
-
-  if (percentage < 80) {
-    // Red - more than 20% under billed
-    userElement.find(".user-status > div").hide();
-    userElement.find(".user-status .under").show();
-    bgColor = "#FF605C";
-  } else if (percentage >= 80 && percentage <= 120) {
-    // Green - on target or over by up to 20%
-    userElement.find(".user-status > div").hide();
-    userElement.find(".user-status .on-target").show();
-    bgColor = "#00CA4E";
-  } else if (percentage > 120) {
-    // Grey - more than 20% over
-    userElement.find(".user-status > div").hide();
-    userElement.find(".user-status .over").show();
-    bgColor = "#808080";
-  }
-
-  userElement
-    .find(".status-text")
-    .attr(
-      "style",
-      `width: 12px;height: 12px;background-color: ${bgColor};border-radius: 50%;`
-    );
 };
 
 // Filters users
