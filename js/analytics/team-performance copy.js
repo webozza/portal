@@ -59,6 +59,8 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
         60;
     }
 
+    thisUser.find(".data--loader").show(); // Show the loader for the current user
+
     let fullRecord = [];
 
     for (let entries of [
@@ -132,7 +134,7 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
         `width: 12px;height: 12px;background-color: ${bgColor};border-radius: 50%;`
       );
 
-    $(".data--loader").hide();
+    thisUser.find(".data--loader").hide(); // Hide the loader for the current user
   }
 };
 
