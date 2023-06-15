@@ -14,14 +14,7 @@ let countCertainDays = (days, d0, d1) => {
   return days.reduce(sum, 0);
 };
 
-let compareHoursPH = async (
-  start_date,
-  end_date,
-  time_frame,
-  time_status,
-  selected_from_date,
-  selected_end_date
-) => {
+let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
   $(".user-management .cr-table tbody tr").each(function () {
     let thisUser = $(this);
     let thisUserID = thisUser.data("id");
@@ -53,13 +46,6 @@ let compareHoursPH = async (
     if (time_frame == "wtd") {
       thisUserTarget = thisUserHoursPerDay * thisUserDaysPerWeek * 60;
     } else if (time_frame == "mtd") {
-      console.log(
-        countCertainDays(
-          workingDays,
-          new Date(cure.dates.mtd_start),
-          new Date(cure.dates.mtd_end)
-        )
-      );
       thisUserTarget =
         thisUserHoursPerDay *
         countCertainDays(
@@ -73,125 +59,146 @@ let compareHoursPH = async (
         thisUserHoursPerDay *
         countCertainDays(
           workingDays,
-          new Date(selected_from_date),
-          new Date(selected_end_date)
+          new Date(start_date),
+          new Date(end_date)
         ) *
         60;
     }
 
     //console.log(thisUserID, thisUserID_PH, thisUserTarget);
+    let record_looper = [
+      0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300,
+      1400,
+    ];
+    let fullRecord = [];
 
-    let fetchUserTime = async () => {
-      const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=${thisUserID_PH}&from_date=${start_date}&to_date=${end_date}`;
-      let res = await fetch(url, {
-        headers: {
-          "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
-        },
-      });
-      return await res.json();
-    };
-    let renderUserTime = async () => {
-      let response = await fetchUserTime();
-
-      let totalLoggedHours = 0;
-      let totalLoggedMins = 0;
-      let totalLoggedHoursArray = [];
-      let totalLoggedMinsArray = [];
-
-      response.map((entries) => {
-        let logggedStatus = entries.status;
-
-        if (time_status == "all") {
-          // Logged Hours - TOTAL
-          let loggedHours = entries.logged_hours;
-          if (loggedHours == null) {
-            loggedHours = 0;
-          }
-          totalLoggedHoursArray.push(loggedHours);
-
-          let loggedMins = entries.logged_mins;
-          totalLoggedMinsArray.push(loggedMins);
-          // console.log(logggedStatus, loggedHours, loggedMins);
-        } else if (time_status == "billable" && entries.status == "billable") {
-          // Logged Hours - TOTAL
-          let loggedHours = entries.logged_hours;
-          if (loggedHours == null) {
-            loggedHours = 0;
-          }
-          totalLoggedHoursArray.push(loggedHours);
-
-          let loggedMins = entries.logged_mins;
-          totalLoggedMinsArray.push(loggedMins);
-        } else if (
-          time_status == "non-billable" &&
-          entries.status == "non-billable"
-        ) {
-          // Logged Hours - TOTAL
-          let loggedHours = entries.logged_hours;
-          if (loggedHours == null) {
-            loggedHours = 0;
-          }
-          totalLoggedHoursArray.push(loggedHours);
-
-          let loggedMins = entries.logged_mins;
-          totalLoggedMinsArray.push(loggedMins);
+    record_looper.map((entries) => {
+      let fetchUserTime = async () => {
+        const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=${thisUserID_PH}&from_date=${start_date}&to_date=${end_date}&start=${entries}&limit=100`;
+        let res = await fetch(url, {
+          headers: {
+            "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
+          },
+        });
+        return await res.json();
+      };
+      let renderUserTime = async () => {
+        let response = await fetchUserTime();
+        let loop = "true";
+        if (response.length == 0) {
+          loop = "false";
         }
-      });
+        if (loop == "true") {
+          response.map((entries) => {
+            fullRecord.push(entries);
+          });
+        }
+        let totalLoggedHours = 0;
+        let totalLoggedMins = 0;
+        let totalLoggedHoursArray = [];
+        let totalLoggedMinsArray = [];
 
-      //console.log(totalLoggedHoursArray, totalLoggedMinsArray);
+        fullRecord.map((entries) => {
+          console.log(entries);
+          let logggedStatus = entries.status;
 
-      totalLoggedHours = totalLoggedHoursArray.reduce((a, b) => a + b, 0);
-      totalLoggedMins = totalLoggedMinsArray.reduce((a, b) => a + b, 0);
-      //console.log(totalLoggedHours, totalLoggedMins);
+          if (time_status == "all") {
+            // Logged Hours - TOTAL
+            let loggedHours = entries.logged_hours;
+            if (loggedHours == null) {
+              loggedHours = 0;
+            }
+            totalLoggedHoursArray.push(loggedHours);
 
-      let totalTimeLogged =
-        Number(totalLoggedHours * 60) + Number(totalLoggedMins);
+            let loggedMins = entries.logged_mins;
+            totalLoggedMinsArray.push(loggedMins);
+            // console.log(logggedStatus, loggedHours, loggedMins);
+          } else if (
+            time_status == "billable" &&
+            entries.status == "billable"
+          ) {
+            // Logged Hours - TOTAL
+            let loggedHours = entries.logged_hours;
+            if (loggedHours == null) {
+              loggedHours = 0;
+            }
+            totalLoggedHoursArray.push(loggedHours);
 
-      // Calculate the weektodate target (in mins)
+            let loggedMins = entries.logged_mins;
+            totalLoggedMinsArray.push(loggedMins);
+          } else if (
+            time_status == "non-billable" &&
+            entries.status == "non-billable"
+          ) {
+            // Logged Hours - TOTAL
+            let loggedHours = entries.logged_hours;
+            if (loggedHours == null) {
+              loggedHours = 0;
+            }
+            totalLoggedHoursArray.push(loggedHours);
 
-      let thisUserHits = (totalTimeLogged / thisUserTarget) * 100;
-      thisUser
-        .find(".total-hours-hit > div > .percentage-hit")
-        .text(`${thisUserHits.toFixed(2)}%`);
+            let loggedMins = entries.logged_mins;
+            totalLoggedMinsArray.push(loggedMins);
+          }
+        });
 
-      // traffic lights
-      thisUser.find(".total-hours-hit meter").val(thisUserHits);
-      $(".status-text > img").hide();
-      let bgColor;
+        //console.log(totalLoggedHoursArray, totalLoggedMinsArray);
 
-      /*
+        totalLoggedHours = totalLoggedHoursArray.reduce((a, b) => a + b, 0);
+        totalLoggedMins = totalLoggedMinsArray.reduce((a, b) => a + b, 0);
+        //console.log(totalLoggedHours, totalLoggedMins);
+
+        let totalTimeLogged =
+          Number(totalLoggedHours * 60) + Number(totalLoggedMins);
+
+        // Calculate the weektodate target (in mins)
+
+        let thisUserHits = (totalTimeLogged / thisUserTarget) * 100;
+        thisUser
+          .find(".total-hours-hit > div > .percentage-hit")
+          .text(`${thisUserHits.toFixed(2)}%`);
+
+        // traffic lights
+        thisUser.find(".total-hours-hit meter").val(thisUserHits);
+        $(".status-text > img").hide();
+        let bgColor;
+
+        /*
           Red - more than 20% under billed
           Amber - 10% underbilled
           Green - on target or over by up to 20%
           Grey - more than 20% over
       */
 
-      if (thisUserHits < 80) {
-        // Red - more than 20% under billed
-        thisUser.find(".user-status > div").hide();
-        thisUser.find(".user-status .under").show();
-        bgColor = "#FF605C";
-      } else if (thisUserHits >= 80 && thisUserHits <= 120) {
-        // Green - on target or over by up to 20%
-        thisUser.find(".user-status > div").hide();
-        thisUser.find(".user-status .on-target").show();
-        bgColor = "#00CA4E";
-      } else if (thisUserHits > 120) {
-        // Grey - more than 20% over
-        thisUser.find(".user-status > div").hide();
-        thisUser.find(".user-status .over").show();
-        bgColor = "#808080";
-      }
+        if (thisUserHits < 80) {
+          // Red - more than 20% under billed
+          thisUser.find(".user-status > div").hide();
+          thisUser.find(".user-status .under").show();
+          bgColor = "#FF605C";
+        } else if (thisUserHits >= 80 && thisUserHits <= 120) {
+          // Green - on target or over by up to 20%
+          thisUser.find(".user-status > div").hide();
+          thisUser.find(".user-status .on-target").show();
+          bgColor = "#00CA4E";
+        } else if (thisUserHits > 120) {
+          // Grey - more than 20% over
+          thisUser.find(".user-status > div").hide();
+          thisUser.find(".user-status .over").show();
+          bgColor = "#808080";
+        }
 
-      thisUser
-        .find(".status-text")
-        .attr(
-          "style",
-          `width: 12px;height: 12px;background-color: ${bgColor};border-radius: 50%;`
-        );
-      $(".data--loader").hide();
-    };
-    renderUserTime();
+        thisUser
+          .find(".status-text")
+          .attr(
+            "style",
+            `width: 12px;height: 12px;background-color: ${bgColor};border-radius: 50%;`
+          );
+        $(".data--loader").hide();
+      };
+      renderUserTime();
+    });
+
+    console.log("full record =>", fullRecord);
   });
 };
 
@@ -315,7 +322,7 @@ $(".cds-btn-submit").click(function () {
   $(".custom-date-selector").fadeOut();
 
   // RUN hours
-  compareHoursPH(fromDate, toDate, "custom", statusSelected, fromDate, toDate);
+  compareHoursPH(fromDate, toDate, "custom", statusSelected);
   $(".date-notice").text(dateNotice);
 });
 
@@ -339,3 +346,36 @@ let checkIDs = async () => {
   });
 };
 checkIDs();
+
+// // CHECK USER TIME
+// let record_looper = [
+//   0, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400,
+// ];
+// let fullRecord = [];
+// record_looper.map((entries) => {
+//   let checkUserTime = async () => {
+//     const url = `https://curecollective.proofhub.com/api/v3/alltime?user_id=10243611582&from_date=2023-04-01&to_date=2023-06-12&start=${entries}&limit=100`;
+//     let res = await fetch(url, {
+//       headers: {
+//         "X-API-KEY": "bb7f3dfb14212df54449865a85627cb8ab207c6b",
+//       },
+//     });
+//     return await res.json();
+//   };
+
+//   let renderCheckTime = async () => {
+//     let response = await checkUserTime();
+//     let loop = "true";
+//     if (response.length == 0) {
+//       loop = "false";
+//     }
+//     if (loop == "true") {
+//       response.map((entries) => {
+//         fullRecord.push(entries);
+//       });
+//     }
+//   };
+
+//   renderCheckTime();
+// });
+// console.log("full record =>", fullRecord);
