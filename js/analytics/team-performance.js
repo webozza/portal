@@ -201,9 +201,7 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
           };
           await runActions();
         };
-        setTimeout(() => {
-          renderUserTime();
-        }, 2500);
+        renderUserTime();
       });
     }
 
