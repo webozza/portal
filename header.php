@@ -106,12 +106,12 @@
 						</li>
 						<li class="<?php if($url == "info-centre" ) {echo 'active';} ?>">
 							<a href="<?= home_url() . '/info-centre' ?>"><img src="<?php if($url == "info-centre") {echo get_template_directory_uri() . '/img/icons/briefing-active.png';} else {echo get_template_directory_uri() . '/img/icons/briefing.png';} ?>">Info Centre</a>
-						</li>
+						</li>≈
 						<li class="<?php if($url == "users" ) {echo 'active';} ?>">
 							<a href="<?= home_url() . '/users' ?>"><img src="<?php if($url == "users") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">Users</a>
 						</li>
 						<li class="has-children <?php if($url == "team-performance" ) {echo 'active';} ?>">
-							<a href="javascript:void(0)"><img src="<?php if($url == "team-performance" || $url == "project-performance") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
+							<a href="javascript:void(0)"><img src="<?php if($url == "team-performance") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
 								<div>
 									Analytics
 									<i class="flaticon-down-arrow"></i>
@@ -120,7 +120,6 @@
 						</li>
 						<div class="cure-sub-menu">
 							<a class="flaticon-right-arrow" href="/team-performance">Team Performance</a>
-							<a class="flaticon-right-arrow" href="/project-performance">Project Performance</a>
 							<a class="flaticon-right-arrow" href="/client-performance">Client Performance</a>
 						</div>
 					</ul>
