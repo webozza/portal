@@ -111,7 +111,7 @@
 							<a href="<?= home_url() . '/users' ?>"><img src="<?php if($url == "users") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">Users</a>
 						</li>
 						<li class="has-children <?php if($url == "team-performance" ) {echo 'active';} ?>">
-							<a href="javascript:void(0)"><img src="<?php if($url == "team-performance") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
+							<a href="javascript:void(0)"><img src="<?php if($url == "team-performance" || $url == "client-performance") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
 								<div>
 									Analytics
 									<i class="flaticon-down-arrow"></i>
