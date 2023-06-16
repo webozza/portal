@@ -106,7 +106,7 @@
 						</li>
 						<li class="<?php if($url == "info-centre" ) {echo 'active';} ?>">
 							<a href="<?= home_url() . '/info-centre' ?>"><img src="<?php if($url == "info-centre") {echo get_template_directory_uri() . '/img/icons/briefing-active.png';} else {echo get_template_directory_uri() . '/img/icons/briefing.png';} ?>">Info Centre</a>
-						</li>≈
+						</li>
 						<li class="<?php if($url == "users" ) {echo 'active';} ?>">
 							<a href="<?= home_url() . '/users' ?>"><img src="<?php if($url == "users") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">Users</a>
 						</li>
