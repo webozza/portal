@@ -113,14 +113,14 @@
 						<li class="has-children <?php if($url == "team-performance" ) {echo 'active';} ?>">
 							<a href="javascript:void(0)"><img src="<?php if($url == "team-performance" || $url == "project-performance") {echo get_template_directory_uri() . '/img/icons/checklists-active.png';} else {echo get_template_directory_uri() . '/img/icons/checklists.png';} ?>">
 								<div>
-									Analytics
+									Billable Hours
 									<i class="flaticon-down-arrow"></i>
 								</div>
 							</a>
 						</li>
 						<div class="cure-sub-menu">
-							<a class="flaticon-right-arrow" href="/team-performance">Team Performance</a>
-							<a class="flaticon-right-arrow" href="/project-performance">Project Performance</a>
+							<a class="flaticon-right-arrow" href="/team-performance">Team</a>
+							<a class="flaticon-right-arrow" href="/project-performance">Projects</a>
 						</div>
 					</ul>
 				</nav>
