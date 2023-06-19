@@ -329,29 +329,68 @@ foreach ($DQ_VISITORS_LM->getRows() as $row) {
 }
 $dq_visitors_lm = array_sum($dq_visitors_lm);
 
+/* ENROLLMENTS - DQ (LAST WEEK)
+================================================================================*/
+$DQ_ENROLLMENTS_LW = $client->runReport([
+    'property' => 'properties/' . $property_id['diabetes_qualified'],
+    'dateRanges' => [
+        new DateRange([
+            'start_date' => $last_week_start,
+            'end_date' => $last_week_end,
+        ]),
+    ],
+    'dimensions' => [new Dimension(
+        [
+            'name' => 'sessionDefaultChannelGroup',
+        ]
+    ),
+    ],
+    'metrics' => [new Metric(
+        [
+            'name' => 'ecommercePurchases'
+        ]
+    )
+    ]
+]);
 
+$dq_enrollments_lw = array();
+foreach ($DQ_ENROLLMENTS_LW->getRows() as $row) {
+    // print $row->getDimensionValues()[0]->getValue()
+    //     . ' ' . $row->getMetricValues()[0]->getValue() . PHP_EOL;
+    array_push($dq_enrollments_lw, $row->getMetricValues()[0]->getValue() );
+}
+$dq_enrollments_lw = array_sum($dq_enrollments_lw);
 
+/* ENROLLMENTS - DQ (LAST MONTH)
+================================================================================*/
+$DQ_ENROLLMENTS_LM = $client->runReport([
+    'property' => 'properties/' . $property_id['diabetes_qualified'],
+    'dateRanges' => [
+        new DateRange([
+            'start_date' => $last_month_start,
+            'end_date' => $last_month_end,
+        ]),
+    ],
+    'dimensions' => [new Dimension(
+        [
+            'name' => 'sessionDefaultChannelGroup',
+        ]
+    ),
+    ],
+    'metrics' => [new Metric(
+        [
+            'name' => 'ecommercePurchases'
+        ]
+    )
+    ]
+]);
 
-
-
-
-
-// RENDER TOTAL GOOGLE AD SPEND FROM GA4
-// $google_ads_cost = array();
-// foreach ($DQ_GA_COST_WTD->getRows() as $row) {
-//     // print $row->getDimensionValues()[0]->getValue()
-//     //     . ' ' . $row->getMetricValues()[0]->getValue() . PHP_EOL;
-//     array_push($google_ads_cost, $row->getMetricValues()[0]->getValue() );
-// }
-// $google_ads_total_cost = array_sum($google_ads_cost);
-
-// RENDER TOTAL NEW USERS COUNT
-// $ga4_new_users = array();
-// foreach ($DQ_VISITORS_WTD->getRows() as $row) {
-//     // print $row->getDimensionValues()[0]->getValue()
-//     //     . ' ' . $row->getMetricValues()[0]->getValue() . PHP_EOL;
-//     array_push($ga4_new_users, $row->getMetricValues()[0]->getValue() );
-// }
-// $ga4_new_users = array_sum($ga4_new_users);
+$dq_enrollments_lm = array();
+foreach ($DQ_ENROLLMENTS_LM->getRows() as $row) {
+    // print $row->getDimensionValues()[0]->getValue()
+    //     . ' ' . $row->getMetricValues()[0]->getValue() . PHP_EOL;
+    array_push($dq_enrollments_lm, $row->getMetricValues()[0]->getValue() );
+}
+$dq_enrollments_lm = array_sum($dq_enrollments_lm);
 
 ?>
