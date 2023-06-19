@@ -286,6 +286,44 @@ setTimeout(() => {
   checkIDs();
 }, 600);
 
+/* SORTING
+------------------------------------------------------------------------*/
+let sortTarget = () => {
+  let sortOrder = "asc";
+
+  $(".user-management thead .th-target").click(function () {
+    let columnIndex = $(this).index();
+    let $table = $(this).closest("table");
+    let $tbody = $table.find("tbody");
+    let rows = $tbody.find("tr").get();
+
+    if (sortOrder === "asc") {
+      sortOrder = "desc";
+    } else {
+      sortOrder = "asc";
+    }
+
+    rows.sort(function (a, b) {
+      let aValue = parseFloat($(a).find("meter").val());
+      let bValue = parseFloat($(b).find("meter").val());
+
+      if (sortOrder === "asc") {
+        return aValue - bValue;
+      } else {
+        return bValue - aValue;
+      }
+    });
+
+    $.each(rows, function (index, row) {
+      $tbody.append(row);
+    });
+
+    $(this).find(".icon-sort").toggleClass("active");
+  });
+};
+
+sortTarget();
+
 /* EXPERIMENTS
 ------------------------------------------------------------------------*/
 // let records = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200];
