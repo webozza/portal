@@ -219,6 +219,11 @@ function cure_portal_scripts() {
 	if( is_page('team-performance') ) {
 		wp_enqueue_script( "team-performance", get_template_directory_uri() . '/js/analytics/team-performance.js', array('jquery'), _S_VERSION, true );
 	}
+
+	// Scripts - Client Performance Page
+	if( is_page('project-performance') ) {
+		wp_enqueue_script( "project-performance", get_template_directory_uri() . '/js/analytics/project-performance.js', array('jquery'), _S_VERSION, true );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'cure_portal_scripts' );
 

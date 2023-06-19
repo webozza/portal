@@ -7,15 +7,13 @@ get_header(); ?>
 
 <div class="main user-management team-performance">
     <div class="greetings has-options">
-        <h2>Team Performance</h2>
+        <h2>Billable Hours</h2>
         <div>
             <!-- <a class="btn-cure trigger-modal" href="javascript:void(0)" data-modal="new-user">Add User +</a> -->
         </div>
     </div>
     <div class="cure-filters">
-        <div class="date-notice">
-            Let Rony know if there's an issue!!
-        </div>
+        <div class="date-notice"></div>
         <div class="filters">
             <div class="filter active filter-date-range">
                 <a href="javascript:void(0)">WTD</a>
@@ -69,7 +67,12 @@ get_header(); ?>
                 <tr>
                     <th>User</th>
                     <th>Role</th>
-                    <th>Target Hit</th>
+                    <th class="th-target">
+                        <div>
+                            Target Hit
+                            <img class="icon-sort" src="<?= get_template_directory_uri() . '/img/icons/sort.png' ?>">
+                        </div>
+                    </th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
