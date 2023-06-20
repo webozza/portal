@@ -343,10 +343,15 @@ let croDateFilter = () => {
       let client = thisProject.find("span").text();
       let ad_spend = thisProject.parent().parent().find(".td-ad-spend");
       let visitors = thisProject.parent().parent().find(".td-new-users");
+      let conversions = thisProject.parent().parent().find(".td-conversions");
+      let cpa = thisProject.parent().parent().find(".td-cpa");
+
       if (presetDateSelected == "WTD" && client == "Diabetes Qualified") {
         // WTD & DQ
         ad_spend.text(metricsByClient.diabetes_qualified.ad_spend_wtd);
         visitors.text(metricsByClient.diabetes_qualified.new_users_wtd);
+        conversions.text(metricsByClient.diabetes_qualified.enrolments_wtd);
+        cpa.text(metricsByClient.diabetes_qualified.cpa_wtd);
       } else if (
         presetDateSelected == "MTD" &&
         client == "Diabetes Qualified"
@@ -354,6 +359,8 @@ let croDateFilter = () => {
         // MTD & DQ
         ad_spend.text(metricsByClient.diabetes_qualified.ad_spend_mtd);
         visitors.text(metricsByClient.diabetes_qualified.new_users_mtd);
+        conversions.text(metricsByClient.diabetes_qualified.enrolments_mtd);
+        cpa.text(metricsByClient.diabetes_qualified.cpa_mtd);
       }
     });
   });

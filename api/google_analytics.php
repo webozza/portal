@@ -189,7 +189,7 @@ if(isset($_POST['custom_date_selector']) == "1") {
     }
     $dq_visitors_cds = array_sum($dq_visitors_cds);
 
-    // Conversions 
+    // Conversions for custom date range
     $DQ_CONVERSIONS_CDS = $client->runReport([
         'property' => 'properties/' . $property_id['diabetes_qualified'],
         'dateRanges' => [
@@ -387,8 +387,6 @@ $DQ_ENROLLMENTS_LW = $client->runReport([
 
 $dq_enrollments_lw = array();
 foreach ($DQ_ENROLLMENTS_LW->getRows() as $row) {
-    // print $row->getDimensionValues()[0]->getValue()
-    //     . ' ' . $row->getMetricValues()[0]->getValue() . PHP_EOL;
     array_push($dq_enrollments_lw, $row->getMetricValues()[0]->getValue() );
 }
 $dq_enrollments_lw = array_sum($dq_enrollments_lw);
@@ -419,11 +417,69 @@ $DQ_ENROLLMENTS_LM = $client->runReport([
 
 $dq_enrollments_lm = array();
 foreach ($DQ_ENROLLMENTS_LM->getRows() as $row) {
-    // print $row->getDimensionValues()[0]->getValue()
-    //     . ' ' . $row->getMetricValues()[0]->getValue() . PHP_EOL;
     array_push($dq_enrollments_lm, $row->getMetricValues()[0]->getValue() );
 }
 $dq_enrollments_lm = array_sum($dq_enrollments_lm);
+
+/* ENROLLMENTS - DQ (WTD)
+================================================================================*/
+$DQ_ENROLLMENTS_WTD = $client->runReport([
+    'property' => 'properties/' . $property_id['diabetes_qualified'],
+    'dateRanges' => [
+        new DateRange([
+            'start_date' => $week_to_date,
+            'end_date' => 'today',
+        ]),
+    ],
+    'dimensions' => [new Dimension(
+        [
+            'name' => 'sessionDefaultChannelGroup',
+        ]
+    ),
+    ],
+    'metrics' => [new Metric(
+        [
+            'name' => 'ecommercePurchases'
+        ]
+    )
+    ]
+]);
+
+$dq_enrollments_wtd = array();
+foreach ($DQ_ENROLLMENTS_WTD->getRows() as $row) {
+    array_push($dq_enrollments_wtd, $row->getMetricValues()[0]->getValue() );
+}
+$dq_enrollments_wtd = array_sum($dq_enrollments_wtd);
+
+/* ENROLLMENTS - DQ (MTD)
+================================================================================*/
+$DQ_ENROLLMENTS_MTD = $client->runReport([
+    'property' => 'properties/' . $property_id['diabetes_qualified'],
+    'dateRanges' => [
+        new DateRange([
+            'start_date' => $month_to_date,
+            'end_date' => 'today',
+        ]),
+    ],
+    'dimensions' => [new Dimension(
+        [
+            'name' => 'sessionDefaultChannelGroup',
+        ]
+    ),
+    ],
+    'metrics' => [new Metric(
+        [
+            'name' => 'ecommercePurchases'
+        ]
+    )
+    ]
+]);
+
+$dq_enrollments_mtd = array();
+foreach ($DQ_ENROLLMENTS_MTD->getRows() as $row) {
+    array_push($dq_enrollments_mtd, $row->getMetricValues()[0]->getValue() );
+}
+$dq_enrollments_mtd = array_sum($dq_enrollments_mtd);
 
 /* SALES - DQ (LAST WEEK)
 ================================================================================*/
