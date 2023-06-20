@@ -22,13 +22,13 @@ if($dq_enrollments_mtd != "0") {
     $dq_cpa_mtd = "N/A";
 }
 
-if($dq_conversions_cds != "0") {
-    $dq_cpa_cds = "$" . number_format($dq_ga_cost_cds / $dq_conversions_cds, 2);
-} else {
-    $dq_cpa_cds = "N/A";
-}
-
 if(isset($_POST['custom_date_selector']) == "1") {
+    if($dq_conversions_cds != "0") {
+        $dq_cpa_cds = "$" . number_format($dq_ga_cost_cds / $dq_conversions_cds, 2);
+    } else {
+        $dq_cpa_cds = "N/A";
+    }
+
     $client_reporting = [
         [
             'project' => 'Diabetes Qualified',
