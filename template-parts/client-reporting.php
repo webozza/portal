@@ -264,7 +264,7 @@ if(isset($_POST['custom_date_selector']) == "1") {
             </table>
         </div>
 
-        <div class="dev-notes">
+        <div class="dev-notes hidden">
             <?php // include( get_template_directory() . '/api/google_ads.php'); ?>
             <h3>Dev Notes</h3>
             <ul>

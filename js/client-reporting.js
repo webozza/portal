@@ -1,6 +1,7 @@
 // Client Filter
 let singleClientReports = () => {
   $(".cure--project").click(function () {
+    $(".cure-loader").show().css("display", "flex");
     let slug = $(this).data("client");
     let projectName = $(this).find("span").text();
     $('[name="client"]').val(slug);
@@ -23,6 +24,7 @@ let reportTypeFilter = () => {
     .eq(0)
     .find("a")
     .click(function () {
+      $(".cure-loader").show().css("display", "flex");
       let reportType = $(this).text();
       let reportTypeField = $('[name="report_type"]');
       reportTypeField.val(reportType);
@@ -386,6 +388,7 @@ let croDateFilter = () => {
 
   // Apply the custom date filter
   $(".cds-btn-submit").click(function () {
+    $(".cure-loader").show().css("display", "flex");
     let startDate = $('form [name="start_date"]').val();
     let endDate = $('form [name="end_date"]').val();
 

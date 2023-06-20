@@ -129,7 +129,11 @@ $DQ_GA_COST_LM = $client->runReport([
     )
     ]
 ]);
+
+/* CUSTOM DATE RANGE
+---------------------------------------------------------------------------------*/
 if(isset($_POST['custom_date_selector']) == "1") {
+    // Ad COST for custom date range
     $DQ_GA_COST_CDS = $client->runReport([
         'property' => 'properties/' . $property_id['diabetes_qualified'],
         'dateRanges' => [
@@ -156,6 +160,8 @@ if(isset($_POST['custom_date_selector']) == "1") {
         array_push($dq_ga_cost_cds, $row->getMetricValues()[0]->getValue() );
     }
     $dq_ga_cost_cds = array_sum($dq_ga_cost_cds);
+
+    // New Users for custom date range
     $DQ_VISITORS_CDS = $client->runReport([
         'property' => 'properties/' . $property_id['diabetes_qualified'],
         'dateRanges' => [
@@ -179,11 +185,37 @@ if(isset($_POST['custom_date_selector']) == "1") {
     ]);
     $dq_visitors_cds = array();
     foreach ($DQ_VISITORS_CDS->getRows() as $row) {
-        // print $row->getDimensionValues()[0]->getValue()
-        //     . ' ' . $row->getMetricValues()[0]->getValue() . PHP_EOL;
         array_push($dq_visitors_cds, $row->getMetricValues()[0]->getValue() );
     }
     $dq_visitors_cds = array_sum($dq_visitors_cds);
+
+    // Conversions 
+    $DQ_CONVERSIONS_CDS = $client->runReport([
+        'property' => 'properties/' . $property_id['diabetes_qualified'],
+        'dateRanges' => [
+            new DateRange([
+                'start_date' => $cds_start,
+                'end_date' => $cds_end,
+            ]),
+        ],
+        'dimensions' => [new Dimension(
+            [
+                'name' => 'sessionDefaultChannelGroup',
+            ]
+        ),
+        ],
+        'metrics' => [new Metric(
+            [
+                'name' => 'ecommercePurchases'
+            ]
+        )
+        ]
+    ]);
+    $dq_conversions_cds = array();
+    foreach ($DQ_CONVERSIONS_CDS->getRows() as $row) {
+        array_push($dq_conversions_cds, $row->getMetricValues()[0]->getValue() );
+    }
+    $dq_conversions_cds = array_sum($dq_conversions_cds);
 }
 
 $dq_ga_cost_wtd = array();
@@ -392,5 +424,65 @@ foreach ($DQ_ENROLLMENTS_LM->getRows() as $row) {
     array_push($dq_enrollments_lm, $row->getMetricValues()[0]->getValue() );
 }
 $dq_enrollments_lm = array_sum($dq_enrollments_lm);
+
+/* SALES - DQ (LAST WEEK)
+================================================================================*/
+$DQ_SALES_LW = $client->runReport([
+    'property' => 'properties/' . $property_id['diabetes_qualified'],
+    'dateRanges' => [
+        new DateRange([
+            'start_date' => $last_week_start,
+            'end_date' => $last_week_end,
+        ]),
+    ],
+    'dimensions' => [new Dimension(
+        [
+            'name' => 'sessionDefaultChannelGroup',
+        ]
+    ),
+    ],
+    'metrics' => [new Metric(
+        [
+            'name' => 'purchaseRevenue'
+        ]
+    )
+    ]
+]);
+
+$dq_sales_lw = array();
+foreach ($DQ_SALES_LW->getRows() as $row) {
+    array_push($dq_sales_lw, $row->getMetricValues()[0]->getValue() );
+}
+$dq_sales_lw = array_sum($dq_sales_lw);
+
+/* SALES - DQ (LAST MONTH)
+================================================================================*/
+$DQ_SALES_LM = $client->runReport([
+    'property' => 'properties/' . $property_id['diabetes_qualified'],
+    'dateRanges' => [
+        new DateRange([
+            'start_date' => $last_month_start,
+            'end_date' => $last_month_end,
+        ]),
+    ],
+    'dimensions' => [new Dimension(
+        [
+            'name' => 'sessionDefaultChannelGroup',
+        ]
+    ),
+    ],
+    'metrics' => [new Metric(
+        [
+            'name' => 'purchaseRevenue'
+        ]
+    )
+    ]
+]);
+
+$dq_sales_lm = array();
+foreach ($DQ_SALES_LM->getRows() as $row) {
+    array_push($dq_sales_lm, $row->getMetricValues()[0]->getValue() );
+}
+$dq_sales_lm = array_sum($dq_sales_lm);
 
 ?>

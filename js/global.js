@@ -1,3 +1,8 @@
+// Preloader
+let disablePreloader = () => {
+  document.querySelector(".cure-loader").style.display = "none";
+};
+
 // Navigation
 let windowHeight = $(window).height();
 let bodyHeight = $("body").height();
@@ -227,3 +232,10 @@ $("#site-navigation .menu li a").click(function () {
     $(".cure-loader").show().css("display", "flex");
   }
 });
+
+let curLoc = window.location.href;
+if (curLoc.indexOf("/client-reporting") > -1) {
+  $(window).on("beforeunload", function () {
+    $(".cure-loader").show().css("display", "flex");
+  });
+}

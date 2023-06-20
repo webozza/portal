@@ -129,7 +129,15 @@
                                 <td><?= '$' . number_format(round($dq_ga_cost_lw, 2)); ?></td>
                                 <td><?= number_format($dq_visitors_lw) ?></td>
                                 <td><?= '$' . round($dq_ga_cost_lw / $dq_visitors_lw, 2) ?></td>
-                                <td><?= number_format(($dq_enrollments_lw / $dq_visitors_lw) * 100, 2) ?>%</td>
+                                <td>
+                                    <?php 
+                                    if($dq_enrollments_lw != "0") {
+                                        echo number_format(($dq_enrollments_lw / $dq_visitors_lw) * 100, 2) . '%';
+                                    } else {
+                                        echo "N/A";
+                                    }
+                                    ?>
+                                </td>
                                 <td><?= $dq_enrollments_lw ?></td>
                                 <td>
                                     <?php
@@ -140,14 +148,22 @@
                                         }
                                     ?>
                                 </td>
-                                <td>otw</td>
+                                <td><?= '$' . number_format($dq_sales_lw, 2) ?></td>
                             </tr>
                             <tr>
                                 <td>Month to Date</td>
                                 <td><?= '$' . number_format(round($dq_ga_cost_lm, 2)); ?></td>
                                 <td><?= number_format($dq_visitors_lm) ?></td>
                                 <td><?= '$' . round($dq_ga_cost_lm / $dq_visitors_lm, 2) ?></td>
-                                <td><?= number_format(($dq_enrollments_lm / $dq_visitors_lm) * 100, 2) . '%' ?></td>
+                                <td>
+                                    <?php 
+                                        if($dq_enrollments_lm != "0") {
+                                            echo number_format(($dq_enrollments_lm / $dq_visitors_lm) * 100, 2) . '%';
+                                        } else {
+                                            echo "N/A";
+                                        }
+                                    ?>
+                                </td>
                                 <td><?= $dq_enrollments_lm ?></td>
                                 <td>
                                     <?php
@@ -158,7 +174,7 @@
                                         }
                                     ?>
                                 </td>
-                                <td>otw</td>
+                                <td><?= '$' . number_format($dq_sales_lm, 2) ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -239,10 +255,26 @@
                                 <td><?= '$' . number_format(round($dq_ga_cost_lm, 2)); ?></td>
                                 <td><?= number_format($dq_visitors_lm) ?></td>
                                 <td><?= '$' . round($dq_ga_cost_lm / $dq_visitors_lm, 2) ?></td>
-                                <td>otw</td>
-                                <td>otw</td>
-                                <td>otw</td>
-                                <td>otw</td>
+                                <td>
+                                    <?php 
+                                        if($dq_enrollments_lm != "0") {
+                                            echo number_format(($dq_enrollments_lm / $dq_visitors_lm) * 100, 2) . '%';
+                                        } else {
+                                            echo "N/A";
+                                        }
+                                    ?>
+                                </td>
+                                <td><?= $dq_enrollments_lm ?></td>
+                                <td>
+                                    <?php
+                                        if($dq_enrollments_lm != "0") {
+                                            echo '$' . number_format($dq_ga_cost_lm / $dq_enrollments_lm, 2);
+                                        } else {
+                                            echo "N/A";
+                                        }
+                                    ?>
+                                </td>
+                                <td><?= '$' . number_format($dq_sales_lm, 2) ?></td>
                             </tr>
                         </tbody>
                     </table>

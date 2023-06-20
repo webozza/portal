@@ -31,6 +31,9 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+	<!-- PRELOAD IMAGE -->
+	<link rel="preload" href="<?= get_template_directory_uri() . '/img/preloader-1.gif' ?>" as="image">
+
 	<?php wp_head(); ?>
 	<?php date_default_timezone_set("Australia/Sydney"); ?>
 	<script>
@@ -57,16 +60,12 @@
 </head>
 <?php $url = basename($_SERVER['REQUEST_URI']); ?>
 <body <?php if($url == "client-reporting") {echo 'onload="disablePreloader()"';} ?> <?php body_class(); ?>>
-<?php if(is_page('client-reporting')) { ?>
-	<div class="cure-loader">
-		<img src="<?= get_template_directory_uri() . '/img/preloader-1.gif' ?>">
-	</div>
-	<script>
-		let disablePreloader = () => {
-			document.querySelector('.cure-loader').style.display = 'none';
-		}
-	</script>
-<?php } ?>
+
+<!-- PRELOADER FOR API CALLS -->
+<div class="cure-loader" style="display:none">
+	<img src="<?= get_template_directory_uri() . '/img/preloader-1.gif' ?>">
+</div>
+
 <?php wp_body_open(); ?>
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'cure-portal' ); ?></a>
