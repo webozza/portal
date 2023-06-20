@@ -59,7 +59,7 @@
 	<?php } ?>
 </head>
 <?php $url = basename($_SERVER['REQUEST_URI']); ?>
-<body <?php if($url == "client-reporting") {echo 'onload="disablePreloader()"';} ?> <?php body_class(); ?>>
+<body <?php body_class(); ?>>
 
 <!-- PRELOADER FOR API CALLS -->
 <div class="cure-loader" style="display:none">

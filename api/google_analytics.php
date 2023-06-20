@@ -542,3 +542,7 @@ foreach ($DQ_SALES_LM->getRows() as $row) {
 $dq_sales_lm = array_sum($dq_sales_lm);
 
 ?>
+
+<script>
+    disablePreloader();
+</script>
