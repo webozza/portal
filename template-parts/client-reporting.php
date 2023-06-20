@@ -135,9 +135,9 @@ if(isset($_POST['custom_date_selector']) == "1") {
                         </div>
                     </div>
                 </div>
-                <div class="filter">
+                <!-- <div class="filter">
                     <a href="javascript:void(0)">Sort Client</a>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="cr-table">
@@ -241,9 +241,9 @@ if(isset($_POST['custom_date_selector']) == "1") {
                         </div>
                     </div>
                 </div>
-                <div class="filter">
+                <!-- <div class="filter">
                     <a href="javascript:void(0)">Sort Client</a>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="cr-table">
