@@ -101,9 +101,15 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
 
     let totalTimeLogged = totalLoggedHours * 60 + totalLoggedMins;
     let thisUserHits = (totalTimeLogged / thisUserTarget) * 100;
-    thisUser
-      .find(".total-hours-hit > div > .percentage-hit")
-      .text(`${thisUserHits.toFixed(2)}%`);
+
+    if (!isFinite(thisUserHits)) {
+      thisUserHits = 0; // Set a default value when the result is not finite
+      thisUser.find(".total-hours-hit > div > .percentage-hit").text("N/A");
+    } else {
+      thisUser
+        .find(".total-hours-hit > div > .percentage-hit")
+        .text(`${thisUserHits.toFixed(2)}%`);
+    }
 
     // traffic lights
     thisUser.find(".total-hours-hit meter").val(thisUserHits);
