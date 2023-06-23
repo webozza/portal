@@ -49,7 +49,8 @@
 				themeDir: "<?= get_template_directory_uri() ?>",
 				dates: {
 					wtd_start: '<?= date('Y-m-d', strtotime("this week")) ?>',
-					today : '<?= date('Y-m-d', strtotime("today")) ?>',
+					today: '<?= date('Y-m-d', strtotime("today")) ?>',
+					yesterday: '<?= date('Y-m-d', strtotime("yesterday")) ?>',
 					mtd_start: '<?= date('Y-m-d', strtotime("first day of this month")) ?>',
 					mtd_end: '<?= date('Y-m-d', strtotime("last day of this month")) ?>',
 				},

@@ -1,5 +1,5 @@
 let constructUserModal = async () => {
-  let dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.today);
+  let dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.yesterday);
   $(".date-notice").text(dateRange);
   $(".cure-modal.new-user .modal-submit").click(async function () {
     $(".cure-modal.new-user form").submit();
@@ -50,14 +50,14 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
             countCertainDays(
               workingDays,
               new Date(cure.dates.mtd_start),
-              new Date(cure.dates.mtd_end)
+              new Date(cure.dates.yesterday)
             ) *
             60
           : thisUserHoursPerDay *
             countCertainDays(
               workingDays,
               new Date(cure.dates.mtd_start),
-              new Date(cure.dates.mtd_end)
+              new Date(cure.dates.dateRange)
             ) *
             60;
     } else if (time_frame === "custom") {
@@ -139,18 +139,23 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     let bgColor;
 
     if (time_status === "billable") {
-      if (thisUserHits < 100) {
-        // Red - more than 20% under billed
+      if (thisUserHits < 90) {
+        // Red
         thisUser.find(".user-status > div").hide();
         thisUser.find(".user-status .under").show();
         bgColor = "#FF605C";
-      } else if (thisUserHits >= 100 && thisUserHits <= 120) {
-        // Green - on target or over by up to 20%
+      } else if (thisUserHits >= 90 && thisUserHits < 100) {
+        // Amber
         thisUser.find(".user-status > div").hide();
-        thisUser.find(".user-status .on-target").show();
+        thisUser.find(".user-status .at-risk").show();
+        bgColor = "#FFBF00";
+      } else if (thisUserHits >= 100 && thisUserHits < 120) {
+        // Green
+        thisUser.find(".user-status > div").hide();
+        thisUser.find(".user-status .over").show();
         bgColor = "#00CA4E";
       } else if (thisUserHits > 120) {
-        // Grey - more than 20% over
+        // Grey
         thisUser.find(".user-status > div").hide();
         thisUser.find(".user-status .over").show();
         bgColor = "#808080";
@@ -215,7 +220,7 @@ let filterUsers = async () => {
 
 constructUserModal();
 activeFilter();
-compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "all"); // pull week to date metrics
+compareHoursPH(cure.dates.wtd_start, cure.dates.yesterday, "wtd", "billable"); // pull week to date metrics
 filterUsers();
 
 $(".filters .filter a").click(function () {
@@ -235,36 +240,46 @@ $(".filters .filter a").click(function () {
 
   // WTD + VARIABLES
   if (filterClicked == "WTD" && statusSelected == "all") {
-    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "all");
-    dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.today);
+    compareHoursPH(cure.dates.wtd_start, cure.dates.yesterday, "wtd", "all");
+    dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.yesterday);
   } else if (filterClicked == "WTD" && statusSelected == "billable") {
-    compareHoursPH(cure.dates.wtd_start, cure.dates.today, "wtd", "billable");
-    dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.today);
+    compareHoursPH(
+      cure.dates.wtd_start,
+      cure.dates.yesterday,
+      "wtd",
+      "billable"
+    );
+    dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.yesterday);
   } else if (filterClicked == "WTD" && statusSelected == "non-billable") {
     compareHoursPH(
       cure.dates.wtd_start,
-      cure.dates.today,
+      cure.dates.yesterday,
       "wtd",
       "non-billable"
     );
-    dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.today);
+    dateRange = cureDateConverter(cure.dates.wtd_start, cure.dates.yesterday);
   }
 
   // MTD + VARIABLES
   if (filterClicked == "MTD" && statusSelected == "all") {
-    compareHoursPH(cure.dates.mtd_start, cure.dates.today, "mtd", "all");
-    dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.today);
+    compareHoursPH(cure.dates.mtd_start, cure.dates.yesterday, "mtd", "all");
+    dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.yesterday);
   } else if (filterClicked == "MTD" && statusSelected == "billable") {
-    compareHoursPH(cure.dates.mtd_start, cure.dates.today, "mtd", "billable");
-    dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.today);
+    compareHoursPH(
+      cure.dates.mtd_start,
+      cure.dates.yesterday,
+      "mtd",
+      "billable"
+    );
+    dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.yesterday);
   } else if (filterClicked == "MTD" && statusSelected == "non-billable") {
     compareHoursPH(
       cure.dates.mtd_start,
-      cure.dates.today,
+      cure.dates.yesterday,
       "mtd",
       "non-billable"
     );
-    dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.today);
+    dateRange = cureDateConverter(cure.dates.mtd_start, cure.dates.yesterday);
   }
 
   // Custom + VARIABLES

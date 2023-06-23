@@ -48,8 +48,8 @@ get_header(); ?>
             </div>
             <div class="filter f--status">
                 <select class="has-select2">
-                    <option value="all" selected>All Status</option>
-                    <option value="billable">Billable</option>
+                    <option value="billable" selected>Billable</option>
+                    <option value="all">All Status</option>
                     <option value="non-billable">Non-Billable</option>
                 </select>
             </div>
@@ -104,7 +104,7 @@ get_header(); ?>
                                 </div>
                                 <div class="user-status">
                                     <div class="under hidden">Under</div>
-                                    <div class="at-risk hidden">At risk</div>
+                                    <div class="at-risk hidden">Under</div>
                                     <div class="on-target hidden">On target</div>
                                     <div class="over hidden">Over</div>
                                 </div>
