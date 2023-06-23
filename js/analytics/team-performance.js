@@ -22,6 +22,7 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     let thisUserID = thisUser.data("id");
     let thisUserID_PH = thisUser.data("id-ph");
     let thisUserHoursPerDay = thisUser.data("hours-per-day");
+    let billableHoursPerDay = thisUser.data("billable-hours-per-day");
     let thisUserDaysPerWeek = thisUser.data("days-per-week");
     let thisUserDaysSelected = thisUser.data("days-selected");
     let thisUserName = thisUser.find(".cure-user span").text();
@@ -38,25 +39,44 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
 
     let thisUserTarget;
     if (time_frame === "wtd") {
-      thisUserTarget = thisUserHoursPerDay * thisUserDaysPerWeek * 60;
+      thisUserTarget =
+        time_status === "billable"
+          ? billableHoursPerDay * thisUserDaysPerWeek * 60
+          : thisUserHoursPerDay * thisUserDaysPerWeek * 60;
     } else if (time_frame === "mtd") {
       thisUserTarget =
-        thisUserHoursPerDay *
-        countCertainDays(
-          workingDays,
-          new Date(cure.dates.mtd_start),
-          new Date(cure.dates.mtd_end)
-        ) *
-        60;
+        time_status === "billable"
+          ? billableHoursPerDay *
+            countCertainDays(
+              workingDays,
+              new Date(cure.dates.mtd_start),
+              new Date(cure.dates.mtd_end)
+            ) *
+            60
+          : thisUserHoursPerDay *
+            countCertainDays(
+              workingDays,
+              new Date(cure.dates.mtd_start),
+              new Date(cure.dates.mtd_end)
+            ) *
+            60;
     } else if (time_frame === "custom") {
       thisUserTarget =
-        thisUserHoursPerDay *
-        countCertainDays(
-          workingDays,
-          new Date(start_date),
-          new Date(end_date)
-        ) *
-        60;
+        time_status === "billable"
+          ? billableHoursPerDay *
+            countCertainDays(
+              workingDays,
+              new Date(start_date),
+              new Date(end_date)
+            ) *
+            60
+          : thisUserHoursPerDay *
+            countCertainDays(
+              workingDays,
+              new Date(start_date),
+              new Date(end_date)
+            ) *
+            60;
     }
 
     thisUser.find(".data--loader").show(); // Show the loader for the current user
@@ -118,21 +138,40 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     $(".status-text > img").hide();
     let bgColor;
 
-    if (thisUserHits < 80) {
-      // Red - more than 20% under billed
-      thisUser.find(".user-status > div").hide();
-      thisUser.find(".user-status .under").show();
-      bgColor = "#FF605C";
-    } else if (thisUserHits >= 80 && thisUserHits <= 120) {
-      // Green - on target or over by up to 20%
-      thisUser.find(".user-status > div").hide();
-      thisUser.find(".user-status .on-target").show();
-      bgColor = "#00CA4E";
-    } else if (thisUserHits > 120) {
-      // Grey - more than 20% over
-      thisUser.find(".user-status > div").hide();
-      thisUser.find(".user-status .over").show();
-      bgColor = "#808080";
+    if (time_status === "billable") {
+      if (thisUserHits < 100) {
+        // Red - more than 20% under billed
+        thisUser.find(".user-status > div").hide();
+        thisUser.find(".user-status .under").show();
+        bgColor = "#FF605C";
+      } else if (thisUserHits >= 100 && thisUserHits <= 120) {
+        // Green - on target or over by up to 20%
+        thisUser.find(".user-status > div").hide();
+        thisUser.find(".user-status .on-target").show();
+        bgColor = "#00CA4E";
+      } else if (thisUserHits > 120) {
+        // Grey - more than 20% over
+        thisUser.find(".user-status > div").hide();
+        thisUser.find(".user-status .over").show();
+        bgColor = "#808080";
+      }
+    } else {
+      if (thisUserHits < 80) {
+        // Red - more than 20% under billed
+        thisUser.find(".user-status > div").hide();
+        thisUser.find(".user-status .under").show();
+        bgColor = "#FF605C";
+      } else if (thisUserHits >= 80 && thisUserHits <= 120) {
+        // Green - on target or over by up to 20%
+        thisUser.find(".user-status > div").hide();
+        thisUser.find(".user-status .on-target").show();
+        bgColor = "#00CA4E";
+      } else if (thisUserHits > 120) {
+        // Grey - more than 20% over
+        thisUser.find(".user-status > div").hide();
+        thisUser.find(".user-status .over").show();
+        bgColor = "#808080";
+      }
     }
 
     thisUser
