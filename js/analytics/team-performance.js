@@ -367,34 +367,33 @@ setTimeout(() => {
 let sortOrder = "asc";
 let sortTarget = () => {
   $(".user-management thead .th-target").click(function () {
+    let columnIndex = $(this).index();
     let $table = $(this).closest("table");
     let $tbody = $table.find("tbody");
     let rows = $tbody.find("tr").get();
 
-    // Sort order should be "asc" initially
     if (sortOrder === "asc") {
-      rows.sort(function (a, b) {
-        let aValue = parseFloat($(a).find("meter").val());
-        let bValue = parseFloat($(b).find("meter").val());
-        return aValue - bValue;
-      });
-
-      sortOrder = "desc"; // Update the sort order for the next click
+      sortOrder = "desc";
     } else {
-      rows.reverse(); // Reverse the order for descending sort
-      sortOrder = "asc"; // Update the sort order for the next click
+      sortOrder = "asc";
     }
 
-    $tbody.empty(); // Empty the tbody before appending sorted rows
+    rows.sort(function (a, b) {
+      let aValue = parseFloat($(a).find("meter").val());
+      let bValue = parseFloat($(b).find("meter").val());
 
-    // Append the sorted rows to the tbody
+      if (sortOrder === "asc") {
+        return aValue - bValue;
+      } else {
+        return bValue - aValue;
+      }
+    });
+
     $.each(rows, function (index, row) {
       $tbody.append(row);
     });
 
-    // Toggle the "active" class on the clicked column header
-    $(".user-management thead .th-target").removeClass("active");
-    $(this).addClass("active");
+    $(this).find(".icon-sort").toggleClass("active");
   });
 };
 
