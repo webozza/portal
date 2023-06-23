@@ -86,13 +86,15 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
 
     fullRecord.forEach((entries) => {
       entries.forEach((entry) => {
+        let loggedHours = entry.logged_hours || 0;
+        let loggedMins = entry.logged_mins || 0;
+
         if (
           time_status === "all" ||
-          (time_status === "billable" && entry.status === "billable") ||
+          (time_status === "billable" &&
+            (entry.status === "billable" || entry.status === "billed")) ||
           (time_status === "non-billable" && entry.status === "non-billable")
         ) {
-          let loggedHours = entry.logged_hours || 0;
-          let loggedMins = entry.logged_mins || 0;
           totalLoggedHours += loggedHours;
           totalLoggedMins += loggedMins;
         }
