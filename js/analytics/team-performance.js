@@ -118,55 +118,21 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     $(".status-text > img").hide();
     let bgColor;
 
-    // Check if the user ID matches the specific IDs requiring different billable targets
-    if (
-      (thisUserID_PH === 5752190760 ||
-        thisUserID_PH === 8024149849 ||
-        thisUserID_PH === 12344835539) &&
-      time_status === "billable"
-    ) {
-      billableTarget = 20; // Set the billable target percentage for specific user IDs
-    } else if (
-      (thisUserID_PH === 5819640839 || thisUserID_PH === 6146212654) &&
-      time_status === "billable"
-    ) {
-      billableTarget = 60; // Set the billable target percentage for specific user IDs
-    } else {
-      billableTarget = 87.5; // Set the billable target percentage for the rest
-    }
-
-    if (billableTarget !== undefined) {
-      if (thisUserHits < billableTarget) {
-        thisUser.find(".user-status > div").hide();
-        thisUser.find(".user-status .under").show();
-        bgColor = "#FF605C";
-      } else if (thisUserHits >= billableTarget && thisUserHits <= 120) {
-        thisUser.find(".user-status > div").hide();
-        thisUser.find(".user-status .on-target").show();
-        bgColor = "#00CA4E";
-      } else if (thisUserHits > 120) {
-        thisUser.find(".user-status > div").hide();
-        thisUser.find(".user-status .over").show();
-        bgColor = "#808080";
-      }
-    } else {
-      // Default logic for non-billable target or users without the specific IDs
-      if (thisUserHits < 80) {
-        // Red - more than 20% under billed
-        thisUser.find(".user-status > div").hide();
-        thisUser.find(".user-status .under").show();
-        bgColor = "#FF605C";
-      } else if (thisUserHits >= 80 && thisUserHits <= 120) {
-        // Green - on target or over by up to 20%
-        thisUser.find(".user-status > div").hide();
-        thisUser.find(".user-status .on-target").show();
-        bgColor = "#00CA4E";
-      } else if (thisUserHits > 120) {
-        // Grey - more than 20% over
-        thisUser.find(".user-status > div").hide();
-        thisUser.find(".user-status .over").show();
-        bgColor = "#808080";
-      }
+    if (thisUserHits < 80) {
+      // Red - more than 20% under billed
+      thisUser.find(".user-status > div").hide();
+      thisUser.find(".user-status .under").show();
+      bgColor = "#FF605C";
+    } else if (thisUserHits >= 80 && thisUserHits <= 120) {
+      // Green - on target or over by up to 20%
+      thisUser.find(".user-status > div").hide();
+      thisUser.find(".user-status .on-target").show();
+      bgColor = "#00CA4E";
+    } else if (thisUserHits > 120) {
+      // Grey - more than 20% over
+      thisUser.find(".user-status > div").hide();
+      thisUser.find(".user-status .over").show();
+      bgColor = "#808080";
     }
 
     thisUser
