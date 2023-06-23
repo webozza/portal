@@ -1164,3 +1164,9 @@ a.save--changes.btn-cure img {
   column-gap: 5px;
   align-items: center;
 }
+
+/* Team Performance
+-----------------------------------------------------------*/
+.user-management meter {
+  display: none;
+}
