@@ -370,11 +370,23 @@ let sortTarget = () => {
     let $tbody = $table.find("tbody");
     let rows = $tbody.find("tr").get();
 
-    if (sortOrder === "asc") {
-      sortOrder = "desc";
-    } else {
-      sortOrder = "asc";
+    // Check if an API request is in progress and prevent sorting if needed
+    if ($table.hasClass("loading")) {
+      return;
     }
+
+    // Invert the sort order if the same column header is clicked again
+    if ($(this).hasClass("active")) {
+      sortOrder = sortOrder === "asc" ? "desc" : "asc";
+    } else {
+      // Reset the sort order if a different column header is clicked
+      sortOrder = "asc";
+      // Remove the "active" class from other column headers
+      $(".user-management thead .th-target").removeClass("active");
+    }
+
+    // Add the "active" class to the clicked column header
+    $(this).toggleClass("active");
 
     rows.sort(function (a, b) {
       let aValue = parseFloat($(a).find("meter").val());
@@ -387,11 +399,17 @@ let sortTarget = () => {
       }
     });
 
+    $table.addClass("loading"); // Add loading class during sorting
+
+    // Empty the tbody before appending sorted rows
+    $tbody.empty();
+
+    // Append the sorted rows to the tbody
     $.each(rows, function (index, row) {
       $tbody.append(row);
     });
 
-    $(this).find(".icon-sort").toggleClass("active");
+    $table.removeClass("loading"); // Remove loading class after sorting
   });
 };
 
