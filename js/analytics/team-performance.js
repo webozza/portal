@@ -152,7 +152,7 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
       } else if (thisUserHits >= 100 && thisUserHits < 120) {
         // Green
         thisUser.find(".user-status > div").hide();
-        thisUser.find(".user-status .over").show();
+        thisUser.find(".user-status .on-target").show();
         bgColor = "#00CA4E";
       } else if (thisUserHits > 120) {
         // Grey
