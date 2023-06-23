@@ -201,7 +201,7 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     thisUser.find(".data--loader").hide(); // Hide the loader for the current user
   }
 
-  sortTarget();
+  sortOrder = "asc";
 };
 
 // Filters users
@@ -364,9 +364,8 @@ setTimeout(() => {
 
 /* SORTING
 ------------------------------------------------------------------------*/
+let sortOrder = "asc";
 let sortTarget = () => {
-  let sortOrder = "asc";
-
   $(".user-management thead .th-target").click(function () {
     let $table = $(this).closest("table");
     let $tbody = $table.find("tbody");
@@ -398,6 +397,8 @@ let sortTarget = () => {
     $(this).addClass("active");
   });
 };
+
+sortTarget();
 
 /* EXPERIMENTS
 ------------------------------------------------------------------------*/
