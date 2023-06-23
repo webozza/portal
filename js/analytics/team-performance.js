@@ -366,7 +366,6 @@ let sortTarget = () => {
   let sortOrder = "asc";
 
   $(".user-management thead .th-target").click(function () {
-    let columnIndex = $(this).index();
     let $table = $(this).closest("table");
     let $tbody = $table.find("tbody");
     let rows = $tbody.find("tr").get();
