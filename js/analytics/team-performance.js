@@ -201,8 +201,7 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     thisUser.find(".data--loader").hide(); // Hide the loader for the current user
   }
 
-  // Call applyFilters() when filters are applied
-  applyFilters();
+  sortTarget();
 };
 
 // Filters users
@@ -365,8 +364,7 @@ setTimeout(() => {
 
 /* SORTING
 ------------------------------------------------------------------------*/
-function applyFilters() {
-  // Code to apply filters and update meter values
+let sortTarget = () => {
   let sortOrder = "asc";
 
   $(".user-management thead .th-target").click(function () {
@@ -399,13 +397,7 @@ function applyFilters() {
     $(".user-management thead .th-target").removeClass("active");
     $(this).addClass("active");
   });
-
-  // After filters have been applied and meter values are updated, re-run the sorting functionality
-  sortTarget();
-}
-
-// Initially bind the sorting functionality
-sortTarget();
+};
 
 /* EXPERIMENTS
 ------------------------------------------------------------------------*/
