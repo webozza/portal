@@ -41,8 +41,20 @@ let compareHoursPH = async (start_date, end_date, time_frame, time_status) => {
     if (time_frame === "wtd") {
       thisUserTarget =
         time_status === "billable"
-          ? billableHoursPerDay * thisUserDaysPerWeek * 60
-          : thisUserHoursPerDay * thisUserDaysPerWeek * 60;
+          ? billableHoursPerDay *
+            countCertainDays(
+              workingDays,
+              new Date(cure.dates.wtd_start),
+              new Date(cure.dates.yesterday)
+            ) *
+            60
+          : thisUserHoursPerDay *
+            countCertainDays(
+              workingDays,
+              new Date(cure.dates.wtd_start),
+              new Date(cure.dates.yesterday)
+            ) *
+            60;
     } else if (time_frame === "mtd") {
       thisUserTarget =
         time_status === "billable"
