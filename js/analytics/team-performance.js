@@ -370,46 +370,30 @@ let sortTarget = () => {
     let $tbody = $table.find("tbody");
     let rows = $tbody.find("tr").get();
 
-    // Check if an API request is in progress and prevent sorting if needed
-    if ($table.hasClass("loading")) {
-      return;
-    }
-
-    // Invert the sort order if the same column header is clicked again
-    if ($(this).hasClass("active")) {
-      sortOrder = sortOrder === "asc" ? "desc" : "asc";
-    } else {
-      // Reset the sort order if a different column header is clicked
-      sortOrder = "asc";
-      // Remove the "active" class from other column headers
-      $(".user-management thead .th-target").removeClass("active");
-    }
-
-    // Add the "active" class to the clicked column header
-    $(this).toggleClass("active");
-
-    rows.sort(function (a, b) {
-      let aValue = parseFloat($(a).find("meter").val());
-      let bValue = parseFloat($(b).find("meter").val());
-
-      if (sortOrder === "asc") {
+    // Sort order should be "asc" initially
+    if (sortOrder === "asc") {
+      rows.sort(function (a, b) {
+        let aValue = parseFloat($(a).find("meter").val());
+        let bValue = parseFloat($(b).find("meter").val());
         return aValue - bValue;
-      } else {
-        return bValue - aValue;
-      }
-    });
+      });
 
-    $table.addClass("loading"); // Add loading class during sorting
+      sortOrder = "desc"; // Update the sort order for the next click
+    } else {
+      rows.reverse(); // Reverse the order for descending sort
+      sortOrder = "asc"; // Update the sort order for the next click
+    }
 
-    // Empty the tbody before appending sorted rows
-    $tbody.empty();
+    $tbody.empty(); // Empty the tbody before appending sorted rows
 
     // Append the sorted rows to the tbody
     $.each(rows, function (index, row) {
       $tbody.append(row);
     });
 
-    $table.removeClass("loading"); // Remove loading class after sorting
+    // Toggle the "active" class on the clicked column header
+    $(".user-management thead .th-target").removeClass("active");
+    $(this).addClass("active");
   });
 };
 
