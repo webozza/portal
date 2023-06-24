@@ -92,7 +92,7 @@ get_header(); ?>
                         <!-- TOTAL HOURS HIT -->
                         <td class="total-hours-hit">
                             <div>
-                                <meter min="0" max="100" value=""></meter>
+                                <meter min="0" max="1000" value=""></meter>
                                 <img class="data--loader" height="15" src="<?= get_template_directory_uri() . '/img/data-loader.gif' ?>">
                                 <div class="percentage-hit"></div>
                             </div>

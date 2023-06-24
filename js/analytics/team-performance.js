@@ -379,8 +379,8 @@ let sortTarget = () => {
     }
 
     rows.sort(function (a, b) {
-      let aValue = parseFloat($(a).find("meter").val());
-      let bValue = parseFloat($(b).find("meter").val());
+      let aValue = Number($(a).find("meter").val()).toFixed(2);
+      let bValue = Number($(b).find("meter").val()).toFixed(2);
 
       if (sortOrder === "asc") {
         return aValue - bValue;
