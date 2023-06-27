@@ -16,6 +16,7 @@
                     <input type="hidden" name="ga_cost_mtd" value="">
                     <input type="hidden" name="visitors_mtd" value="">
                     <!-- FORM CHECK -->
+                    <input type="hidden" name="client" value="<?= the_field('client') ?>">
                     <input type="hidden" name="report_id" value="">
                     <input type="hidden" name="send_report" value="1">
                     <input type="submit" class="hidden">
