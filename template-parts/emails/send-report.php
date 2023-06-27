@@ -12,7 +12,7 @@
 ?>
 
 <!-- Metrics -->
-<table cellpadding="0" cellspacing="0" align="left" border="1">
+<table cellpadding="0" cellspacing="0" align="left" border="1" width="100%">
     <thead>
         <tr>
             <th></th>
