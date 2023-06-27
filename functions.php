@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.1.45' );
+	define( '_S_VERSION', '1.1.46' );
 }
 
 /**
@@ -327,7 +327,7 @@ function send_client_report() {
 	
 		//php mailer variables
 		$to = $_POST['client_email'];
-		$subject = $_POST('client') . " - Weekly Media Performance Snapshot";
+		$subject = $_POST['client'] . " - Weekly Media Performance Snapshot";
 		$headers = 'From: '. $email . "\r\n" .
 			'Reply-To: ' . $email . "\r\n";
 	
