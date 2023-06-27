@@ -50,7 +50,7 @@
 </table>
 
 <!-- Insights -->
-<table cellpadding="0" cellspacing="0" align="left" border="0">
+<table cellpadding="0" cellspacing="0" align="left" border="0" width="100%">
     <tr>
         <td>
             <h4>Insights</h4>
@@ -64,7 +64,7 @@
 </table>
 
 <!-- Actions -->
-<table cellpadding="0" cellspacing="0" align="left" border="0">
+<table cellpadding="0" cellspacing="0" align="left" border="0" width="100%">
     <tr>
         <td>
             <h4>Actions</h4>
