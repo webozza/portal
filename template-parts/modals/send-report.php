@@ -12,9 +12,17 @@
                     <!-- WTD -->
                     <input type="hidden" name="ga_cost_wtd" value="">
                     <input type="hidden" name="visitors_wtd" value="">
+                    <input type="hidden" name="conversion_rate_wtd" value="">
+                    <input type="hidden" name="enrolments_wtd" value="">
+                    <input type="hidden" name="cost_per_enrolments_wtd" value="">
+                    <input type="hidden" name="sales_wtd" value="">
                     <!-- MTD -->
                     <input type="hidden" name="ga_cost_mtd" value="">
                     <input type="hidden" name="visitors_mtd" value="">
+                    <input type="hidden" name="conversion_rate_mtd" value="">
+                    <input type="hidden" name="enrolments_mtd" value="">
+                    <input type="hidden" name="cost_per_enrolments_mtd" value="">
+                    <input type="hidden" name="sales_mtd" value="">
                     <!-- FORM CHECK -->
                     <input type="hidden" name="client" value="<?= the_field('client') ?>">
                     <input type="hidden" name="report_id" value="">

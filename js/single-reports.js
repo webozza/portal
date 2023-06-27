@@ -142,18 +142,34 @@ let modalSendReport = () => {
   $(".cr-send a").click(function () {
     let modalParent = $(this).parent().parent().parent();
     let ga_cost_wtd = $("tbody tr").eq(0).find("td").eq(1).text();
-    let visitors_wtd = $("tbody tr").eq(0).find("td").eq(2).text();
     let ga_cost_mtd = $("tbody tr").eq(1).find("td").eq(1).text();
+    let visitors_wtd = $("tbody tr").eq(0).find("td").eq(2).text();
     let visitors_mtd = $("tbody tr").eq(1).find("td").eq(2).text();
+    let conversion_rate_wtd = $("tbody tr").eq(0).find("td").eq(4).text();
+    let conversion_rate_mtd = $("tbody tr").eq(1).find("td").eq(4).text();
+    let enrolments_wtd = $("tbody tr").eq(0).find("td").eq(5).text();
+    let enrolments_mtd = $("tbody tr").eq(1).find("td").eq(5).text();
+    let sales_wtd = $("tbody tr").eq(0).find("td").eq(6).text();
+    let sales_mtd = $("tbody tr").eq(1).find("td").eq(6).text();
 
     // Append the report ID
     $('[name="report_id"]').val(cure.report_id);
 
     // Append the metrics
-    $('[name="ga_cost_wtd"]').val(ga_cost_wtd);
-    $('[name="visitors_wtd"]').val(visitors_wtd);
-    $('[name="ga_cost_mtd"]').val(ga_cost_mtd);
-    $('[name="visitors_mtd"]').val(visitors_mtd);
+    $('[name="ga_cost_wtd"]').val(ga_cost_wtd.replaceAll(/\s/g, ""));
+    $('[name="ga_cost_mtd"]').val(ga_cost_mtd.replaceAll(/\s/g, ""));
+    $('[name="visitors_wtd"]').val(visitors_wtd.replaceAll(/\s/g, ""));
+    $('[name="visitors_mtd"]').val(visitors_mtd.replaceAll(/\s/g, ""));
+    $('[name="conversion_rate_wtd"]').val(
+      conversion_rate_wtd.replaceAll(/\s/g, "")
+    );
+    $('[name="conversion_rate_mtd"]').val(
+      conversion_rate_mtd.replaceAll(/\s/g, "")
+    );
+    $('[name="enrolments_wtd"]').val(enrolments_wtd.replaceAll(/\s/g, ""));
+    $('[name="enrolments_mtd"]').val(enrolments_mtd.replaceAll(/\s/g, ""));
+    $('[name="sales_wtd"]').val(sales_wtd.replaceAll(/\s/g, ""));
+    $('[name="sales_mtd"]').val(sales_mtd.replaceAll(/\s/g, ""));
 
     // Append the insights
     $(".cr-insights li").each(function () {
