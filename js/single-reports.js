@@ -149,8 +149,10 @@ let modalSendReport = () => {
     let conversion_rate_mtd = $("tbody tr").eq(1).find("td").eq(4).text();
     let enrolments_wtd = $("tbody tr").eq(0).find("td").eq(5).text();
     let enrolments_mtd = $("tbody tr").eq(1).find("td").eq(5).text();
-    let sales_wtd = $("tbody tr").eq(0).find("td").eq(6).text();
-    let sales_mtd = $("tbody tr").eq(1).find("td").eq(6).text();
+    let cost_per_enrolments_wtd = $("tbody tr").eq(0).find("td").eq(6).text();
+    let cost_per_enrolments_mtd = $("tbody tr").eq(1).find("td").eq(6).text();
+    let sales_wtd = $("tbody tr").eq(0).find("td").eq(7).text();
+    let sales_mtd = $("tbody tr").eq(1).find("td").eq(7).text();
 
     // Append the report ID
     $('[name="report_id"]').val(cure.report_id);
@@ -168,6 +170,12 @@ let modalSendReport = () => {
     );
     $('[name="enrolments_wtd"]').val(enrolments_wtd.replaceAll(/\s/g, ""));
     $('[name="enrolments_mtd"]').val(enrolments_mtd.replaceAll(/\s/g, ""));
+    $('[name="cost_per_enrolments_wtd]').val(
+      cost_per_enrolments_wtd.replaceAll(/\s/g, "")
+    );
+    $('[name="cost_per_enrolments_mtd"]').val(
+      cost_per_enrolments_mtd.replaceAll(/\s/g, "")
+    );
     $('[name="sales_wtd"]').val(sales_wtd.replaceAll(/\s/g, ""));
     $('[name="sales_mtd"]').val(sales_mtd.replaceAll(/\s/g, ""));
 
