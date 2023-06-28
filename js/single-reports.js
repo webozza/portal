@@ -170,7 +170,7 @@ let modalSendReport = () => {
     );
     $('[name="enrolments_wtd"]').val(enrolments_wtd.replaceAll(/\s/g, ""));
     $('[name="enrolments_mtd"]').val(enrolments_mtd.replaceAll(/\s/g, ""));
-    $('[name="cost_per_enrolments_wtd]').val(
+    $('[name="cost_per_enrolments_wtd"]').val(
       cost_per_enrolments_wtd.replaceAll(/\s/g, "")
     );
     $('[name="cost_per_enrolments_mtd"]').val(
