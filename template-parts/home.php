@@ -20,6 +20,9 @@ $user_last_name = get_user_meta( $user_id, 'last_name', true ); ?>
             <?= 'Current Version: ' . _S_VERSION ?>
         </div>
     </div>
+    <div class="cure-section">
+        <a class="btn-cure-tom" href="/timely">Timely Sync - Vyro</a>
+    </div>
 </div>
 <script>
     jQuery(document).ready(function($) {

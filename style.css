@@ -126,6 +126,12 @@ div {
   background-color: var(--cure-primary-color);
   color: #fff;
 }
+.btn-cure-tom {
+  background-color: #000;
+  color: #fff;
+  padding: 6px 16px;
+  font-size: 14px;
+}
 .btn-cure-secondary {
   border-radius: 32px;
   padding: 10px 20px;
@@ -157,6 +163,15 @@ meter::-webkit-meter-optimum-value,
 meter::-webkit-meter-suboptimum-value,
 meter::-webkit-meter-even-less-good-value {
   transition: 1s width;
+}
+.timely-sync-preloader h3 {
+  padding: 20px;
+}
+.timely-sync-preloader img {
+  width: 100%;
+}
+.timely-sync-preloader {
+  width: 100%;
 }
 
 /*--------------------------------------------------------------
