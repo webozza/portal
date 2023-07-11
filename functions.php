@@ -9,7 +9,7 @@
 
 if ( ! defined( '_S_VERSION' ) ) {
 	// Replace the version number of the theme on each release.
-	define( '_S_VERSION', '1.1.54' );
+	define( '_S_VERSION', '1.1.55' );
 }
 
 /**
@@ -266,7 +266,7 @@ function redirect_logged_in() {
 	} elseif ( !is_user_logged_in() && $url != 'login' ) {
 		wp_redirect( home_url('/login') );
 		exit;
-	} elseif ( is_user_logged_in() && ($user_id != "1" && $user_id != "3" && $user_id != "2" && $user_id != "4" && $user_id != "5")) { // Temporary - block all users
+	} elseif ( is_user_logged_in() && ($user_id != "1" && $user_id != "3" && $user_id != "2" && $user_id != "4" && $user_id != "5" && $user_id != "8")) { // Temporary - block all users
 		wp_redirect( home_url('/coming-soon') );
 		exit;
 	}
