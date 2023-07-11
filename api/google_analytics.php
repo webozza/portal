@@ -574,6 +574,6 @@ $dq_sales_lm = array_sum($dq_sales_lm);
 
 ?>
 
-<script>
+<!-- <script>
     disablePreloader();
-</script>
+</script> -->
