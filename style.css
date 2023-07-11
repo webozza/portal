@@ -1179,6 +1179,11 @@ a.save--changes.btn-cure img {
   column-gap: 5px;
   align-items: center;
 }
+.page-template-client-reporting .api-loader {
+  position: absolute;
+  left: 240px;
+  width: calc(100% - 240px);
+}
 
 /* Team Performance
 -----------------------------------------------------------*/
