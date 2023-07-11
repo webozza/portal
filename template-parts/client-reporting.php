@@ -58,7 +58,7 @@ if(isset($_POST['custom_date_selector']) == "1") {
         [
             'project' => 'Diabetes Qualified',
             'slug' => 'diabetes-qualified',
-            'ad_spend' => '$' . number_format(round($dq_ga_cost_wtd, 2)),
+            'ad_spend' => '$' . number_format($dq_ga_cost_wtd, 2),
             'new_users' => number_format($dq_visitors_wtd),
             'conversions' => $dq_enrollments_wtd,
             'cpa' => $dq_cpa_wtd,
@@ -69,7 +69,7 @@ if(isset($_POST['custom_date_selector']) == "1") {
         [
             'project' => 'Langley Group Institute',
             'slug' => 'langley-group-institute',
-            'ad_spend' => 'otw',
+            'ad_spend' => '$' . number_format($lgi_ga_cost_wtd, 2),
             'new_users' => 'otw',
             'conversions' => 'otw',
             'cpa' => 'otw',

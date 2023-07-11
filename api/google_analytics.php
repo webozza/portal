@@ -10,7 +10,8 @@ $json_path = get_template_directory() . '/GA4_credentials.json';
 putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $json_path);
 
 $property_id = array(
-    'diabetes_qualified' => '362597853'
+    'diabetes_qualified' => '362597853',
+    'langley_group_institute' => '382578471'
 );
 $client = new BetaAnalyticsDataClient();
 $week_to_date = date('Y-m-d', strtotime("this week"));
@@ -42,6 +43,36 @@ if(isset($_POST['custom_date_selector']) == "1") {
         </script>
     <?php
 }
+
+/* GOOGLE ADS COST - LGI
+================================================================================*/
+$LGI_GA_COST_WTD = $client->runReport([
+    'property' => 'properties/' . $property_id['langley_group_institute'],
+    'dateRanges' => [
+        new DateRange([
+            'start_date' => $week_to_date,
+            'end_date' => 'today',
+        ]),
+    ],
+    'dimensions' => [new Dimension(
+        [
+            'name' => 'sessionGoogleAdsAccountName',
+        ]
+    ),
+    ],
+    'metrics' => [new Metric(
+        [
+            'name' => 'advertiserAdCost'
+        ]
+    )
+    ]
+]);
+
+$lgi_ga_cost_wtd = array();
+foreach ($LGI_GA_COST_WTD->getRows() as $row) {
+    array_push($lgi_ga_cost_wtd, $row->getMetricValues()[0]->getValue() );
+}
+$lgi_ga_cost_wtd = array_sum($lgi_ga_cost_wtd);
 
 /* GOOGLE ADS COST - DQ
 ================================================================================*/
