@@ -1183,6 +1183,7 @@ a.save--changes.btn-cure img {
   position: absolute;
   left: 240px;
   width: calc(100% - 240px);
+  z-index: 999;
 }
 
 /* Team Performance
