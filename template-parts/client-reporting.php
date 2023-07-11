@@ -105,6 +105,9 @@ if(isset($_POST['custom_date_selector']) == "1") {
             ad_spend_wtd: '-/-',
         }
     }
+    jQuery(document).ready(function($) {
+        $('.api-loader').hide();
+    })
 </script>
 
 <?php if( isset($_POST['single_client_report_view']) != "1" && isset($_POST['custom_date_selector']) != "1" ) { ?>
