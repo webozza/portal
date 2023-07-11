@@ -152,6 +152,9 @@ if(isset($_POST['custom_date_selector']) == "1") {
                     <th>Actions</th>
                 </thead>
                 <tbody>
+                    <div class="api-loader">
+                        <img src="<?= get_template_directory_uri() . '/img/shimmer-loading-effect.gif' ?>">
+                    </div>
                     <?php foreach($client_reporting as $cp) { ?>
                         <tr class="<?= 'client--' . $cp['slug']?>">
                             <td>
