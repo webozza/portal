@@ -24,11 +24,16 @@ let reportTypeFilter = () => {
     .eq(0)
     .find("a")
     .click(function () {
-      $(".cure-loader").show().css("display", "flex");
       let reportType = $(this).text();
       let reportTypeField = $('[name="report_type"]');
       reportTypeField.val(reportType);
-      reportTypeField.parent().submit();
+
+      if (reportType !== "Custom") {
+        $(".cure-loader").show().css("display", "flex");
+        reportTypeField.parent().submit();
+      } else {
+        $(".custom-date-selector").show();
+      }
     });
 };
 
@@ -303,6 +308,11 @@ let croDateFilter = () => {
     $(".client-reporting-overview .date-notice").text(
       `${dates.cds_start} -- ${dates.cds_end}`
     );
+    let customSnapshotDateRange = cureDateConverter(
+      dates.cds_start,
+      dates.cds_end
+    );
+    $(".custom-snapshot-date").text(customSnapshotDateRange);
   } else {
     $(".client-reporting-overview .date-notice").text(
       `${dates.wtd_first_day} — ${dates.today}`
@@ -346,8 +356,9 @@ let croDateFilter = () => {
       let conversions = thisProject.parent().parent().find(".td-conversions");
       let cpa = thisProject.parent().parent().find(".td-cpa");
 
+      // FOR DQ
       if (presetDateSelected == "WTD" && client == "Diabetes Qualified") {
-        // WTD & DQ
+        // WTD
         ad_spend.text(metricsByClient.diabetes_qualified.ad_spend_wtd);
         visitors.text(metricsByClient.diabetes_qualified.new_users_wtd);
         conversions.text(metricsByClient.diabetes_qualified.enrolments_wtd);
@@ -356,11 +367,29 @@ let croDateFilter = () => {
         presetDateSelected == "MTD" &&
         client == "Diabetes Qualified"
       ) {
-        // MTD & DQ
+        // MTD
         ad_spend.text(metricsByClient.diabetes_qualified.ad_spend_mtd);
         visitors.text(metricsByClient.diabetes_qualified.new_users_mtd);
         conversions.text(metricsByClient.diabetes_qualified.enrolments_mtd);
         cpa.text(metricsByClient.diabetes_qualified.cpa_mtd);
+      }
+
+      // FOR LGI
+      if (presetDateSelected == "WTD" && client == "Langley Group Institute") {
+        // WTD
+        ad_spend.text(metricsByClient.langley_group_institute.ad_spend_wtd);
+        visitors.text(metricsByClient.langley_group_institute.new_users_wtd);
+        // conversions.text(metricsByClient.langley_group_institute.enrolments_wtd);
+        // cpa.text(metricsByClient.langley_group_institute.cpa_wtd);
+      } else if (
+        presetDateSelected == "MTD" &&
+        client == "Langley Group Institute"
+      ) {
+        // MTD
+        ad_spend.text(metricsByClient.langley_group_institute.ad_spend_mtd);
+        visitors.text(metricsByClient.langley_group_institute.new_users_mtd);
+        // conversions.text(metricsByClient.langley_group_institute.enrolments_mtd);
+        // cpa.text(metricsByClient.langley_group_institute.cpa_mtd);
       }
     });
   });
@@ -394,28 +423,68 @@ let croDateFilter = () => {
   });
 
   // Apply the custom date filter
-  $(".cds-btn-submit").click(function () {
-    $(".cure-loader").show().css("display", "flex");
-    let startDate = $('form [name="start_date"]').val();
-    let endDate = $('form [name="end_date"]').val();
+  let reportingView = $(".main");
 
-    let newStartDate = new Date(startDate);
-    let newEndDate = new Date(endDate);
+  if (reportingView.hasClass("client-reporting-overview")) {
+    $(".cds-btn-submit").click(function () {
+      $(".cure-loader").show().css("display", "flex");
+      let startDate = $('form [name="start_date"]').val();
+      let endDate = $('form [name="end_date"]').val();
 
-    if (startDate !== "" && endDate !== "" && newStartDate <= newEndDate) {
-      $("#custom_date_filter").submit();
-    }
+      let newStartDate = new Date(startDate);
+      let newEndDate = new Date(endDate);
 
-    if (newStartDate > newEndDate) {
-      $(".cds-error p").text(
-        "Get some coffee! END date can't be lesser than START date!"
-      );
-    }
+      if (startDate !== "" && endDate !== "" && newStartDate <= newEndDate) {
+        $("#custom_date_filter").submit();
+      }
 
-    if (startDate == "" || endDate == "") {
-      $(".cds-error p").text("WOW! Empty dates ehh??");
-    }
-  });
+      if (newStartDate > newEndDate) {
+        $(".cds-error p").text(
+          "Get some coffee! END date can't be lesser than START date!"
+        );
+      }
+
+      if (startDate == "" || endDate == "") {
+        $(".cds-error p").text("WOW! Empty dates ehh??");
+      }
+    });
+  } else if (reportingView.hasClass("single-client-reporting")) {
+    $('[name="cds_from"]').change(function () {
+      let cdsFrom = $(this).val();
+      let startDate = $('[name="start_date"]');
+      startDate.val(cdsFrom);
+    });
+
+    $('[name="cds_to"]').change(function () {
+      let cdsTo = $(this).val();
+      let endDate = $('[name="end_date"]');
+      endDate.val(cdsTo);
+    });
+
+    $(".cds-btn-submit").click(function (e) {
+      e.preventDefault();
+      // $(".cure-loader").show().css("display", "flex");
+      let startDate = $('[name="cds_from"]').val();
+      let endDate = $('[name="cds_to"]').val();
+
+      let newStartDate = new Date(startDate);
+      let newEndDate = new Date(endDate);
+
+      if (startDate !== "" && endDate !== "" && newStartDate <= newEndDate) {
+        $('[name="custom_date_selector"]').parent().submit();
+      }
+
+      if (newStartDate > newEndDate) {
+        $(".cds-error p").text(
+          "Get some coffee! END date can't be lesser than START date!"
+        );
+      }
+
+      if (startDate == "" || endDate == "") {
+        $(".cds-error p").text("WOW! Empty dates ehh??");
+      }
+    });
+  }
 };
 
 singleClientReports();

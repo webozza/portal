@@ -39,7 +39,7 @@ if(isset($_POST['custom_date_selector']) == "1") {
         [
             'project' => 'Diabetes Qualified',
             'slug' => 'diabetes-qualified',
-            'ad_spend' => '$' . number_format(round($dq_ga_cost_cds, 2)),
+            'ad_spend' => '$' . number_format($dq_ga_cost_cds, 2),
             'new_users' => number_format($dq_visitors_cds),
             'conversions' => $dq_conversions_cds,
             'cpa' => $dq_cpa_cds,
@@ -50,8 +50,8 @@ if(isset($_POST['custom_date_selector']) == "1") {
         [
             'project' => 'Langley Group Institute',
             'slug' => 'langley-group-institute',
-            'ad_spend' => 'otw',
-            'new_users' => 'otw',
+            'ad_spend' => '$' . number_format($lgi_ga_cost_cds, 2),
+            'new_users' => number_format($lgi_visitors_cds),
             'conversions' => 'otw',
             'cpa' => 'otw',
             'status' => 'otw',
@@ -76,7 +76,7 @@ if(isset($_POST['custom_date_selector']) == "1") {
             'project' => 'Langley Group Institute',
             'slug' => 'langley-group-institute',
             'ad_spend' => '$' . number_format($lgi_ga_cost_wtd, 2),
-            'new_users' => 'otw',
+            'new_users' => number_format($lgi_visitors_wtd),
             'conversions' => 'otw',
             'cpa' => 'otw',
             'status' => 'otw',
@@ -102,7 +102,10 @@ if(isset($_POST['custom_date_selector']) == "1") {
             cpa_mtd: '<?= $dq_cpa_mtd ?>',
         },
         langley_group_institute: {
-            ad_spend_wtd: '-/-',
+            ad_spend_wtd: '$<?= number_format($lgi_ga_cost_wtd, 2); ?>',
+            ad_spend_mtd: '$<?= number_format($lgi_ga_cost_mtd, 2); ?>',
+            new_users_wtd: '<?= number_format($lgi_visitors_wtd); ?>',
+            new_users_mtd: '<?= number_format($lgi_visitors_mtd); ?>',
         }
     }
     jQuery(document).ready(function($) {
@@ -318,6 +321,17 @@ if(isset($_POST['custom_date_selector']) == "1") {
         </form>
     </div>
 <?php } ?>
+
+<!-- SINGLE REPORT VIEW >> CUSTOM SNAPSHOT -->
+<?php if(isset($_POST['custom_date_selector']) == "1" && isset($_POST['single_client_report_view']) == "1") {
+    $client_view_selected = $_POST['project_name'];
+    if ($client_view_selected == "Diabetes Qualified") {
+        $client_icon = get_template_directory_uri() . '/img/icons/dq.png';
+    } elseif ($client_view_selected == "Langley Group Institute") {
+        $client_icon = get_template_directory_uri() . '/img/icons/lgi.jpeg';
+    }
+    include(get_template_directory() . '/template-parts/single-client-reporting.php');  
+} ?>
 
 <script>
     jQuery(document).ready(function($) {

@@ -27,14 +27,34 @@
             <div class="filter">
                 <a href="javascript:void(0)">Channels</a>
             </div>
-            <div class="filter">
+            <div class="filter filter-preset">
                 <a href="javascript:void(0)">Weekly Snapshot</a>
             </div>
-            <div class="filter">
+            <div class="filter filter-preset">
                 <a href="javascript:void(0)">Monthly Report</a>
             </div>
+            <div class="filter filter-cds">
+                <a class="cds-filter" href="javascript:void(0)">Custom</a>
+                <div class="custom-date-selector">
+                    <div class="cds-from">
+                        <label>From:</label>
+                        <input type="date" name="cds_from" value="">
+                    </div>
+                    <div class="cds-to">
+                        <label>To:</label>
+                        <input type="date" name="cds_to" value="">
+                    </div>
+                    <div class="cds-submit">
+                        <button class="cds-btn-submit">Apply</button>
+                        <button class="cds-btn-cancel">Cancel</button>
+                    </div>
+                    <div class="cds-error">
+                        <p style="color:red;"></p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <?php if($report_type == "Weekly Snapshot" || $report_type == "Monthly Report") { ?>
+        <?php if($report_type == "Weekly Snapshot" || $report_type == "Monthly Report" || $report_type == "Custom") { ?>
             <div class="filters cr-actions has-modal">
                 <div class="filter cr-download">
                     <a class="cr--download" href="javascript:void(0)" data-modal="cr-download">
@@ -58,268 +78,586 @@
         <?php } ?>
     </div>
 
-    <!-- Single Client Report | Channels -->
-    <?php if($report_type == "Channels") { ?>
-        <div class="cr-table">
-            <table>
-                <thead>
-                    <th>Channel</th>
-                    <th>Ad Spend</th>
-                    <th>Conversions</th>
-                    <th>CPA</th>
-                    <th>Status</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Google Ads</td>
-                        <td><?= '$' . round($dq_ga_cost_wtd, 2); ?></td>
-                        <td>otw</td>
-                        <td>otw</td>
-                        <td>otw</td>
-                    </tr>
-                    <tr class="channel-total">
-                        <td>Total</td>
-                        <td><?= '$' . round($dq_ga_cost_wtd, 2); ?></td>
-                        <td>otw</td>
-                        <td>otw</td>
-                        <td>otw</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="dev-notes">
-            <?php // include( get_template_directory() . '/api/google_ads.php'); ?>
-            <h3>Dev Notes</h3>
-            <ul>
-                <li>This design for metrics by channel does not have a date filter. <strong>[For Alex]</strong></li>
-            </ul>
-        </div>
-    <?php } ?>
+    <!-- FOR DQ -->
+    <?php if($client == "diabetes-qualified") { ?>
+        <!-- Single Client Report | Channels -->
+        <?php if($report_type == "Channels") { ?>
+            <div class="cr-table">
+                <table>
+                    <thead>
+                        <th>Channel</th>
+                        <th>Ad Spend</th>
+                        <th>Conversions</th>
+                        <th>CPA</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Google Ads</td>
+                            <td><?= '$' . round($dq_ga_cost_wtd, 2); ?></td>
+                            <td>otw</td>
+                            <td>otw</td>
+                            <td>otw</td>
+                        </tr>
+                        <tr>
+                            <td>Facebook Ads</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr class="channel-total">
+                            <td>Total</td>
+                            <td><?= '$' . round($dq_ga_cost_wtd, 2); ?></td>
+                            <td>otw</td>
+                            <td>otw</td>
+                            <td>otw</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <?php } ?>
 
-    <!-- Single Client Report | Weekly Snapshot -->
-    <?php if($report_type == "Weekly Snapshot") { ?>
-        <div class="cure-weekly-snapshot cure-report">
-            <div class="inner">
-                <div class="report-header">
-                    <div>
-                        <h5>Online</h5>
-                        <h4>Weekly Snapshot Report</h4>
+        <!-- Single Client Report | Weekly Snapshot -->
+        <?php if($report_type == "Weekly Snapshot") { ?>
+            <div class="cure-weekly-snapshot cure-report">
+                <div class="inner">
+                    <div class="report-header">
+                        <div>
+                            <h5>Online</h5>
+                            <h4>Weekly Snapshot Report</h4>
+                        </div>
+                        <div>
+                            <img src="<?= $client_icon ?>">
+                        </div>
                     </div>
-                    <div>
-                        <img src="<?= $client_icon ?>">
-                    </div>
-                </div>
-                <div class="report-body">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Spend</th>
-                                <th>Visitors</th>
-                                <th>Cost Per Visitor</th>
-                                <th>Conversion Rate</th>
-                                <th>Enrolments</th>
-                                <th>Cost per Enrolment</th>
-                                <th>Sales</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Week to Date</td>
-                                <td><?= '$' . number_format(round($dq_ga_cost_lw, 2)); ?></td>
-                                <td><?= number_format($dq_visitors_lw) ?></td>
-                                <td><?= '$' . round($dq_ga_cost_lw / $dq_visitors_lw, 2) ?></td>
-                                <td>
-                                    <?php 
-                                    if($dq_enrollments_lw != "0") {
-                                        echo number_format(($dq_enrollments_lw / $dq_visitors_lw) * 100, 2) . '%';
-                                    } else {
-                                        echo "N/A";
-                                    }
-                                    ?>
-                                </td>
-                                <td><?= $dq_enrollments_lw ?></td>
-                                <td>
-                                    <?php
+                    <div class="report-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Spend</th>
+                                    <th>Visitors</th>
+                                    <th>Cost Per Visitor</th>
+                                    <th>Conversion Rate</th>
+                                    <th>Enrolments</th>
+                                    <th>Cost per Enrolment</th>
+                                    <th>Sales</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Week to Date</td>
+                                    <td><?= '$' . number_format(round($dq_ga_cost_lw, 2)); ?></td>
+                                    <td><?= number_format($dq_visitors_lw) ?></td>
+                                    <td><?= '$' . round($dq_ga_cost_lw / $dq_visitors_lw, 2) ?></td>
+                                    <td>
+                                        <?php 
                                         if($dq_enrollments_lw != "0") {
-                                            echo '$' . number_format($dq_ga_cost_lw / $dq_enrollments_lw, 2);
+                                            echo number_format(($dq_enrollments_lw / $dq_visitors_lw) * 100, 2) . '%';
                                         } else {
                                             echo "N/A";
                                         }
-                                    ?>
-                                </td>
-                                <td><?= '$' . number_format($dq_sales_lw, 2) ?></td>
-                            </tr>
-                            <tr>
-                                <td>Month to Date</td>
-                                <td><?= '$' . number_format(round($dq_ga_cost_lm, 2)); ?></td>
-                                <td><?= number_format($dq_visitors_lm) ?></td>
-                                <td><?= '$' . round($dq_ga_cost_lm / $dq_visitors_lm, 2) ?></td>
-                                <td>
-                                    <?php 
-                                        if($dq_enrollments_lm != "0") {
-                                            echo number_format(($dq_enrollments_lm / $dq_visitors_lm) * 100, 2) . '%';
-                                        } else {
-                                            echo "N/A";
-                                        }
-                                    ?>
-                                </td>
-                                <td><?= $dq_enrollments_lm ?></td>
-                                <td>
-                                    <?php
-                                        if($dq_enrollments_lm != "0") {
-                                            echo '$' . number_format($dq_ga_cost_lm / $dq_enrollments_lm, 2);
-                                        } else {
-                                            echo "N/A";
-                                        }
-                                    ?>
-                                </td>
-                                <td><?= '$' . number_format($dq_sales_lm, 2) ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="cr-insights-container">
-                        <div class="cr-insights">
-                            <h4>Insights</h4>
-                            <ul></ul>
-                        </div>
-                        <div class="cr-actions">
-                            <h4>Actions</h4>
-                            <ul></ul>
+                                        ?>
+                                    </td>
+                                    <td><?= $dq_enrollments_lw ?></td>
+                                    <td>
+                                        <?php
+                                            if($dq_enrollments_lw != "0") {
+                                                echo '$' . number_format($dq_ga_cost_lw / $dq_enrollments_lw, 2);
+                                            } else {
+                                                echo "N/A";
+                                            }
+                                        ?>
+                                    </td>
+                                    <td><?= '$' . number_format($dq_sales_lw, 2) ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Month to Date</td>
+                                    <td><?= '$' . number_format(round($dq_ga_cost_lm, 2)); ?></td>
+                                    <td><?= number_format($dq_visitors_lm) ?></td>
+                                    <td><?= '$' . round($dq_ga_cost_lm / $dq_visitors_lm, 2) ?></td>
+                                    <td>
+                                        <?php 
+                                            if($dq_enrollments_lm != "0") {
+                                                echo number_format(($dq_enrollments_lm / $dq_visitors_lm) * 100, 2) . '%';
+                                            } else {
+                                                echo "N/A";
+                                            }
+                                        ?>
+                                    </td>
+                                    <td><?= $dq_enrollments_lm ?></td>
+                                    <td>
+                                        <?php
+                                            if($dq_enrollments_lm != "0") {
+                                                echo '$' . number_format($dq_ga_cost_lm / $dq_enrollments_lm, 2);
+                                            } else {
+                                                echo "N/A";
+                                            }
+                                        ?>
+                                    </td>
+                                    <td><?= '$' . number_format($dq_sales_lm, 2) ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="cr-insights-container">
+                            <div class="cr-insights">
+                                <h4>Insights</h4>
+                                <ul></ul>
+                            </div>
+                            <div class="cr-actions">
+                                <h4>Actions</h4>
+                                <ul></ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="add-insights-container">
-            <div class="cure-field-group add-insights">
-                <div>
-                    <label>Add Insights:</label>
-                    <textarea placeholder="Add in your insights." value=""></textarea>
+            <div class="add-insights-container">
+                <div class="cure-field-group add-insights">
+                    <div>
+                        <label>Add Insights:</label>
+                        <textarea placeholder="Add in your insights." value=""></textarea>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Insights</a>
+                    </div>
                 </div>
-                <div>
-                    <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Insights</a>
+                <div class="cure-field-group add-actions">
+                    <div>
+                        <label>Add Actions:</label>
+                        <textarea placeholder="List down the next action steps to be taken." value=""></textarea>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Actions</a>
+                    </div>
                 </div>
             </div>
-            <div class="cure-field-group add-actions">
-                <div>
-                    <label>Add Actions:</label>
-                    <textarea placeholder="List down the next action steps to be taken." value=""></textarea>
-                </div>
-                <div>
-                    <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Actions</a>
+
+            <div class="dev-notes">
+                <?php // include( get_template_directory() . '/api/google_ads.php'); ?>
+                <h3>Dev Notes</h3>
+                <ul>
+                    <li>The table section here was just an image on figma. <strong>[For Alex]</strong></li>
+                </ul>
+            </div>
+        <?php } ?>
+
+        <!-- Single Client Report | Monthly Report -->
+        <?php if($report_type == "Monthly Report") { ?>
+            <div class="cure-monthly-report cure-report">
+                <div class="inner">
+                    <div class="report-header">
+                        <div>
+                            <h5>Online</h5>
+                            <h4>Monthly Report</h4>
+                        </div>
+                        <div>
+                            <img src="<?= $client_icon ?>">
+                        </div>
+                    </div>
+                    <div class="report-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Spend</th>
+                                    <th>Visitors</th>
+                                    <th>Cost Per Visitor</th>
+                                    <th>Conversion Rate</th>
+                                    <th>Enrolments</th>
+                                    <th>Cost per Enrolment</th>
+                                    <th>Sales</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Month to Date</td>
+                                    <td><?= '$' . number_format(round($dq_ga_cost_lm, 2)); ?></td>
+                                    <td><?= number_format($dq_visitors_lm) ?></td>
+                                    <td><?= '$' . round($dq_ga_cost_lm / $dq_visitors_lm, 2) ?></td>
+                                    <td>
+                                        <?php 
+                                            if($dq_enrollments_lm != "0") {
+                                                echo number_format(($dq_enrollments_lm / $dq_visitors_lm) * 100, 2) . '%';
+                                            } else {
+                                                echo "N/A";
+                                            }
+                                        ?>
+                                    </td>
+                                    <td><?= $dq_enrollments_lm ?></td>
+                                    <td>
+                                        <?php
+                                            if($dq_enrollments_lm != "0") {
+                                                echo '$' . number_format($dq_ga_cost_lm / $dq_enrollments_lm, 2);
+                                            } else {
+                                                echo "N/A";
+                                            }
+                                        ?>
+                                    </td>
+                                    <td><?= '$' . number_format($dq_sales_lm, 2) ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="cr-insights-container">
+                            <div class="cr-insights">
+                                <h4>Insights</h4>
+                                <ul></ul>
+                            </div>
+                            <div class="cr-actions">
+                                <h4>Actions</h4>
+                                <ul></ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="dev-notes">
-            <?php // include( get_template_directory() . '/api/google_ads.php'); ?>
-            <h3>Dev Notes</h3>
-            <ul>
-                <li>The table section here was just an image on figma. <strong>[For Alex]</strong></li>
-            </ul>
-        </div>
+            <div class="add-insights-container">
+                <div class="cure-field-group add-insights">
+                    <div>
+                        <label>Add Insights:</label>
+                        <textarea placeholder="Add in your insights." value=""></textarea>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Insights</a>
+                    </div>
+                </div>
+                <div class="cure-field-group add-actions">
+                    <div>
+                        <label>Add Actions:</label>
+                        <textarea placeholder="List down the next action steps to be taken." value=""></textarea>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Actions</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dev-notes">
+                <?php // include( get_template_directory() . '/api/google_ads.php'); ?>
+                <h3>Dev Notes</h3>
+                <ul>
+                    <li>The table section here was just an image on figma. <strong>[For Alex]</strong></li>
+                </ul>
+            </div>
+        <?php } ?>
+
+        <!-- Single Client Report | Custom Snapshot -->
+        <?php if($report_type == "Custom") { ?>
+            <div class="cure-weekly-snapshot cure-report">
+                <div class="inner">
+                    <div class="report-header">
+                        <div>
+                            <h5>Online</h5>
+                            <h4>Custom Snapshot</h4>
+                        </div>
+                        <div>
+                            <img src="<?= $client_icon ?>">
+                        </div>
+                    </div>
+
+                    <div class="report-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Spend</th>
+                                    <th>Visitors</th>
+                                    <th>Cost Per Visitor</th>
+                                    <th>Conversion Rate</th>
+                                    <th>Enrolments</th>
+                                    <th>Cost per Enrolment</th>
+                                    <th>Sales</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="custom-snapshot-date">Custom Date Range</td>
+                                    <td><?= '$' . number_format($dq_ga_cost_cds, 2); ?></td>
+                                    <td><?= number_format($dq_visitors_cds) ?></td>
+                                    <td><?= '$' . number_format($dq_ga_cost_cds / $dq_visitors_cds, 2) ?></td>
+                                    <td>
+                                        <?php 
+                                        if($dq_conversions_cds != "0") {
+                                            echo number_format(($dq_conversions_cds / $dq_visitors_cds) * 100, 2) . '%';
+                                        } else {
+                                            echo "N/A";
+                                        }
+                                        ?>
+                                    </td>
+                                    <td><?= $dq_conversions_cds ?></td>
+                                    <td>
+                                        <?php
+                                            if($dq_conversions_cds != "0") {
+                                                echo '$' . number_format($dq_ga_cost_cds / $dq_conversions_cds, 2);
+                                            } else {
+                                                echo "N/A";
+                                            }
+                                        ?>
+                                    </td>
+                                    <td><?= '$' . number_format($dq_sales_cds, 2) ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="cr-insights-container">
+                            <div class="cr-insights">
+                                <h4>Insights</h4>
+                                <ul>
+                                    <li>We've had <?= $dq_pdf_downloads_cds ?> PDF downloads</li>
+                                    <?php if(isset($target_spend_achieved_cds)) { ?>
+                                        <li><?= number_format($target_spend_achieved_cds, 2) . '%' ?> of budget has been used</li>
+                                        <li>target spend: <?= $target_spend ?></li>
+                                        <li>days difference: <?= $days_difference ?></li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                            <div class="cr-actions">
+                                <h4>Actions</h4>
+                                <ul></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="add-insights-container">
+                <div class="cure-field-group add-insights">
+                    <div>
+                        <label>Add Insights:</label>
+                        <textarea placeholder="Add in your insights." value=""></textarea>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Insights</a>
+                    </div>
+                </div>
+                <div class="cure-field-group add-actions">
+                    <div>
+                        <label>Add Actions:</label>
+                        <textarea placeholder="List down the next action steps to be taken." value=""></textarea>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Actions</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dev-notes">
+                <?php // include( get_template_directory() . '/api/google_ads.php'); ?>
+                <h3>Dev Notes</h3>
+                <ul>
+                    <li>The table section here was just an image on figma. <strong>[For Alex]</strong></li>
+                </ul>
+            </div>
+        <?php } ?>
     <?php } ?>
 
-    <!-- Single Client Report | Monthly Report -->
-    <?php if($report_type == "Monthly Report") { ?>
-        <div class="cure-monthly-report cure-report">
-            <div class="inner">
-                <div class="report-header">
-                    <div>
-                        <h5>Online</h5>
-                        <h4>Monthly Report</h4>
-                    </div>
-                    <div>
-                        <img src="<?= $client_icon ?>">
-                    </div>
-                </div>
-                <div class="report-body">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Spend</th>
-                                <th>Visitors</th>
-                                <th>Cost Per Visitor</th>
-                                <th>Conversion Rate</th>
-                                <th>Enrolments</th>
-                                <th>Cost per Enrolment</th>
-                                <th>Sales</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Month to Date</td>
-                                <td><?= '$' . number_format(round($dq_ga_cost_lm, 2)); ?></td>
-                                <td><?= number_format($dq_visitors_lm) ?></td>
-                                <td><?= '$' . round($dq_ga_cost_lm / $dq_visitors_lm, 2) ?></td>
-                                <td>
-                                    <?php 
-                                        if($dq_enrollments_lm != "0") {
-                                            echo number_format(($dq_enrollments_lm / $dq_visitors_lm) * 100, 2) . '%';
-                                        } else {
-                                            echo "N/A";
-                                        }
-                                    ?>
-                                </td>
-                                <td><?= $dq_enrollments_lm ?></td>
-                                <td>
-                                    <?php
-                                        if($dq_enrollments_lm != "0") {
-                                            echo '$' . number_format($dq_ga_cost_lm / $dq_enrollments_lm, 2);
-                                        } else {
-                                            echo "N/A";
-                                        }
-                                    ?>
-                                </td>
-                                <td><?= '$' . number_format($dq_sales_lm, 2) ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="cr-insights-container">
-                        <div class="cr-insights">
-                            <h4>Insights</h4>
-                            <ul></ul>
+    <!-- FOR LGI -->
+    <?php if($client == "langley-group-institute") { ?>
+        <!-- Single Client Report | Channels -->
+        <?php if($report_type == "Channels") { ?>
+            <div class="cr-table">
+                <table>
+                    <thead>
+                        <th>Channel</th>
+                        <th>Ad Spend</th>
+                        <th>Conversions</th>
+                        <th>CPA</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Google Ads</td>
+                            <td><?= '$' . round($lgi_ga_cost_wtd, 2); ?></td>
+                            <td>otw</td>
+                            <td>otw</td>
+                            <td>otw</td>
+                        </tr>
+                        <tr>
+                            <td>Facebook Ads</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr class="channel-total">
+                            <td>Total</td>
+                            <td><?= '$' . round($lgi_ga_cost_wtd, 2); ?></td>
+                            <td>otw</td>
+                            <td>otw</td>
+                            <td>otw</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <?php } ?>
+
+        <!-- Single Client Report | Weekly Snapshot -->
+        <?php if($report_type == "Weekly Snapshot") { ?>
+            <div class="cure-weekly-snapshot cure-report">
+                <div class="inner">
+                    <div class="report-header">
+                        <div>
+                            <h5>Online</h5>
+                            <h4>Weekly Snapshot Report</h4>
                         </div>
-                        <div class="cr-actions">
-                            <h4>Actions</h4>
-                            <ul></ul>
+                        <div>
+                            <img src="<?= $client_icon ?>">
                         </div>
                     </div>
+                    <div class="report-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Spend</th>
+                                    <th>Visitors</th>
+                                    <th>Cost Per Visitor</th>
+                                    <th>Downloaded a course guide</th>
+                                    <th>Conversion Rate</th>
+                                    <th>Cost Per Download</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Week to Date</td>
+                                    <td><?= '$' . number_format($lgi_ga_cost_lw, 2); ?></td>
+                                    <td><?= number_format($lgi_visitors_lw) ?></td>
+                                    <td><?= '$' . number_format($lgi_ga_cost_lw / $lgi_visitors_lw, 2) ?></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Month to Date</td>
+                                    <td><?= '$' . number_format($lgi_ga_cost_lm, 2); ?></td>
+                                    <td><?= number_format($lgi_visitors_lm) ?></td>
+                                    <td><?= '$' . number_format($lgi_ga_cost_lm / $lgi_visitors_lm, 2) ?></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="cr-insights-container">
+                            <div class="cr-insights">
+                                <h4>Insights</h4>
+                                <ul></ul>
+                            </div>
+                            <div class="cr-actions">
+                                <h4>Actions</h4>
+                                <ul></ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="add-insights-container">
-            <div class="cure-field-group add-insights">
-                <div>
-                    <label>Add Insights:</label>
-                    <textarea placeholder="Add in your insights." value=""></textarea>
+            <div class="add-insights-container">
+                <div class="cure-field-group add-insights">
+                    <div>
+                        <label>Add Insights:</label>
+                        <textarea placeholder="Add in your insights." value=""></textarea>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Insights</a>
+                    </div>
                 </div>
-                <div>
-                    <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Insights</a>
+                <div class="cure-field-group add-actions">
+                    <div>
+                        <label>Add Actions:</label>
+                        <textarea placeholder="List down the next action steps to be taken." value=""></textarea>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Actions</a>
+                    </div>
                 </div>
             </div>
-            <div class="cure-field-group add-actions">
-                <div>
-                    <label>Add Actions:</label>
-                    <textarea placeholder="List down the next action steps to be taken." value=""></textarea>
-                </div>
-                <div>
-                    <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Actions</a>
-                </div>
-            </div>
-        </div>
+        <?php } ?>
 
-        <div class="dev-notes">
-            <?php // include( get_template_directory() . '/api/google_ads.php'); ?>
-            <h3>Dev Notes</h3>
-            <ul>
-                <li>The table section here was just an image on figma. <strong>[For Alex]</strong></li>
-            </ul>
-        </div>
+        <!-- Single Client Report | Monthly Report -->
+        <?php if($report_type == "Monthly Report") { ?>
+            <div class="cure-monthly-report cure-report">
+                <div class="inner">
+                    <div class="report-header">
+                        <div>
+                            <h5>Online</h5>
+                            <h4>Monthly Report</h4>
+                        </div>
+                        <div>
+                            <img src="<?= $client_icon ?>">
+                        </div>
+                    </div>
+                    <div class="report-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Spend</th>
+                                    <th>Visitors</th>
+                                    <th>Cost Per Visitor</th>
+                                    <th>Downloaded a course guide</th>
+                                    <th>Conversion Rate</th>
+                                    <th>Cost Per Download</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Month to Date</td>
+                                    <td><?= '$' . number_format($lgi_ga_cost_lm, 2); ?></td>
+                                    <td><?= number_format($lgi_visitors_lm) ?></td>
+                                    <td><?= '$' . number_format($lgi_ga_cost_lm / $lgi_visitors_lm, 2) ?></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="cr-insights-container">
+                            <div class="cr-insights">
+                                <h4>Insights</h4>
+                                <ul></ul>
+                            </div>
+                            <div class="cr-actions">
+                                <h4>Actions</h4>
+                                <ul></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="add-insights-container">
+                <div class="cure-field-group add-insights">
+                    <div>
+                        <label>Add Insights:</label>
+                        <textarea placeholder="Add in your insights." value=""></textarea>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Insights</a>
+                    </div>
+                </div>
+                <div class="cure-field-group add-actions">
+                    <div>
+                        <label>Add Actions:</label>
+                        <textarea placeholder="List down the next action steps to be taken." value=""></textarea>
+                    </div>
+                    <div>
+                        <a href="javascript:void(0)" class="btn-cure cr-button btn-add-insights">+ Add Actions</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dev-notes">
+                <?php // include( get_template_directory() . '/api/google_ads.php'); ?>
+                <h3>Dev Notes</h3>
+                <ul>
+                    <li>The table section here was just an image on figma. <strong>[For Alex]</strong></li>
+                </ul>
+            </div>
+        <?php } ?>
+        
     <?php } ?>
 
     <form method="post" action="" class="hidden">
@@ -327,6 +665,17 @@
         <input type="hidden" name="project_name" value="<?= $project_name ?>">
         <input type="hidden" name="report_type" value="">
         <input type="hidden" name="single_client_report_view" value="1">
+        <input type="submit">
+    </form>
+
+    <form method="post" action="" class="hidden">
+        <input type="hidden" name="client" value="<?= $client ?>">
+        <input type="hidden" name="project_name" value="<?= $project_name ?>">
+        <input type="hidden" name="report_type" value="">
+        <input type="hidden" name="start_date" value="">
+        <input type="hidden" name="end_date" value="">
+        <input type="hidden" name="single_client_report_view" value="1">
+        <input type="hidden" name="custom_date_selector" value="1">
         <input type="submit">
     </form>
 
