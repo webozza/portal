@@ -408,8 +408,6 @@
                                     <li>We've had <?= $dq_pdf_downloads_cds ?> PDF downloads</li>
                                     <?php if(isset($target_spend_achieved_cds)) { ?>
                                         <li><?= number_format($target_spend_achieved_cds, 2) . '%' ?> of budget has been used</li>
-                                        <li>target spend: <?= $target_spend ?></li>
-                                        <li>days difference: <?= $days_difference ?></li>
                                     <?php } ?>
                                 </ul>
                             </div>

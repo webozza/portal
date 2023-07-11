@@ -20,6 +20,7 @@ $last_week_end = date('Y-m-d', strtotime("sunday last week"));
 $month_to_date = date('Y-m-d', strtotime("first day of this month"));
 $last_month_start = date('Y-m-d', strtotime("first day of last month"));
 $last_month_end = date('Y-m-d', strtotime("last day of last month"));
+$today = date('Y-m-d', strtotime("today"));
 
 ?>
     <script>
@@ -329,7 +330,14 @@ if(isset($_POST['custom_date_selector']) == "1") {
             array_push($dq_ga_cost_cds_budget, $row->getMetricValues()[0]->getValue() );
         }
         $dq_ga_cost_cds_budget = array_sum($dq_ga_cost_cds_budget);
-        $cds_end_less_1 = date("Y-m-d", strtotime($cds_end . ' -1 day'));
+
+        $cds_end_less_1;
+        if($cds_end == $today) {
+            $cds_end_less_1 = date("Y-m-d", strtotime($cds_end . ' -1 day'));
+        } else {
+            $cds_end_less_1 = $cds_end;
+        }
+
         $start_timestamp = strtotime($cds_start);
         $end_timestamp = strtotime($cds_end_less_1);
         $days_difference = ($end_timestamp - $start_timestamp) / (60 * 60 * 24) + 1;
