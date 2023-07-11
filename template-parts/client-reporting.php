@@ -8,6 +8,12 @@ $user_id = get_current_user_id();
 $user_first_name = get_user_meta( $user_id, 'first_name', true );
 $current_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
+?>
+    <div class="api-loader">
+        <img src="<?= get_template_directory_uri() . '/img/shimmer-loading-effect.gif' ?>">
+    </div>
+<?php
+
 include( get_template_directory() . '/api/google_analytics.php');
 
 if($dq_enrollments_wtd != "0") {
@@ -152,9 +158,6 @@ if(isset($_POST['custom_date_selector']) == "1") {
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    <div class="api-loader">
-                        <img src="<?= get_template_directory_uri() . '/img/shimmer-loading-effect.gif' ?>">
-                    </div>
                     <?php foreach($client_reporting as $cp) { ?>
                         <tr class="<?= 'client--' . $cp['slug']?>">
                             <td>
